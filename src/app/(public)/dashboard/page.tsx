@@ -7,14 +7,14 @@ import { DashboardToolsList } from "@/components/dashboard/dashboard-tools-list"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
-import { Sparkles, TrendingUp, ArrowRight, Wrench, BookOpen, Download } from "lucide-react"
+import { Sparkles, TrendingUp, ArrowRight, Wrench, BookOpen, Download, Lock } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
 
 // ── Replace these with your actual values ─────────────────────────────
 const TUTORIAL_LINK = "https://your-tutorial-link.com"   // ← tutorial URL
-const EXTENSION_ZIP = "/downloads/extension.zip"          // ← zip file path (see note below)
+const EXTENSION_ZIP = "/downloads/extension.zip"          // ← zip file path
 // ──────────────────────────────────────────────────────────────────────
 
 export default async function DashboardPage() {
@@ -23,6 +23,10 @@ export default async function DashboardPage() {
   if (!session?.user)        redirect("/signin")
   if (session.error)         redirect("/signin?error=SessionError")
   if (!session.accessToken)  redirect("/signin?error=NoAccessToken")
+
+  // Fetch tools to check if user has any active purchase
+  const tools = await getUserToolsServer()
+const hasPurchased = tools.some(tool => tool.paymentStatus === 'paid')
 
   return (
     <div className="w-full max-w-6xl py-6 sm:py-8 lg:py-10">
@@ -73,64 +77,124 @@ export default async function DashboardPage() {
         <div className="flex items-center gap-2 mb-4">
           <span className="text-xs font-bold text-purple-400 uppercase tracking-wider">Quick Access</span>
           <div className="flex-1 h-px bg-gradient-to-r from-purple-500/30 to-transparent" />
+          {!hasPurchased && (
+            <span className="text-[10px] font-semibold text-amber-400/80 uppercase tracking-wider flex items-center gap-1">
+              <Lock className="w-3 h-3" />
+              Purchase a tool to unlock
+            </span>
+          )}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
           {/* Access Tutorial Button */}
-          <a href={TUTORIAL_LINK} target="_blank" rel="noopener noreferrer" className="group block">
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/80 via-gray-800/40 to-gray-900/80 border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 p-5 sm:p-6 shadow-xl hover:shadow-purple-500/10">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 via-transparent to-pink-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              <div className="relative z-10 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <BookOpen className="w-5 h-5 text-purple-400" />
+          {hasPurchased ? (
+            <a href={TUTORIAL_LINK} target="_blank" rel="noopener noreferrer" className="group block">
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/80 via-gray-800/40 to-gray-900/80 border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 p-5 sm:p-6 shadow-xl hover:shadow-purple-500/10">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 via-transparent to-pink-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <BookOpen className="w-5 h-5 text-purple-400" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-white font-semibold text-base sm:text-lg leading-tight mb-0.5">
+                      Access Tutorial
+                    </h3>
+                    <p className="text-gray-500 text-xs sm:text-sm truncate">
+                      Step-by-step guide to get started
+                    </p>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-gray-600 group-hover:text-purple-400 group-hover:translate-x-1 transition-all duration-300 shrink-0" />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-white font-semibold text-base sm:text-lg leading-tight mb-0.5">
-                    Access Tutorial
-                  </h3>
-                  <p className="text-gray-500 text-xs sm:text-sm truncate">
-                    Step-by-step guide to get started
-                  </p>
+              </div>
+            </a>
+          ) : (
+            <div className="relative block cursor-not-allowed">
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/40 via-gray-800/20 to-gray-900/40 border border-gray-800/30 p-5 sm:p-6 shadow-xl opacity-50 select-none">
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gray-800/50 border border-gray-700/30 flex items-center justify-center shrink-0">
+                    <Lock className="w-5 h-5 text-gray-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-gray-500 font-semibold text-base sm:text-lg leading-tight mb-0.5">
+                      Access Tutorial
+                    </h3>
+                    <p className="text-gray-600 text-xs sm:text-sm truncate">
+                      Purchase a tool to unlock
+                    </p>
+                  </div>
+                  <Lock className="w-4 h-4 text-gray-700 shrink-0" />
                 </div>
-                <ArrowRight className="w-4 h-4 text-gray-600 group-hover:text-purple-400 group-hover:translate-x-1 transition-all duration-300 shrink-0" />
               </div>
             </div>
-          </a>
+          )}
 
           {/* Download Extension Button */}
-          <a href={EXTENSION_ZIP} download className="group block">
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/80 via-gray-800/40 to-gray-900/80 border border-gray-700/50 hover:border-pink-500/50 transition-all duration-300 p-5 sm:p-6 shadow-xl hover:shadow-pink-500/10">
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-600/5 via-transparent to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              <div className="relative z-10 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 border border-pink-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <Download className="w-5 h-5 text-pink-400 group-hover:animate-bounce" />
+          {hasPurchased ? (
+            <a href={EXTENSION_ZIP} download className="group block">
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/80 via-gray-800/40 to-gray-900/80 border border-gray-700/50 hover:border-pink-500/50 transition-all duration-300 p-5 sm:p-6 shadow-xl hover:shadow-pink-500/10">
+                <div className="absolute inset-0 bg-gradient-to-br from-pink-600/5 via-transparent to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 border border-pink-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <Download className="w-5 h-5 text-pink-400 group-hover:animate-bounce" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-white font-semibold text-base sm:text-lg leading-tight mb-0.5">
+                      Download Extension
+                    </h3>
+                    <p className="text-gray-500 text-xs sm:text-sm truncate">
+                      Get the latest version as .zip
+                    </p>
+                  </div>
+                  <Download className="w-4 h-4 text-gray-600 group-hover:text-pink-400 transition-all duration-300 shrink-0" />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-white font-semibold text-base sm:text-lg leading-tight mb-0.5">
-                    Download Extension
-                  </h3>
-                  <p className="text-gray-500 text-xs sm:text-sm truncate">
-                    Get the latest version as .zip
-                  </p>
+              </div>
+            </a>
+          ) : (
+            <div className="relative block cursor-not-allowed">
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/40 via-gray-800/20 to-gray-900/40 border border-gray-800/30 p-5 sm:p-6 shadow-xl opacity-50 select-none">
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gray-800/50 border border-gray-700/30 flex items-center justify-center shrink-0">
+                    <Lock className="w-5 h-5 text-gray-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-gray-500 font-semibold text-base sm:text-lg leading-tight mb-0.5">
+                      Download Extension
+                    </h3>
+                    <p className="text-gray-600 text-xs sm:text-sm truncate">
+                      Purchase a tool to unlock
+                    </p>
+                  </div>
+                  <Lock className="w-4 h-4 text-gray-700 shrink-0" />
                 </div>
-                <Download className="w-4 h-4 text-gray-600 group-hover:text-pink-400 transition-all duration-300 shrink-0" />
               </div>
             </div>
-          </a>
+          )}
 
         </div>
+
+        {/* CTA when locked */}
+        {!hasPurchased && (
+          <div className="mt-3 flex items-center justify-center gap-2">
+            <p className="text-xs text-gray-500">
+              Get access to tutorials and the extension by purchasing any tool.
+            </p>
+            <Link href="/tools">
+              <span className="text-xs font-semibold text-purple-400 hover:text-purple-300 transition-colors underline underline-offset-2">
+                Browse Tools →
+              </span>
+            </Link>
+          </div>
+        )}
       </div>
       {/* ── End Quick Access Section ─────────────────────────────────── */}
 
       {/* Tools Section */}
       <Suspense fallback={<DashboardToolsSkeleton />}>
         <ErrorBoundary>
-          <DashboardToolsWrapper />
+          <DashboardToolsWrapper tools={tools} />
         </ErrorBoundary>
       </Suspense>
 
@@ -172,8 +236,8 @@ export default async function DashboardPage() {
 
 // ── Server Component Wrappers ──────────────────────────────────────────
 
-async function DashboardToolsWrapper() {
-  const tools = await getUserToolsServer()
+// Tools already fetched above — pass as prop to avoid double fetch
+function DashboardToolsWrapper({ tools }: { tools: any[] }) {
   return (
     <div className="mb-8 sm:mb-10">
       <DashboardToolsList tools={tools} />

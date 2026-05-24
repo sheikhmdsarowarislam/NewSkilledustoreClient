@@ -630,7 +630,7 @@ export async function getQuizResultsServer(courseId: string): Promise<ChapterIte
 
 
 
-export async function getUserToolsServer(): Promise<DashboardToolItem[]> {
+export async function getUserToolsServer(): Promise<any[]> {
   try {
     const session = await auth()
     if (!session?.accessToken) return []

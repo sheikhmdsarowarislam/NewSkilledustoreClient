@@ -4,14 +4,14 @@ import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Mail, MessageSquare, Clock, CheckCircle, ArrowRight, Sparkles, Send } from "lucide-react"
+import { Mail, MessageSquare, Clock, CheckCircle, ArrowRight, Sparkles, Send, Phone, Facebook } from "lucide-react"
 
 const CONTACT_OPTIONS = [
   {
     icon: MessageSquare,
-    title: "Live Chat",
-    desc: "Chat with our support team in real time.",
-    action: "Start chat",
+    title: "WhatsApp Support",
+    desc: "Chat with our support team on WhatsApp anytime.",
+    action: "+880 1311-844364",
     color: "from-blue-500 to-cyan-500",
     text: "text-blue-400",
     available: true,
@@ -20,7 +20,7 @@ const CONTACT_OPTIONS = [
     icon: Mail,
     title: "Email Support",
     desc: "Send us a message and we'll reply within 24 hours.",
-    action: "support@seovault.com",
+    action: "support@skilledustore.com",
     color: "from-violet-500 to-purple-500",
     text: "text-violet-400",
     available: true,
@@ -29,7 +29,7 @@ const CONTACT_OPTIONS = [
     icon: Clock,
     title: "Response Time",
     desc: "We typically reply within a few hours on business days.",
-    action: "Mon–Sat, 9am–9pm",
+    action: "Available 18/7",
     color: "from-emerald-500 to-green-500",
     text: "text-emerald-400",
     available: true,
@@ -37,10 +37,30 @@ const CONTACT_OPTIONS = [
 ]
 
 const FAQS = [
-  { q: "How quickly will I get access after subscribing?",    a: "Instantly. Once payment is confirmed your session is activated within seconds — no manual steps needed." },
-  { q: "Can I request a tool that's not listed?",             a: "Yes! Use the contact form below and mention which tool you need. We add tools based on user demand." },
-  { q: "What if I have trouble accessing a tool?",            a: "Contact support via the form or live chat. We resolve access issues within 2 hours on average." },
-  { q: "Do you offer refunds?",                               a: "We offer a 24-hour refund if you haven't accessed any tools. Contact us immediately after subscribing." },
+  {
+    q: "How do I get access to SkillEduStore courses?",
+    a: "We provide comprehensive video tutorials with step-by-step instructions for accessing your Group Buy Tools. Additionally, our live chat support is available 18/7 to assist you at any time. Check our Device Management guide for setup instructions.",
+  },
+  {
+    q: "What learning resources are included with courses?",
+    a: "Our courses include comprehensive learning materials: HD video lectures, downloadable resources, practical exercises, quizzes, assignments, and community forums. Many courses also include source code, templates, checklists, and bonus materials.",
+  },
+  {
+    q: "Do you provide shared or dedicated accounts?",
+    a: "As a Group Buy service, SkillEduStore provides shared account access with custom access methods. This allows you to access premium design and marketing tools at significantly reduced costs.",
+  },
+  {
+    q: "Can I use one account for both personal and business learning?",
+    a: "SkillEduStore does not allow sharing access between multiple devices or locations. (Unless you have an additional IP) You cannot use one account from two different IPs or devices at a time; you can login on just 2 devices. To access SkillEduStore from both home and office at a time, you need to purchase additional IP. See our Terms of Service.",
+  },
+  {
+    q: "Can I share my account or courses with others?",
+    a: "No, you cannot share your account or access your account via proxies, VPNs, or RDPs. Account sharing or unauthorized access methods may result in a permanent ban on your SkillEduStore account. Review our Fair Usage Policy for details.",
+  },
+  {
+    q: "Do you offer refunds?",
+    a: "SkillEduStore will initiate a refund only when any primary service or tool does not work for three or more consecutive days. This ensures you receive reliable access to all Group Buy Tools you've subscribed to. View our complete Refund Policy.",
+  },
 ]
 
 export default function ContactPage() {
@@ -52,7 +72,6 @@ export default function ContactPage() {
     e.preventDefault()
     if (!form.name || !form.email || !form.message) return
     setSending(true)
-    // Simulate send — replace with your actual API call
     await new Promise(r => setTimeout(r, 1200))
     setSent(true)
     setSending(false)
@@ -87,9 +106,31 @@ export default function ContactPage() {
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-xl mx-auto mb-8">
             Have a question about pricing, tools, or your account? Our team typically responds within a few hours.
           </p>
+
+          {/* Social links */}
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <a
+              href="https://wa.me/8801311844364"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 hover:border-green-400/60 rounded-full px-4 py-2 text-green-400 text-xs font-semibold transition-all hover:bg-green-500/15"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              WhatsApp: 01311844364
+            </a>
+            <a
+              href="https://facebook.com/skilledustore"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 hover:border-blue-400/60 rounded-full px-4 py-2 text-blue-400 text-xs font-semibold transition-all hover:bg-blue-500/15"
+            >
+              <Facebook className="w-3.5 h-3.5" />
+              @skilledustore
+            </a>
+          </div>
         </div>
       </section>
 
@@ -210,6 +251,28 @@ export default function ContactPage() {
                       </>
                     )}
                   </Button>
+
+                  {/* Quick contact links below form */}
+                  <div className="pt-2 flex flex-col sm:flex-row gap-2">
+                    <a
+                      href="https://wa.me/8801311844364"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 bg-green-500/10 border border-green-500/20 hover:border-green-500/40 rounded-xl px-4 py-2.5 text-green-400 text-xs font-semibold transition-all"
+                    >
+                      <Phone className="w-3.5 h-3.5" />
+                      WhatsApp Us
+                    </a>
+                    <a
+                      href="https://facebook.com/skilledustore"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 rounded-xl px-4 py-2.5 text-blue-400 text-xs font-semibold transition-all"
+                    >
+                      <Facebook className="w-3.5 h-3.5" />
+                      Facebook Page
+                    </a>
+                  </div>
                 </form>
               )}
             </div>
@@ -246,7 +309,7 @@ export default function ContactPage() {
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Ready to get started?
             </h2>
-            <p className="text-gray-400 mb-8">Access 40+ premium SEO tools starting at just $9/month.</p>
+            <p className="text-gray-400 mb-8">Access 100+ premium SEO tools at group-buy pricing. Available 18/7 support.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/tools">
                 <Button size="lg" className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white border-0 shadow-lg shadow-blue-500/20 group px-8">

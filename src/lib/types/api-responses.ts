@@ -101,7 +101,8 @@ export interface EnrollmentResponse {
 export interface CheckoutSessionResponse {
   success: boolean
   checkoutUrl: string | null
-  sessionId: string
+  sessionId: string | null  // null ও allow করুন
+  message?: string           // এই line add করুন
 }
 
 export interface EnrollmentsListResponse {

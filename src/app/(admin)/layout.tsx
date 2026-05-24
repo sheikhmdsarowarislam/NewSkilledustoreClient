@@ -3,24 +3,62 @@
 import { Sidebar } from "@/components/layout/sidebar"
 import { useState, useEffect } from "react"
 import { Menu } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 
 /**
  * Admin Layout
- * For admin pages with admin sidebar
+ * Protected admin layout with sidebar
  */
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const router = useRouter()
+
+  // NextAuth session
+  const { data: session, status } = useSession()
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(false)
 
-  // Sync collapse state with sidebar
+  /**
+   * Admin access check
+   */
+  useEffect(() => {
+    // Wait for session load
+    if (status === "loading") return
+
+    // Not logged in
+    if (!session) {
+      router.replace("/")
+      return
+    }
+
+    // Get role safely
+    const role =
+      (session.user as any)?.role ||
+      (session.user as any)?.user?.role ||
+      (session.user as any)?.data?.role
+
+    console.log("SESSION:", session)
+    console.log("ROLE:", role)
+
+    // Not admin
+    if (role !== "admin") {
+      router.replace("/")
+    }
+  }, [session, status, router])
+
+  /**
+   * Sync sidebar collapse state
+   */
   useEffect(() => {
     const handleStorageChange = () => {
       try {
         const saved = localStorage.getItem("sidebar:collapsed")
+
         if (saved !== null) {
           setIsCollapsed(saved === "1")
         }
@@ -28,20 +66,42 @@ export default function AdminLayout({
     }
 
     handleStorageChange()
-    window.addEventListener('storage', handleStorageChange)
-    
-    // Custom event for same-tab updates
+
+    window.addEventListener("storage", handleStorageChange)
+
+    // Same-tab custom event
     const handleSidebarToggle = (e: Event) => {
       const customEvent = e as CustomEvent<{ collapsed: boolean }>
       setIsCollapsed(customEvent.detail.collapsed)
     }
-    window.addEventListener('sidebar-toggle', handleSidebarToggle)
+
+    window.addEventListener("sidebar-toggle", handleSidebarToggle)
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange)
-      window.removeEventListener('sidebar-toggle', handleSidebarToggle)
+      window.removeEventListener("storage", handleStorageChange)
+      window.removeEventListener("sidebar-toggle", handleSidebarToggle)
     }
   }, [])
+
+  /**
+   * Prevent UI flash while checking auth
+   */
+  if (status === "loading") {
+    return null
+  }
+
+  // Get role again for render protection
+  const role =
+    (session?.user as any)?.role ||
+    (session?.user as any)?.user?.role ||
+    (session?.user as any)?.data?.role
+
+  /**
+   * Block non-admin rendering
+   */
+  if (!session || role !== "admin") {
+    return null
+  }
 
   return (
     <div className="min-h-screen bg-[#03050a] pt-16">
@@ -54,17 +114,21 @@ export default function AdminLayout({
         <Menu className="h-5 w-5" />
       </button>
 
-      <Sidebar 
-        type="admin" 
+      {/* Sidebar */}
+      <Sidebar
+        type="admin"
         isMobileOpen={isMobileMenuOpen}
         onMobileClose={() => setIsMobileMenuOpen(false)}
       />
-      
-      <main className={`
-        min-h-screen transition-all duration-300 ease-out
-        ${isCollapsed ? 'md:ml-20' : 'md:ml-72'}
-        p-4 sm:px-6 lg:px-16
-      `}>
+
+      {/* Main Content */}
+      <main
+        className={`
+          min-h-screen transition-all duration-300 ease-out
+          ${isCollapsed ? "md:ml-20" : "md:ml-72"}
+          p-4 sm:px-6 lg:px-16
+        `}
+      >
         {children}
       </main>
     </div>

@@ -1,12 +1,11 @@
 "use client"
-import Image from "next/image"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { 
-  LayoutDashboard, 
-  BookOpen, 
-  GraduationCap, 
+import {
+  LayoutDashboard,
+  BookOpen,
+  GraduationCap,
   Trophy,
   MessageSquare,
   Settings,
@@ -15,10 +14,11 @@ import {
   FileText,
   Tag,
   Wrench,
+  Package,          // ← new
   ChevronLeft,
   ChevronRight,
   LogOut,
-  Sparkles
+  Sparkles,
 } from "lucide-react"
 import { useSession } from "@/lib/hooks/use-session"
 import { useEffect, useState } from "react"
@@ -37,92 +37,87 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
   useEffect(() => {
     try {
       const saved = localStorage.getItem("sidebar:collapsed")
-      if (saved !== null) {
-        setIsCollapsed(saved === "1")
-      }
+      if (saved !== null) setIsCollapsed(saved === "1")
     } catch {}
   }, [])
 
   const toggleCollapsed = () => {
-    setIsCollapsed((prev) => {
+    setIsCollapsed(prev => {
       const next = !prev
-      try {
-        localStorage.setItem("sidebar:collapsed", next ? "1" : "0")
-      } catch {}
+      try { localStorage.setItem("sidebar:collapsed", next ? "1" : "0") } catch {}
       return next
     })
   }
 
   useEffect(() => {
     try {
-      window.dispatchEvent(new CustomEvent('sidebar-toggle', { detail: { collapsed: isCollapsed } }))
+      window.dispatchEvent(new CustomEvent("sidebar-toggle", { detail: { collapsed: isCollapsed } }))
     } catch {}
   }, [isCollapsed])
 
   const isActive = (path: string) => {
-    if (path === "/dashboard" || path === "/instructor" || path === "/admin") {
-      return pathname === path
-    }
+    if (path === "/dashboard" || path === "/instructor" || path === "/admin") return pathname === path
     return pathname === path || pathname.startsWith(path + "/")
   }
 
   const studentLinks = [
-    { href: "/dashboard",            icon: LayoutDashboard, label: "Dashboard",   badge: null },
-    { href: "/dashboard/my-tools",   icon: Wrench,          label: "My Tools",    badge: null },
-    { href: "/dashboard/progress",   icon: BarChart,        label: "Progress",    badge: null },
-    { href: "/dashboard/certificates", icon: Trophy,        label: "Certificates", badge: null },
-    { href: "/dashboard/discussions", icon: MessageSquare,  label: "Discussions", badge: null },
+    { href: "/dashboard",              icon: LayoutDashboard, label: "Dashboard",    badge: null },
+    { href: "/dashboard/my-tools",     icon: Wrench,          label: "My Tools",     badge: null },
+    { href: "/dashboard/progress",     icon: BarChart,        label: "Progress",     badge: null },
+    { href: "/dashboard/certificates", icon: Trophy,          label: "Certificates", badge: null },
+    { href: "/dashboard/discussions",  icon: MessageSquare,   label: "Discussions",  badge: null },
   ]
 
   const instructorLinks = [
-    { href: "/instructor",           icon: LayoutDashboard, label: "Dashboard",   badge: null },
-    { href: "/instructor/courses",   icon: BookOpen,        label: "My Courses",  badge: null },
-    { href: "/instructor/analytics", icon: BarChart,        label: "Analytics",   badge: null },
-    { href: "/instructor/students",  icon: Users,           label: "Students",    badge: null },
-    { href: "/instructor/reviews",   icon: MessageSquare,   label: "Reviews",     badge: null },
+    { href: "/instructor",             icon: LayoutDashboard, label: "Dashboard",  badge: null },
+    { href: "/instructor/courses",     icon: BookOpen,        label: "My Courses", badge: null },
+    { href: "/instructor/analytics",   icon: BarChart,        label: "Analytics",  badge: null },
+    { href: "/instructor/students",    icon: Users,           label: "Students",   badge: null },
+    { href: "/instructor/reviews",     icon: MessageSquare,   label: "Reviews",    badge: null },
   ]
 
   const adminLinks = [
-    { href: "/admin",                icon: LayoutDashboard, label: "Dashboard",   badge: null },
-    { href: "/admin/users",          icon: Users,           label: "Users",       badge: null },
-    { href: "/admin/courses",        icon: BookOpen,        label: "Courses",     badge: null },
-    { href: "/admin/enrollments",    icon: GraduationCap,   label: "Enrollments", badge: null },
-    { href: "/admin/tools",          icon: Wrench,          label: "Tools",       badge: null },
-    { href: "/admin/coupons",        icon: Tag,             label: "Coupons",     badge: null },
-    { href: "/admin/reports",        icon: FileText,        label: "Reports",     badge: null },
-    { href: "/admin/settings",       icon: Settings,        label: "Settings",    badge: null },
+    { href: "/admin",                  icon: LayoutDashboard, label: "Dashboard",    badge: null },
+    { href: "/admin/users",            icon: Users,           label: "Users",        badge: null },
+    { href: "/admin/courses",          icon: BookOpen,        label: "Courses",      badge: null },
+    { href: "/admin/enrollments",      icon: GraduationCap,   label: "Enrollments",  badge: null },
+    { href: "/admin/tools",            icon: Wrench,          label: "Tools",        badge: null },
+    { href: "/admin/packages",         icon: Package,         label: "All Packages", badge: null }, // ← NEW
+    { href: "/admin/coupons",          icon: Tag,             label: "Coupons",      badge: null },
+    { href: "/admin/reports",          icon: FileText,        label: "Reports",      badge: null },
+    { href: "/admin/settings",         icon: Settings,        label: "Settings",     badge: null },
   ]
 
-  const links = 
-    type === "student" ? studentLinks : 
-    type === "instructor" ? instructorLinks : 
+  const links =
+    type === "student"    ? studentLinks    :
+    type === "instructor" ? instructorLinks :
     adminLinks
 
   const roleConfig = {
-    student: { 
-      color: "from-purple-500 to-pink-500", 
+    student: {
+      color:    "from-purple-500 to-pink-500",
       gradient: "from-purple-600/20 via-pink-600/20 to-purple-600/20",
-      shadow: "shadow-purple-500/20",
-      border: "border-purple-500/30",
-      icon: Wrench
+      shadow:   "shadow-purple-500/20",
+      border:   "border-purple-500/30",
+      icon:     Wrench,
     },
-    instructor: { 
-      color: "from-violet-500 to-purple-500", 
+    instructor: {
+      color:    "from-violet-500 to-purple-500",
       gradient: "from-violet-600/20 via-purple-600/20 to-violet-600/20",
-      shadow: "shadow-violet-500/20",
-      border: "border-violet-500/30",
-      icon: Sparkles 
+      shadow:   "shadow-violet-500/20",
+      border:   "border-violet-500/30",
+      icon:     Sparkles,
     },
-    admin: { 
-      color: "from-rose-500 to-orange-500", 
+    admin: {
+      color:    "from-rose-500 to-orange-500",
       gradient: "from-rose-600/20 via-orange-600/20 to-rose-600/20",
-      shadow: "shadow-rose-500/20",
-      border: "border-rose-500/30",
-      icon: Settings 
+      shadow:   "shadow-rose-500/20",
+      border:   "border-rose-500/30",
+      icon:     Settings,
     },
   }
 
-  const config = roleConfig[type]
+  const config  = roleConfig[type]
   const RoleIcon = config.icon
 
   return (
@@ -136,19 +131,19 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
       )}
 
       {/* Sidebar */}
-      <aside 
+      <aside
         className={`
           fixed inset-y-0 left-0 z-50
-          ${isCollapsed ? 'w-64 md:w-20' : 'w-64 md:w-72'}
+          ${isCollapsed ? "w-64 md:w-20" : "w-64 md:w-72"}
           transform transition-all duration-300 ease-out
-          ${isMobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          ${isMobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
         `}
       >
         <div className="flex flex-col h-screen bg-gradient-to-b from-[#0a0d14] via-[#0f1218] to-[#0a0d14] border-r border-gray-800/50 shadow-2xl">
-          
-          {/* Logo/Brand Section */}
+
+          {/* Logo/Brand */}
           <div className="relative px-4 lg:px-6 pt-12 pb-4">
-            <div className={`flex items-center gap-3 transition-all duration-300 ${isCollapsed && !isMobileOpen ? 'justify-center' : ''}`}>
+            <div className={`flex items-center gap-3 transition-all duration-300 ${isCollapsed && !isMobileOpen ? "justify-center" : ""}`}>
               <div className="relative flex-shrink-0">
                 <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${config.color} p-0.5 shadow-lg ${config.shadow}`}>
                   <div className="w-full h-full bg-[#0a0d14] rounded-[10px] flex items-center justify-center">
@@ -156,12 +151,9 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
                   </div>
                 </div>
               </div>
-              
               {(!isCollapsed || isMobileOpen) && (
                 <div className="flex flex-col overflow-hidden">
-                  <span className="text-white font-bold text-lg tracking-tight truncate">
-                    SkilleduStore
-                  </span>
+                  <span className="text-white font-bold text-lg tracking-tight truncate">SkilleduStore</span>
                   <span className={`text-xs font-medium bg-gradient-to-r ${config.color} bg-clip-text text-transparent capitalize`}>
                     {type} Portal
                   </span>
@@ -169,7 +161,7 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
               )}
             </div>
 
-            {/* Desktop Toggle Button */}
+            {/* Desktop Toggle */}
             <button
               type="button"
               aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -177,8 +169,8 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
               className={`
                 hidden md:flex
                 absolute top-12 right-4
-                w-6 h-6 rounded-full 
-                bg-gradient-to-br ${config.color} 
+                w-6 h-6 rounded-full
+                bg-gradient-to-br ${config.color}
                 items-center justify-center
                 text-white shadow-lg ${config.shadow}
                 hover:scale-110 active:scale-95
@@ -189,7 +181,7 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
               {isCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
             </button>
 
-            {/* Mobile Close Button */}
+            {/* Mobile Close */}
             {isMobileOpen && (
               <button
                 type="button"
@@ -198,7 +190,7 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
                 className="
                   md:hidden flex
                   absolute top-12 -right-3
-                  w-6 h-6 rounded-full 
+                  w-6 h-6 rounded-full
                   bg-gradient-to-br from-gray-600 to-gray-700
                   items-center justify-center
                   text-white shadow-lg
@@ -212,39 +204,35 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
             )}
           </div>
 
-          {/* Navigation Section */}
+          {/* Navigation */}
           <div className="flex-1 px-3 lg:px-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent">
             {(!isCollapsed || isMobileOpen) && (
               <div className="px-3 mb-3">
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                  Menu
-                </span>
+                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Menu</span>
               </div>
             )}
 
             <nav className="space-y-1.5">
               {links.map((link, index) => {
-                const Icon = link.icon
+                const Icon   = link.icon
                 const active = isActive(link.href)
-                
+
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
-                    onClick={() => {
-                      if (onMobileClose && isMobileOpen) onMobileClose()
-                    }}
+                    onClick={() => { if (onMobileClose && isMobileOpen) onMobileClose() }}
                     title={isCollapsed && !isMobileOpen ? link.label : undefined}
                     className={`
                       group relative flex items-center gap-3
                       px-3 py-3 rounded-xl
                       font-medium text-sm
                       transition-all duration-200
-                      ${active 
-                        ? `bg-gradient-to-r ${config.gradient} text-white border ${config.border} shadow-lg ${config.shadow}` 
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800/40 border border-transparent'
+                      ${active
+                        ? `bg-gradient-to-r ${config.gradient} text-white border ${config.border} shadow-lg ${config.shadow}`
+                        : "text-gray-400 hover:text-white hover:bg-gray-800/40 border border-transparent"
                       }
-                      ${isCollapsed && !isMobileOpen ? 'justify-center' : ''}
+                      ${isCollapsed && !isMobileOpen ? "justify-center" : ""}
                     `}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
@@ -256,14 +244,10 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
                       className={`
                         flex-shrink-0 w-5 h-5
                         transition-all duration-200
-                        ${active 
-                          ? 'text-purple-400'
-                          : 'text-gray-500 group-hover:text-gray-300'
-                        }
-                        ${active ? 'scale-110' : 'group-hover:scale-105'}
+                        ${active ? "text-purple-400 scale-110" : "text-gray-500 group-hover:text-gray-300 group-hover:scale-105"}
                       `}
                     />
-                    
+
                     {(!isCollapsed || isMobileOpen) && (
                       <>
                         <span className="truncate flex-1">{link.label}</span>
@@ -284,7 +268,7 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
             </nav>
           </div>
 
-          {/* User Profile Section */}
+          {/* User Profile */}
           <div className="p-3 lg:p-4 border-t border-gray-800/50">
             {user && (
               <div className={`
@@ -292,15 +276,11 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
                 bg-gray-800/30 border border-gray-800/50
                 hover:bg-gray-800/50 hover:border-gray-700/50
                 transition-all duration-200 cursor-pointer
-                ${isCollapsed && !isMobileOpen ? 'justify-center' : ''}
+                ${isCollapsed && !isMobileOpen ? "justify-center" : ""}
               `}>
                 <div className="relative flex-shrink-0">
                   {user.avatar ? (
-                    <img
-                      src={user.avatar}
-                      alt={user.name}
-                      className="w-9 h-9 rounded-full object-cover ring-2 ring-gray-700/50"
-                    />
+                    <img src={user.avatar} alt={user.name} className="w-9 h-9 rounded-full object-cover ring-2 ring-gray-700/50" />
                   ) : (
                     <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${config.color} flex items-center justify-center text-white font-semibold text-sm`}>
                       {user.name?.charAt(0).toUpperCase()}
@@ -308,7 +288,7 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
                   )}
                   <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-gradient-to-br ${config.color} border-2 border-[#0a0d14]`} />
                 </div>
-                
+
                 {(!isCollapsed || isMobileOpen) && (
                   <div className="flex-1 overflow-hidden">
                     <p className="text-sm font-semibold text-white truncate">{user.name}</p>
@@ -317,10 +297,7 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
                 )}
 
                 {(!isCollapsed || isMobileOpen) && (
-                  <button
-                    className="flex-shrink-0 p-1.5 rounded-lg hover:bg-gray-700/50 text-gray-400 hover:text-white transition-colors"
-                    title="Logout"
-                  >
+                  <button className="flex-shrink-0 p-1.5 rounded-lg hover:bg-gray-700/50 text-gray-400 hover:text-white transition-colors" title="Logout">
                     <LogOut className="w-4 h-4" />
                   </button>
                 )}

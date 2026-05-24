@@ -59,7 +59,7 @@ function useCountdown(validUntil: string | null) {
 
 // ── Single Tool Card ───────────────────────────────────────────────────
 function ToolCard({ tool }: { tool: DashboardToolItem }) {
-  const countdown = useCountdown(tool.validUntil)
+  const countdown  = useCountdown(tool.validUntil)
   const isExpired  = tool.paymentStatus === "expired" || countdown?.expired
   const isPending  = tool.paymentStatus === "pending"
   const isRejected = tool.paymentStatus === "rejected"
@@ -225,7 +225,7 @@ export function DashboardToolsList({ tools }: DashboardToolsListProps) {
     )
   }
 
-  const activeTools  = tools.filter(t => (t.paymentStatus === "paid" || t.paymentStatus === "free") && t.paymentStatus !== "expired")
+  const activeTools  = tools.filter(t => t.paymentStatus === "paid" || t.paymentStatus === "free")
   const expiredTools = tools.filter(t => t.paymentStatus === "expired")
   const pendingTools = tools.filter(t => t.paymentStatus === "pending" || t.paymentStatus === "rejected")
 

@@ -89,21 +89,21 @@ const PAYMENT_METHODS: { id: PaymentTab; label: string; color: string; number: s
     id: "bkash",
     label: "bKash",
     color: "#E2136E",
-    number: "01700928869",
+    number: "01991386659",
     type: "পার্সোনাল",
   },
   {
     id: "nagad",
     label: "Nagad",
     color: "#F05829",
-    number: "01700928869",
+    number: "01991386659",
     type: "পার্সোনাল",
   },
   {
     id: "rocket",
     label: "Rocket",
     color: "#8B1FA9",
-    number: "017009288691",
+    number: "01311844364",
     type: "পার্সোনাল",
   },
 ]
@@ -516,8 +516,8 @@ export function ToolEnrollmentCard({
                       <MessageSquare className="h-4 w-4 text-pink-400" />
                       সহায়তার জন্য যোগাযোগ করুন:
                     </div>
-                    <p className="text-gray-400">Facebook: <span className="text-pink-400">@mdalmamunit427</span></p>
-                    <p className="text-gray-400">WhatsApp: <span className="text-pink-400">+8801700928869</span></p>
+                    <p className="text-gray-400">Facebook: <span className="text-pink-400">@SkillEduStore</span></p>
+                    <p className="text-gray-400">WhatsApp: <span className="text-pink-400">+8801311844364</span></p>
                   </div>
 
                   <div className="text-sm text-gray-400">

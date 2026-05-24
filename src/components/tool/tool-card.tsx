@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Wrench, Users, ExternalLink, Tag } from "lucide-react"
+import { Wrench, Users, ExternalLink, Tag, Package } from "lucide-react"
 import type { Tool } from "@/app/(main)/tools/page"
 
 interface ToolCardProps {
@@ -10,9 +10,15 @@ export function ToolCard({ tool }: ToolCardProps) {
   const discountedPrice =
     tool.discount > 0 ? tool.price - (tool.price * tool.discount) / 100 : tool.price
 
+  const isPackage = tool.isPackage === true
+
   return (
     <Link href={`/tools/${tool._id}`} className="group block h-full">
-      <div className="h-full bg-gray-900/60 border border-gray-800/50 hover:border-purple-500/30 rounded-xl overflow-hidden flex flex-col transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 hover:-translate-y-0.5">
+      <div className={`h-full border rounded-xl overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-0.5
+        ${isPackage
+          ? "bg-gradient-to-br from-gray-900/80 via-blue-950/20 to-gray-900/80 border-blue-900/40 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/10"
+          : "bg-gray-900/60 border-gray-800/50 hover:border-purple-500/30 hover:shadow-lg hover:shadow-purple-500/10"
+        }`}>
 
         {/* Thumbnail */}
         <div className="relative h-40 bg-gray-800 overflow-hidden">
@@ -23,13 +29,28 @@ export function ToolCard({ tool }: ToolCardProps) {
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-900/30 to-pink-900/30">
-              <Wrench className="h-12 w-12 text-gray-600" />
+            <div className={`w-full h-full flex items-center justify-center
+              ${isPackage
+                ? "bg-gradient-to-br from-blue-900/30 to-cyan-900/30"
+                : "bg-gradient-to-br from-purple-900/30 to-pink-900/30"
+              }`}>
+              {isPackage
+                ? <Package className="h-12 w-12 text-cyan-700" />
+                : <Wrench className="h-12 w-12 text-gray-600" />
+              }
+            </div>
+          )}
+
+          {/* Package badge */}
+          {isPackage && (
+            <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 bg-cyan-500/90 text-white text-xs font-bold rounded-full">
+              <Package className="h-3 w-3" />
+              Bundle
             </div>
           )}
 
           {/* Discount badge */}
-          {tool.discount > 0 && (
+          {!isPackage && tool.discount > 0 && (
             <div className="absolute top-2 left-2 px-2 py-0.5 bg-pink-500/90 text-white text-xs font-bold rounded-full">
               -{tool.discount}%
             </div>
@@ -38,7 +59,11 @@ export function ToolCard({ tool }: ToolCardProps) {
 
         {/* Content */}
         <div className="p-4 flex-1 flex flex-col gap-2">
-          <h3 className="text-white font-semibold text-sm line-clamp-2 group-hover:text-purple-300 transition-colors">
+          <h3 className={`font-semibold text-sm line-clamp-2 transition-colors
+            ${isPackage
+              ? "text-white group-hover:text-cyan-300"
+              : "text-white group-hover:text-purple-300"
+            }`}>
             {tool.name}
           </h3>
 
@@ -46,13 +71,36 @@ export function ToolCard({ tool }: ToolCardProps) {
             {tool.shortDescription}
           </p>
 
-          {/* Variations */}
-          {tool.variations?.length > 0 && (
+          {/* Included tools count (for packages) */}
+          {isPackage && tool.includedTools && tool.includedTools.length > 0 && (
+            <div className="flex items-center gap-1.5 text-xs text-cyan-400">
+              <Package className="h-3 w-3" />
+              <span>{tool.includedTools.length} tools included</span>
+            </div>
+          )}
+
+          {/* Variations (for regular tools) */}
+          {!isPackage && tool.variations?.length > 0 && (
             <div className="flex flex-wrap gap-1">
               {tool.variations.slice(0, 3).map((v, i) => (
                 <span
                   key={i}
                   className="flex items-center gap-1 text-xs px-2 py-0.5 bg-purple-500/10 border border-purple-500/20 text-purple-400 rounded-full"
+                >
+                  <Tag className="h-2.5 w-2.5" />
+                  {v.label}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Package variations */}
+          {isPackage && tool.variations?.length > 0 && (
+            <div className="flex flex-wrap gap-1">
+              {tool.variations.slice(0, 3).map((v, i) => (
+                <span
+                  key={i}
+                  className="flex items-center gap-1 text-xs px-2 py-0.5 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-full"
                 >
                   <Tag className="h-2.5 w-2.5" />
                   {v.label}
@@ -80,9 +128,13 @@ export function ToolCard({ tool }: ToolCardProps) {
 
         {/* Footer */}
         <div className="px-4 pb-4">
-          <div className="w-full py-2 text-center text-xs font-medium text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 rounded-lg transition-colors flex items-center justify-center gap-1.5">
+          <div className={`w-full py-2 text-center text-xs font-medium rounded-lg transition-colors flex items-center justify-center gap-1.5
+            ${isPackage
+              ? "text-cyan-300 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20"
+              : "text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20"
+            }`}>
             <ExternalLink className="h-3 w-3" />
-            View Details
+            {isPackage ? "View Package" : "View Details"}
           </div>
         </div>
       </div>
