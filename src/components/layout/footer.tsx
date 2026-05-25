@@ -1,14 +1,14 @@
-import Link from "next/link"
-import { GraduationCap, Github, Twitter, Linkedin, Heart } from "lucide-react"
+import Link from "next/link";
+import { GraduationCap, Github, Twitter, Linkedin, Heart } from "lucide-react";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="relative bg-[#0a0d14] border-t border-gray-800/50">
       {/* Decorative gradient line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 mb-10 sm:mb-12">
           {/* Brand Section */}
@@ -21,31 +21,34 @@ export function Footer() {
               </div>
               <div>
                 <h3 className="text-white font-bold text-xl">SkilleduStore</h3>
-                <p className="text-xs text-blue-400 font-medium">Learn & Grow</p>
+                <p className="text-xs text-blue-400 font-medium">
+                  Learn & Grow
+                </p>
               </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Empowering students worldwide with quality tech education and professional skills development
+              Empowering students worldwide with quality tech education and
+              professional skills development
             </p>
-            
+
             {/* Social Links */}
             <div className="flex items-center gap-2">
-              <a 
-                href="#" 
+              <a
+                href="#"
                 className="w-8 h-8 rounded-lg bg-gray-800/50 border border-gray-700/50 flex items-center justify-center hover:bg-blue-500/10 hover:border-blue-500/30 text-gray-400 hover:text-blue-400 transition-all duration-200"
                 aria-label="Twitter"
               >
                 <Twitter className="w-4 h-4" />
               </a>
-              <a 
-                href="#" 
+              <a
+                href="#"
                 className="w-8 h-8 rounded-lg bg-gray-800/50 border border-gray-700/50 flex items-center justify-center hover:bg-blue-500/10 hover:border-blue-500/30 text-gray-400 hover:text-blue-400 transition-all duration-200"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
-              <a 
-                href="#" 
+              <a
+                href="#"
                 className="w-8 h-8 rounded-lg bg-gray-800/50 border border-gray-700/50 flex items-center justify-center hover:bg-blue-500/10 hover:border-blue-500/30 text-gray-400 hover:text-blue-400 transition-all duration-200"
                 aria-label="GitHub"
               >
@@ -53,7 +56,7 @@ export function Footer() {
               </a>
             </div>
           </div>
-          
+
           {/* Learn Links */}
           <div>
             <h4 className="text-white font-bold text-base mb-4 flex items-center gap-2">
@@ -62,32 +65,44 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/courses" className="text-gray-400 hover:text-blue-400 transition-colors inline-flex items-center gap-1 group">
+                <Link
+                  href="/courses"
+                  className="text-gray-400 hover:text-blue-400 transition-colors inline-flex items-center gap-1 group"
+                >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-blue-400 transition-colors"></span>
                   All Courses
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="text-gray-400 hover:text-blue-400 transition-colors inline-flex items-center gap-1 group">
+                <Link
+                  href="/dashboard"
+                  className="text-gray-400 hover:text-blue-400 transition-colors inline-flex items-center gap-1 group"
+                >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-blue-400 transition-colors"></span>
                   My Dashboard
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/courses" className="text-gray-400 hover:text-blue-400 transition-colors inline-flex items-center gap-1 group">
+                <Link
+                  href="/dashboard/courses"
+                  className="text-gray-400 hover:text-blue-400 transition-colors inline-flex items-center gap-1 group"
+                >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-blue-400 transition-colors"></span>
                   My Courses
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/certificates" className="text-gray-400 hover:text-blue-400 transition-colors inline-flex items-center gap-1 group">
+                <Link
+                  href="/dashboard/certificates"
+                  className="text-gray-400 hover:text-blue-400 transition-colors inline-flex items-center gap-1 group"
+                >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-blue-400 transition-colors"></span>
                   Certificates
                 </Link>
               </li>
             </ul>
           </div>
-          
+
           {/* Company Links */}
           <div>
             <h4 className="text-white font-bold text-base mb-4 flex items-center gap-2">
@@ -96,32 +111,44 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/about" className="text-gray-400 hover:text-violet-400 transition-colors inline-flex items-center gap-1 group">
+                <Link
+                  href="/about"
+                  className="text-gray-400 hover:text-violet-400 transition-colors inline-flex items-center gap-1 group"
+                >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-violet-400 transition-colors"></span>
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-400 hover:text-violet-400 transition-colors inline-flex items-center gap-1 group">
+                <Link
+                  href="/contact"
+                  className="text-gray-400 hover:text-violet-400 transition-colors inline-flex items-center gap-1 group"
+                >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-violet-400 transition-colors"></span>
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="/instructor" className="text-gray-400 hover:text-violet-400 transition-colors inline-flex items-center gap-1 group">
+                <Link
+                  href="/instructor"
+                  className="text-gray-400 hover:text-violet-400 transition-colors inline-flex items-center gap-1 group"
+                >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-violet-400 transition-colors"></span>
                   Become Instructor
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="text-gray-400 hover:text-violet-400 transition-colors inline-flex items-center gap-1 group">
+                <Link
+                  href="/careers"
+                  className="text-gray-400 hover:text-violet-400 transition-colors inline-flex items-center gap-1 group"
+                >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-violet-400 transition-colors"></span>
                   Careers
                 </Link>
               </li>
             </ul>
           </div>
-          
+
           {/* Support Links */}
           <div>
             <h4 className="text-white font-bold text-base mb-4 flex items-center gap-2">
@@ -130,25 +157,37 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/help" className="text-gray-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1 group">
+                <Link
+                  href="/help"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1 group"
+                >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-emerald-400 transition-colors"></span>
                   Help Center
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-gray-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1 group">
+                <Link
+                  href="/privacy"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1 group"
+                >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-emerald-400 transition-colors"></span>
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-gray-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1 group">
+                <Link
+                  href="/terms"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1 group"
+                >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-emerald-400 transition-colors"></span>
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <a href="mailto:support@codetutor.com" className="text-gray-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1 group">
+                <a
+                  href="mailto:support@codetutor.com"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1 group"
+                >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-emerald-400 transition-colors"></span>
                   Contact Support
                 </a>
@@ -156,20 +195,26 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        
+
+        {/* Bottom Bar */}
         {/* Bottom Bar */}
         <div className="border-t border-gray-800/50 pt-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-gray-500 text-center sm:text-left">
               © {currentYear} SkilleduStore. All Rights Reserved
             </p>
-            <p className="text-sm text-gray-500 flex items-center gap-1.5">
-              Made with <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500 animate-pulse" /> for learners worldwide
-            </p>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="inline-flex items-center gap-2 bg-gray-800/80 hover:bg-gray-700/80 border border-gray-700/50 hover:border-purple-500/40 text-gray-300 hover:text-white text-sm font-medium px-5 py-2.5 rounded-full transition-all duration-300 group"
+            >
+              <span className="text-base group-hover:-translate-y-0.5 transition-transform duration-300">
+                🚀
+              </span>
+              Back to Top
+            </button>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
-

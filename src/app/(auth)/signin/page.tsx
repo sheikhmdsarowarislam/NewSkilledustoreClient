@@ -70,7 +70,7 @@ function SignInForm() {
     }
   }
 
-  const handleSocialLogin = async (provider: "google" | "github" | "facebook") => {
+  const handleSocialLogin = async (provider: "google") => {
     setError("")
     setSocialLoading(provider)
     try {
@@ -115,20 +115,20 @@ function SignInForm() {
                 disabled={socialLoading !== null}
                 iconOnly
               />
-              <SocialButton 
+              {/* <SocialButton 
                 provider="github"
                 onClick={() => handleSocialLogin("github")}
                 isLoading={socialLoading === "github"}
                 disabled={socialLoading !== null}
                 iconOnly
-              />
-              <SocialButton 
+              /> */}
+              {/* <SocialButton 
                 provider="facebook"
                 onClick={() => handleSocialLogin("facebook")}
                 isLoading={socialLoading === "facebook"}
                 disabled={socialLoading !== null}
                 iconOnly
-              />
+              /> */}
             </div>
 
             {/* Divider */}

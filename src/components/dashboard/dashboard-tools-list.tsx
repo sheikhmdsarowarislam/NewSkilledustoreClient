@@ -68,6 +68,9 @@ function ToolCard({ tool }: { tool: DashboardToolItem }) {
   // Warning: less than 3 days left
   const isWarning = countdown && !countdown.expired && countdown.days < 3
 
+  // Detect if accessLink is an HTML button or a plain URL
+  const isHtmlButton = tool.accessLink?.trim().startsWith("<")
+
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 sm:p-5 border border-gray-800/50 rounded-xl hover:bg-gray-800/40 hover:border-purple-500/40 transition-all duration-300 group shadow-lg">
 
@@ -164,12 +167,21 @@ function ToolCard({ tool }: { tool: DashboardToolItem }) {
       {/* Right: Action Button */}
       <div className="w-full sm:w-auto sm:ml-4 flex-shrink-0">
         {hasAccess ? (
-          <a href={tool.accessLink} target="_blank" rel="noopener noreferrer">
-            <Button className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 shadow-lg shadow-purple-500/25 transition-all duration-200 group/btn">
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Access Now
-            </Button>
-          </a>
+          isHtmlButton ? (
+            // ── HTML button code → render as raw HTML ──────────────────
+            <div
+              className="w-full sm:w-auto"
+              dangerouslySetInnerHTML={{ __html: tool.accessLink }}
+            />
+          ) : (
+            // ── Plain URL fallback → normal anchor button ──────────────
+            <a href={tool.accessLink} target="_blank" rel="noopener noreferrer">
+              <Button className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 shadow-lg shadow-purple-500/25 transition-all duration-200 group/btn">
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Access Now
+              </Button>
+            </a>
+          )
         ) : isExpired || countdown?.expired ? (
           <Link href={`/tools/${tool._id}`}>
             <Button className="w-full sm:w-auto bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white border-0 shadow-lg transition-all duration-200 group/btn">

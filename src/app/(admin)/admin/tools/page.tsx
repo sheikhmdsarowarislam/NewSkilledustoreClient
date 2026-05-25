@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
-import { Wrench, Plus, RefreshCw, ExternalLink, Pencil, Trash2, Eye, EyeOff, Package, ChevronDown, X } from "lucide-react"
+import { Wrench, Plus, RefreshCw, Pencil, Trash2, Eye, EyeOff, Package, ChevronDown, X, Code2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface ToolVariation {
@@ -186,52 +186,51 @@ export default function AdminToolsPage() {
     setShowToolForm(false)
   }
 
- const openEditPackage = (tool: Tool) => {
-  setPackageForm({
-    name:             tool.name,
-    shortDescription: tool.shortDescription,
-    price:            tool.price,
-    discount:         Math.min(tool.discount ?? 0, 100),
-    status:           tool.status,
-    thumbnail:        tool.thumbnail?.url || "",
-    includedTools:    tool.includedTools || [],
-    variations:       tool.variations || [],
-  })
-  setEditingPackageId(tool._id)
-  setShowPackageForm(true)
-  setShowToolForm(false)
-}
-
- const handleSavePackage = async () => {
-  if (!packageForm.name || packageForm.includedTools.length === 0) return
-  setSavingPackage(true)
-  try {
-    const url    = editingPackageId ? `${API}/${editingPackageId}` : `${API}/create`
-    const method = editingPackageId ? "PUT" : "POST"
-    const res    = await fetch(url, {
-      method,
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
-      body: JSON.stringify({
-        ...packageForm,
-        isPackage:    true,
-        price:        Number(packageForm.price) || 0,
-        discount:     Math.min(Number(packageForm.discount) || 0, 100),
-        // object হলে _id extract করো, string হলে সরাসরি রাখো
-        includedTools: packageForm.includedTools.map((t: any) =>
-          typeof t === "string" ? t : t._id
-        ),
-      }),
+  const openEditPackage = (tool: Tool) => {
+    setPackageForm({
+      name:             tool.name,
+      shortDescription: tool.shortDescription,
+      price:            tool.price,
+      discount:         Math.min(tool.discount ?? 0, 100),
+      status:           tool.status,
+      thumbnail:        tool.thumbnail?.url || "",
+      includedTools:    tool.includedTools || [],
+      variations:       tool.variations || [],
     })
-    const data = await res.json()
-    if (!res.ok) throw new Error(data.message || "Save failed")
-    setShowPackageForm(false)
-    fetchTools()
-  } catch (err) {
-    setError((err as Error).message)
-  } finally {
-    setSavingPackage(false)
+    setEditingPackageId(tool._id)
+    setShowPackageForm(true)
+    setShowToolForm(false)
   }
-}
+
+  const handleSavePackage = async () => {
+    if (!packageForm.name || packageForm.includedTools.length === 0) return
+    setSavingPackage(true)
+    try {
+      const url    = editingPackageId ? `${API}/${editingPackageId}` : `${API}/create`
+      const method = editingPackageId ? "PUT" : "POST"
+      const res    = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
+        body: JSON.stringify({
+          ...packageForm,
+          isPackage:    true,
+          price:        Number(packageForm.price) || 0,
+          discount:     Math.min(Number(packageForm.discount) || 0, 100),
+          includedTools: packageForm.includedTools.map((t: any) =>
+            typeof t === "string" ? t : t._id
+          ),
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message || "Save failed")
+      setShowPackageForm(false)
+      fetchTools()
+    } catch (err) {
+      setError((err as Error).message)
+    } finally {
+      setSavingPackage(false)
+    }
+  }
 
   // ── Shared actions ─────────────────────────────────────────────────────
   const handleDelete = async (id: string) => {
@@ -433,15 +432,17 @@ export default function AdminToolsPage() {
                 placeholder="e.g. AI Code Assistant"
               />
             </div>
+
             <div>
-              <label className="text-xs text-gray-400 mb-1 block">Access Link *</label>
+              <label className="text-xs text-gray-400 mb-1 block">Thumbnail URL (optional)</label>
               <input
-                value={toolForm.accessLink}
-                onChange={e => setToolForm(f => ({ ...f, accessLink: e.target.value }))}
+                value={toolForm.thumbnail}
+                onChange={e => setToolForm(f => ({ ...f, thumbnail: e.target.value }))}
                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500"
-                placeholder="https://tool.example.com"
+                placeholder="https://..."
               />
             </div>
+
             <div className="sm:col-span-2">
               <label className="text-xs text-gray-400 mb-1 block">Short Description *</label>
               <textarea
@@ -452,6 +453,7 @@ export default function AdminToolsPage() {
                 placeholder="Brief description of the tool"
               />
             </div>
+
             <div>
               <label className="text-xs text-gray-400 mb-1 block">Base Price (৳)</label>
               <input
@@ -461,6 +463,7 @@ export default function AdminToolsPage() {
                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500"
               />
             </div>
+
             <div>
               <label className="text-xs text-gray-400 mb-1 block">Discount (%)</label>
               <input
@@ -472,15 +475,7 @@ export default function AdminToolsPage() {
                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500"
               />
             </div>
-            <div>
-              <label className="text-xs text-gray-400 mb-1 block">Thumbnail URL (optional)</label>
-              <input
-                value={toolForm.thumbnail}
-                onChange={e => setToolForm(f => ({ ...f, thumbnail: e.target.value }))}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500"
-                placeholder="https://..."
-              />
-            </div>
+
             <div>
               <label className="text-xs text-gray-400 mb-1 block">Status</label>
               <select
@@ -492,6 +487,31 @@ export default function AdminToolsPage() {
                 <option value="published">Published</option>
                 <option value="archived">Archived</option>
               </select>
+            </div>
+
+            {/* ── ACCESS BUTTON HTML (replaces Access Link input) ── */}
+            <div className="sm:col-span-2">
+              <label className="text-xs text-gray-400 mb-1 flex items-center gap-1.5 block">
+                <Code2 className="h-3.5 w-3.5 text-purple-400" />
+                Access Button HTML *
+                <span className="text-gray-600 ml-1">(paste your full HTML button code)</span>
+              </label>
+              <textarea
+                value={toolForm.accessLink}
+                onChange={e => setToolForm(f => ({ ...f, accessLink: e.target.value }))}
+                rows={5}
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500 resize-y font-mono"
+                placeholder={`<button style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 30px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer;" onclick="handleAutoLogin(this, 61, 'https://example.com')">Access</button>`}
+              />
+              {/* Live Preview */}
+              {toolForm.accessLink && toolForm.accessLink.trim().startsWith("<") && (
+                <div className="mt-2 p-3 bg-gray-800/60 border border-gray-700 rounded-lg">
+                  <p className="text-xs text-gray-500 mb-2 flex items-center gap-1">
+                    <Eye className="h-3 w-3" /> Button Preview:
+                  </p>
+                  <div dangerouslySetInnerHTML={{ __html: toolForm.accessLink }} />
+                </div>
+              )}
             </div>
           </div>
 
@@ -805,6 +825,8 @@ function ToolCard({
   onDelete: () => void
   isPackage?: boolean
 }) {
+  const isHtmlButton = tool.accessLink?.trim().startsWith("<")
+
   return (
     <div className={`bg-gray-900/60 border rounded-xl overflow-hidden flex flex-col
       ${isPackage ? "border-blue-900/40" : "border-gray-800/50"}`}>
@@ -883,20 +905,17 @@ function ToolCard({
             ))}
           </div>
         )}
+
+        {/* HTML button badge for admin card */}
+        {!isPackage && isHtmlButton && (
+          <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 bg-purple-500/10 border border-purple-500/20 text-purple-400 rounded-full">
+            <Code2 className="h-3 w-3" /> HTML Button
+          </span>
+        )}
       </div>
 
       {/* Actions */}
       <div className="px-4 pb-4 flex items-center gap-2 flex-wrap">
-        {!isPackage && tool.accessLink && (
-          <a
-            href={tool.accessLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
-          >
-            <ExternalLink className="h-3.5 w-3.5" /> Preview
-          </a>
-        )}
         <div className="flex items-center gap-2 ml-auto">
           <button
             onClick={() => onToggleStatus(tool)}

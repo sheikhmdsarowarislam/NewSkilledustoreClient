@@ -1,6 +1,5 @@
 import { Suspense } from "react"
-import { redirect } from "next/navigation"
-import { Search, Wrench, TrendingUp, AlertCircle, Zap } from "lucide-react"
+import { Wrench, TrendingUp, AlertCircle } from "lucide-react"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { CoursesGridSkeleton } from "@/components/ui/skeleton"
 import { ToolCard } from "@/components/tool/tool-card"
@@ -29,21 +28,11 @@ export interface Tool {
   createdAt: string
 }
 
-// ── Server Action ──────────────────────────────────────────────────────
-async function applyFilters(formData: FormData) {
-  "use server"
-  const search = formData.get("search") as string
-  const params = new URLSearchParams()
-  if (search) params.set("search", search)
-  redirect(`/tools?${params.toString()}`)
-}
-
 // ── Fetch helper ──────────────────────────────────────────────────────
-async function getAllToolsPublic(params?: { search?: string; page?: number; limit?: number }) {
+async function getAllToolsPublic(params?: { page?: number; limit?: number }) {
   const query = new URLSearchParams()
-  if (params?.search) query.set("search", params.search)
-  if (params?.page)   query.set("page",   String(params.page))
-  if (params?.limit)  query.set("limit",  String(params.limit))
+  if (params?.page)  query.set("page",  String(params.page))
+  if (params?.limit) query.set("limit", String(params.limit))
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/v1/tools?${query.toString()}`,
@@ -56,19 +45,19 @@ async function getAllToolsPublic(params?: { search?: string; page?: number; limi
 
 // ── Page Props ─────────────────────────────────────────────────────────
 interface ToolsPageProps {
-  searchParams: Promise<{ search?: string; page?: string }>
+  searchParams: Promise<{ page?: string }>
 }
 
 // ── Tools List (Server Component) ─────────────────────────────────────
 async function ToolsList({ searchParams }: ToolsPageProps) {
-  const { search, page } = await searchParams
+  const { page } = await searchParams
 
   let tools: Tool[] = []
   let total = 0
   let error = null
 
   try {
-    const data = await getAllToolsPublic({ search, page: page ? parseInt(page) : 1, limit: 12 })
+    const data = await getAllToolsPublic({ page: page ? parseInt(page) : 1, limit: 12 })
     tools = data.tools
     total = data.total
   } catch (err) {
@@ -93,13 +82,13 @@ async function ToolsList({ searchParams }: ToolsPageProps) {
     return (
       <div className="flex flex-col items-center justify-center py-16 sm:py-20">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-600/20 to-pink-600/20 border border-purple-500/30 mb-6 shadow-lg shadow-purple-500/20">
-          <Search className="w-10 h-10 text-purple-400" />
+          <Wrench className="w-10 h-10 text-purple-400" />
         </div>
         <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">No Tools Found</h3>
         <p className="text-gray-400 text-sm max-w-md text-center mb-2">
-          We couldn&apos;t find any tools matching your search.
+          No tools are available at the moment.
         </p>
-        <p className="text-xs text-gray-500">Try adjusting your search terms</p>
+        <p className="text-xs text-gray-500">Please check back later</p>
       </div>
     )
   }
@@ -140,8 +129,6 @@ async function ToolsList({ searchParams }: ToolsPageProps) {
 
 // ── Main Page ──────────────────────────────────────────────────────────
 export default async function ToolsPage({ searchParams }: ToolsPageProps) {
-  const params = await searchParams
-
   return (
     <div className="min-h-screen bg-[#03050a]">
       {/* Header */}
@@ -179,31 +166,8 @@ export default async function ToolsPage({ searchParams }: ToolsPageProps) {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 sm:-mt-16">
-        {/* Search Filter */}
-        <div className="relative group mb-10 sm:mb-12">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 rounded-2xl blur-md opacity-20 group-hover:opacity-40 transition duration-300" />
-          <div className="relative bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-sm border border-gray-800/50 hover:border-purple-500/30 rounded-2xl p-5 sm:p-6 shadow-2xl transition-all duration-300">
-            <form action={applyFilters} className="flex gap-3">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
-                <input
-                  name="search"
-                  defaultValue={params.search || ""}
-                  placeholder="Search tools..."
-                  className="w-full bg-gray-800/80 border border-gray-700/50 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/50 transition-colors"
-                />
-              </div>
-              <button
-                type="submit"
-                className="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-sm font-medium rounded-xl transition-all duration-200 whitespace-nowrap"
-              >
-                Search
-              </button>
-            </form>
-          </div>
-        </div>
-
+      {/* Main Content */}
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-12">
         {/* Tools Grid */}
         <div className="pb-16 sm:pb-20">
           <div className="mb-6 sm:mb-8">

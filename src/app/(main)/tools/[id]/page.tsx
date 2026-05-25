@@ -133,7 +133,7 @@ export default async function ToolDetailPage({ params }: PageProps) {
               )}
 
               {/* Access link preview */}
-              <a
+              {/* <a
                 href={tool.accessLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -141,7 +141,7 @@ export default async function ToolDetailPage({ params }: PageProps) {
               >
                 <ExternalLink className="h-4 w-4" />
                 Preview Tool
-              </a>
+              </a> */}
             </div>
 
             {/* Right: Enrollment Card */}
