@@ -26,6 +26,8 @@ export interface Tool {
   status: "draft" | "published" | "archived"
   enrollmentCount: number
   createdAt: string
+  isPackage?: boolean 
+  includedTools?: string[]
 }
 
 // ── Fetch helper ──────────────────────────────────────────────────────

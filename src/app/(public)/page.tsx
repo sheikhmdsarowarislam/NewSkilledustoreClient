@@ -23,39 +23,39 @@ export const revalidate = 172800;
 const TOOLS = [
   {
     abbr: "U",
-    name: "Udemy Business",
+    name: "Ude*my Business",
     desc: "Access thousands of premium courses on programming, design, business & more",
-    from: "৳450",
+    from: "৳499",
   },
   {
     abbr: "C",
-    name: "Coursera Plus",
+    name: "Cours*era Plus",
     desc: "Learn from top universities with certificates & specializations",
-    from: "৳450",
+    from: "৳399",
   },
   {
     abbr: "L",
-    name: "LinkedIn Learning",
+    name: "Linked*In Learning",
     desc: "Professional skill-building courses with LinkedIn certificate integration",
-    from: "৳450",
+    from: "৳299",
   },
   {
     abbr: "Sk",
-    name: "Skillshare",
+    name: "Skill*share",
     desc: "Creative courses on design, illustration, photography & productivity",
-    from: "৳450",
+    from: "৳299",
   },
   {
     abbr: "Mx",
-    name: "MasterClass",
+    name: "Can*va",
     desc: "Learn from world-class instructors across every field",
-    from: "৳450",
+    from: "৳99",
   },
   {
     abbr: "Pl",
-    name: "Pluralsight",
+    name: "Plura*lsight",
     desc: "Tech & developer-focused courses with skill assessments & paths",
-    from: "৳450",
+    from: "৳300",
   },
 ];
 
@@ -250,7 +250,7 @@ export default async function HomePage() {
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400" />
                 </span>
                 <span className="text-[11px] font-semibold text-cyan-400 tracking-widest uppercase">
-                  2,000+ happy learners trust SkillEduStore
+                  3,000+ happy learners trust SkillEduStore
                 </span>
               </div>
 
@@ -272,7 +272,7 @@ export default async function HomePage() {
                 <span className="text-white font-medium">
                   80+ premium learning tools
                 </span>{" "}
-                — Udemy, Coursera, LinkedIn Learning & more — at group-buy
+                — Ude*my, Cours*era, LinkedIn Learning & more — at group-buy
                 pricing. Up to{" "}
                 <span className="text-cyan-400 font-medium">
                   80% off retail
@@ -337,7 +337,6 @@ export default async function HomePage() {
               <div className="flex flex-wrap gap-2">
                 {[
                   "SSL secured",
-                  "Private sessions",
                   "Instant access",
                   "18/7 support",
                 ].map((b) => (
@@ -493,7 +492,7 @@ export default async function HomePage() {
 
               {/* Buttons */}
               <div className="flex flex-wrap items-center gap-3 pt-1">
-                <Link href="/tools/YOUR_TOOL_ID">
+                <Link href="/tools/6a148a1b718438f9d2311eaf">
                   <Button
                     size="lg"
                     className="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white border-0 shadow-lg shadow-pink-500/20 transition-all duration-200 group"
@@ -571,7 +570,7 @@ export default async function HomePage() {
                         {tool.name}
                       </CardTitle>
                       <span className="text-xs text-cyan-400 font-semibold">
-                        From {tool.from}/mo
+                        From {tool.from}/3mo
                       </span>
                     </div>
                   </div>
@@ -661,7 +660,7 @@ export default async function HomePage() {
                     View Full Tool List
                   </Button>
                 </Link>
-                <Link href="/tools" className="block">
+                <Link href="/tools/6a13e5184348ff09857145bb" className="block">
                   <Button
                     className={`w-full ${
                       plan.highlight
@@ -744,7 +743,7 @@ export default async function HomePage() {
               </span>
             </h2>
             <p className="text-gray-400">
-              Join 2,000+ learners who rely on SkillEduStore — the most trusted
+              Join 3,000+ learners who rely on SkillEduStore — the most trusted
               and affordable learning tools platform.
             </p>
           </div>
@@ -780,7 +779,7 @@ export default async function HomePage() {
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Trusted by{" "}
               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                2,000+ Learners
+                3,000+ Learners
               </span>
             </h2>
             <p className="text-gray-400">

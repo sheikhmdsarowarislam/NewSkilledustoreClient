@@ -82,15 +82,7 @@ export function Footer() {
                   My Dashboard
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/dashboard/courses"
-                  className="text-gray-400 hover:text-blue-400 transition-colors inline-flex items-center gap-1 group"
-                >
-                  <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-blue-400 transition-colors"></span>
-                  My Courses
-                </Link>
-              </li>
+              
               <li>
                 <Link
                   href="/dashboard/certificates"
@@ -128,24 +120,6 @@ export function Footer() {
                   Contact Us
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/instructor"
-                  className="text-gray-400 hover:text-violet-400 transition-colors inline-flex items-center gap-1 group"
-                >
-                  <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-violet-400 transition-colors"></span>
-                  Become Instructor
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/careers"
-                  className="text-gray-400 hover:text-violet-400 transition-colors inline-flex items-center gap-1 group"
-                >
-                  <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-violet-400 transition-colors"></span>
-                  Careers
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -158,11 +132,11 @@ export function Footer() {
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link
-                  href="/help"
+                  href="/refund"
                   className="text-gray-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1 group"
                 >
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-emerald-400 transition-colors"></span>
-                  Help Center
+                  Refund & Policy
                 </Link>
               </li>
               <li>
@@ -182,15 +156,6 @@ export function Footer() {
                   <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-emerald-400 transition-colors"></span>
                   Terms of Service
                 </Link>
-              </li>
-              <li>
-                <a
-                  href="mailto:support@codetutor.com"
-                  className="text-gray-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1 group"
-                >
-                  <span className="w-1 h-1 rounded-full bg-gray-600 group-hover:bg-emerald-400 transition-colors"></span>
-                  Contact Support
-                </a>
               </li>
             </ul>
           </div>

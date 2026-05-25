@@ -4,7 +4,7 @@ import { CheckCircle, Zap, Shield, Clock, Star, ArrowRight } from "lucide-react"
 
 const PLANS = [
   {
-    duration: "৪ মাস",
+    duration: "৩ মাস",
     originalPrice: "১২০০",
     offerPrice: "৪৯৯",
     highlight: false,
@@ -113,7 +113,7 @@ export default function UdemyOfferPage() {
               <p className="text-gray-400 text-sm">মেয়াদঃ যত দিন আমাদের সার্ভিস চলবে ততদিন আর কোন পেমেন্ট করা লাগবেনা।</p>
               <p className="text-gray-400 text-sm">2 Year এর মধ্যে যেকোনো সমস্যা হলে রিপ্লেসমেন্ট হিসেবে অন্য যেকোনো প্রোডাক্ট দিতে পারব।</p>
             </div>
-            <Link href="/tools/YOUR_TOOL_ID">
+            <Link href="/tools/6a148a1b718438f9d2311eaf">
               <Button size="lg" className="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white border-0 shadow-lg shadow-pink-500/20 px-10">
                 <Zap className="mr-2 w-4 h-4" />
                 Buy Now
@@ -165,7 +165,7 @@ export default function UdemyOfferPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/tools/YOUR_TOOL_ID" className="block">
+              <Link href="/tools/6a13dc774348ff0985714352" className="block">
                 <Button className={`w-full ${plan.highlight
                   ? "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white border-0"
                   : "bg-gray-800 hover:bg-gray-700 text-white border border-gray-700"}`}>

@@ -45,6 +45,11 @@ interface PageProps {
 
 export default async function ToolDetailPage({ params }: PageProps) {
   const { id } = await params
+
+  if (!id || id.length < 24) {
+    notFound()
+  }
+
   const tool = await getToolById(id)
 
   const discountedPrice =

@@ -86,58 +86,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── MISSION ── */}
-      <section className="py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-5">
-              <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5">
-                <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">Our Mission</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-                Enterprise SEO power,<br />
-                <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">affordable pricing.</span>
-              </h2>
-              <p className="text-gray-400 leading-relaxed">
-                Our mission is to help websites rank better on search engines using group-buy access to premium SEO software and services tailored for business growth and online success.
-              </p>
-              <p className="text-gray-400 leading-relaxed">
-                With a strong focus on affordability and performance, we aim to make powerful SEO tools accessible for everyone — freelancers, small agencies, and growing teams alike.
-              </p>
-              <div className="space-y-2.5">
-                {["100+ top-tier shared SEO tools", "Smart, secure cloud-based dashboard", "Trusted across the UK and Bangladesh", "2-day money-back, no questions asked"].map(item => (
-                  <div key={item} className="flex items-center gap-2.5 text-sm text-gray-300">
-                    <CheckCircle className="h-4 w-4 text-cyan-400 flex-shrink-0" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-gray-900/60 border border-gray-800/50 rounded-2xl p-6 space-y-4">
-              <p className="text-white font-semibold text-sm mb-2">Why choose us</p>
-              {[
-                { label: "Other group-buy services", items: ["Shared logins", "No privacy", "Unreliable access", "No support"], bad: true },
-                { label: "SkilledUStore",            items: ["Private sessions", "Encrypted access", "99.99% uptime", "24/7 support"], bad: false },
-              ].map(col => (
-                <div key={col.label} className={`rounded-xl p-4 border ${col.bad ? "bg-red-900/10 border-red-500/20" : "bg-blue-900/10 border-blue-500/20"}`}>
-                  <p className={`text-xs font-semibold mb-3 ${col.bad ? "text-red-400" : "text-cyan-400"}`}>{col.label}</p>
-                  <div className="space-y-2">
-                    {col.items.map(item => (
-                      <div key={item} className="flex items-center gap-2 text-xs text-gray-300">
-                        <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] ${col.bad ? "bg-red-500/20 text-red-400" : "bg-cyan-500/20 text-cyan-400"}`}>
-                          {col.bad ? "✕" : "✓"}
-                        </span>
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+     
 
       {/* ── VALUES ── */}
       <section className="py-16 sm:py-20 border-t border-gray-800/50">

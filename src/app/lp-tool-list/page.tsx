@@ -1,4 +1,5 @@
 import { CheckCircle } from "lucide-react";
+import Link from "next/link";
 
 const TOOLS = [
   {
@@ -208,12 +209,9 @@ export default function LpToolListPage() {
             Access all 16+ premium learning tools at group-buy pricing. Save up
             to 80% off retail.
           </p>
-          <a
-            href="/tools"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/20"
-          >
-            View All Packages
-          </a>
+          <Link href="/tools" className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/20">
+  View All Packages
+</Link>
         </div>
       </div>
     </div>
