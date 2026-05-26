@@ -53,11 +53,11 @@ export default function UdemyOfferPage() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
             </span>
-            <span className="text-xs sm:text-sm font-bold text-cyan-400 uppercase tracking-wider">Udemy Business Offer</span>
+            <span className="text-xs sm:text-sm font-bold text-cyan-400 uppercase tracking-wider">Ude*my Business Offer</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 leading-tight">
-            Udemy Business{" "}
+            Ude*my Business{" "}
             <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
               Group Buy Access
             </span>

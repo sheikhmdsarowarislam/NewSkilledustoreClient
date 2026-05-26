@@ -27,8 +27,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Empowering students worldwide with quality tech education and
-              professional skills development
+              SkilledUStore is your trusted destination for premium digital products, tools, and online resources. We provide reliable solutions at competitive prices to help individuals, creators, and businesses succeed online.
             </p>
 
             {/* Social Links */}
