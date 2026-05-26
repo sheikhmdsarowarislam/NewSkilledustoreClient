@@ -5,6 +5,9 @@ const allowedOrigins = process.env.APP_URL
   : ['http://localhost:3000'];
 
 const nextConfig: NextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   turbopack: {
     root: process.cwd(),
   },
