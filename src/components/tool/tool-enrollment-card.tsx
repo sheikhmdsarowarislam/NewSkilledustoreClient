@@ -89,7 +89,7 @@ const PAYMENT_METHODS: { id: PaymentTab; label: string; color: string; number: s
     id: "bkash",
     label: "bKash",
     color: "#E2136E",
-    number: "01991386659",
+    number: "01613601910",
     type: "পার্সোনাল",
   },
   {
