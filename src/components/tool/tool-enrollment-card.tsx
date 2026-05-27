@@ -263,7 +263,7 @@ export function ToolEnrollmentCard({
     // expired / rejected / never enrolled → allow purchase / renew
     if (isEnrolled && enrollmentStatus === "rejected") return "Renew / Re-enroll"
     if (isEnrolled) return "Renew Access"
-    return finalPrice <= 0 ? "Get Free Access" : "Enroll Now"
+    return finalPrice <= 0 ? "Get Free Access" : "Buy Now"
   }
 
   const activeMethod = PAYMENT_METHODS.find((m) => m.id === activeTab)!
