@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   turbopack: {
-    root: process.cwd(),
+    // root: process.cwd(),
   },
   
   // Image optimization configuration
