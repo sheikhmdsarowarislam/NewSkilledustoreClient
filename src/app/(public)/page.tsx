@@ -288,7 +288,7 @@ export default async function HomePage() {
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Button>
           </Link>
-          <Link href="/dashboard">
+          {/* <Link href="/dashboard">
             <Button
               size="lg"
               variant="outline"
@@ -296,7 +296,7 @@ export default async function HomePage() {
             >
               View Dashboard
             </Button>
-          </Link>
+          </Link> */}
         </div>
 
         {/* Stats row */}
