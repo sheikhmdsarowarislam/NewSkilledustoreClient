@@ -225,306 +225,267 @@ export default async function HomePage() {
     <div className="min-h-screen">
       {/* ── HERO ───────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[#03050a] pt-28 pb-16 lg:pt-36 lg:pb-24">
-        {/* Background grid */}
-        <div
-          className="absolute inset-0 pointer-events-none hidden sm:block"
-          style={{
-            backgroundImage: "linear-gradient(...)",
-            backgroundSize: "48px 48px",
-          }}
-        />
+  {/* Background grid - mobile hidden */}
+  <div
+    className="absolute inset-0 pointer-events-none hidden sm:block"
+    style={{
+      backgroundImage:
+        "linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px)",
+      backgroundSize: "48px 48px",
+    }}
+  />
 
-        {/* Glow orbs */}
-        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-32 -right-32 w-[600px] h-[600px] bg-cyan-600/8 rounded-full blur-3xl" />
+  {/* Glow orbs - mobile hidden */}
+  <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl hidden sm:block" />
+  <div className="absolute -bottom-32 -right-32 w-[600px] h-[600px] bg-cyan-600/8 rounded-full blur-3xl hidden sm:block" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            {/* ── LEFT ── */}
-            <div className="space-y-7">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-blue-500/8 border border-blue-500/20 rounded-full px-3.5 py-1.5">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400" />
-                </span>
-                <span className="text-[11px] font-semibold text-cyan-400 tracking-widest uppercase">
-                  3,000+ happy learners trust SkillEduStore
-                </span>
-              </div>
+  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      {/* ── LEFT ── */}
+      <div className="space-y-7">
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 bg-blue-500/8 border border-blue-500/20 rounded-full px-3.5 py-1.5">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400" />
+          </span>
+          <span className="text-[11px] font-semibold text-cyan-400 tracking-widest uppercase">
+            3,000+ happy learners trust SkillEduStore
+          </span>
+        </div>
 
-              {/* Headline */}
-              <div className="space-y-1">
-                <h1 className="text-[2.4rem] sm:text-5xl lg:text-[3.2rem] xl:text-[3.6rem] font-extrabold leading-[1.1] tracking-tight">
-                  <span className="text-white">Learn smarter today.</span>
-                </h1>
-                <h1 className="text-[2.4rem] sm:text-5xl lg:text-[3.2rem] xl:text-[3.6rem] font-extrabold leading-[1.1] tracking-tight">
-                  <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">
-                    One affordable plan.
-                  </span>
-                </h1>
-              </div>
+        {/* Headline */}
+        <div className="space-y-1">
+          <h1 className="text-[2.4rem] sm:text-5xl lg:text-[3.2rem] xl:text-[3.6rem] font-extrabold leading-[1.1] tracking-tight">
+            <span className="text-white">Learn smarter today.</span>
+          </h1>
+          <h1 className="text-[2.4rem] sm:text-5xl lg:text-[3.2rem] xl:text-[3.6rem] font-extrabold leading-[1.1] tracking-tight">
+            <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">
+              One affordable plan.
+            </span>
+          </h1>
+        </div>
 
-              {/* Sub */}
-              <p className="text-sm sm:text-base text-gray-400 leading-relaxed max-w-md">
-                Access{" "}
-                <span className="text-white font-medium">
-                  80+ premium learning tools
-                </span>{" "}
-                — Ude*my, Cours*era, LinkedIn Learning & more — at group-buy
-                pricing. Up to{" "}
-                <span className="text-cyan-400 font-medium">
-                  80% off retail
-                </span>
-                .
+        {/* Sub */}
+        <p className="text-sm sm:text-base text-gray-400 leading-relaxed max-w-md">
+          Access{" "}
+          <span className="text-white font-medium">
+            80+ premium learning tools
+          </span>{" "}
+          — Ude*my, Cours*era, LinkedIn Learning & more — at group-buy
+          pricing. Up to{" "}
+          <span className="text-cyan-400 font-medium">80% off retail</span>.
+        </p>
+
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Link href="/tools">
+            <Button
+              size="lg"
+              className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white border-0 shadow-lg shadow-blue-500/20 transition-all duration-200 group text-sm px-6"
+            >
+              Get Started — ৳450/month
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </Button>
+          </Link>
+          <Link href="/dashboard">
+            <Button
+              size="lg"
+              variant="outline"
+              className="w-full sm:w-auto border-gray-700 bg-gray-800/40 text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200 text-sm px-6"
+            >
+              View Dashboard
+            </Button>
+          </Link>
+        </div>
+
+        {/* Stats row */}
+        <div className="flex items-center gap-6 pt-2 border-t border-gray-800/60">
+          {[
+            { val: "80+", label: "Learning tools", color: "text-blue-400" },
+            { val: "2K+", label: "Happy users", color: "text-emerald-400" },
+            { val: "99.9%", label: "Uptime SLA", color: "text-violet-400" },
+            { val: "৳0", label: "Setup fee", color: "text-cyan-400" },
+          ].map((s) => (
+            <div key={s.label} className="text-center">
+              <p className={`text-lg sm:text-xl font-bold ${s.color}`}>
+                {s.val}
               </p>
-
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Link href="/tools">
-                  <Button
-                    size="lg"
-                    className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white border-0 shadow-lg shadow-blue-500/20 transition-all duration-200 group text-sm px-6"
-                  >
-                    Get Started — ৳450/month
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                  </Button>
-                </Link>
-                <Link href="/dashboard">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full sm:w-auto border-gray-700 bg-gray-800/40 text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200 text-sm px-6"
-                  >
-                    View Dashboard
-                  </Button>
-                </Link>
-              </div>
-
-              {/* Stats row */}
-              <div className="flex items-center gap-6 pt-2 border-t border-gray-800/60">
-                {[
-                  {
-                    val: "80+",
-                    label: "Learning tools",
-                    color: "text-blue-400",
-                  },
-                  {
-                    val: "2K+",
-                    label: "Happy users",
-                    color: "text-emerald-400",
-                  },
-                  {
-                    val: "99.9%",
-                    label: "Uptime SLA",
-                    color: "text-violet-400",
-                  },
-                  { val: "৳0", label: "Setup fee", color: "text-cyan-400" },
-                ].map((s) => (
-                  <div key={s.label} className="text-center">
-                    <p className={`text-lg sm:text-xl font-bold ${s.color}`}>
-                      {s.val}
-                    </p>
-                    <p className="text-[10px] text-gray-500 font-medium mt-0.5 whitespace-nowrap">
-                      {s.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Trust chips */}
-              <div className="flex flex-wrap gap-2">
-                {["SSL secured", "Instant access", "18/7 support"].map((b) => (
-                  <span
-                    key={b}
-                    className="inline-flex items-center gap-1.5 text-[11px] text-gray-400 bg-gray-800/50 border border-gray-700/50 rounded-full px-3 py-1"
-                  >
-                    <CheckCircle className="h-3 w-3 text-cyan-400 flex-shrink-0" />
-                    {b}
-                  </span>
-                ))}
-              </div>
+              <p className="text-[10px] text-gray-500 font-medium mt-0.5 whitespace-nowrap">
+                {s.label}
+              </p>
             </div>
+          ))}
+        </div>
 
-            {/* ── RIGHT — feature cards ── */}
-            {/* ── RIGHT — Hero Image ── */}
-            <div className="hidden lg:flex items-center justify-center relative">
-              {/* Glow behind image */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-cyan-600/10 rounded-3xl blur-3xl" />
+        {/* Trust chips */}
+        <div className="flex flex-wrap gap-2">
+          {["SSL secured", "Instant access", "18/7 support"].map((b) => (
+            <span
+              key={b}
+              className="inline-flex items-center gap-1.5 text-[11px] text-gray-400 bg-gray-800/50 border border-gray-700/50 rounded-full px-3 py-1"
+            >
+              <CheckCircle className="h-3 w-3 text-cyan-400 flex-shrink-0" />
+              {b}
+            </span>
+          ))}
+        </div>
+      </div>
 
-              {/* Image */}
-              <div className="relative z-10">
-                <img
-                  src="https://skilledustore.com/wp-content/uploads/2026/05/heroskill1.png"
-                  alt="SkillEduStore Hero"
-                  width={520}
-                  height={520}
-                  loading="eager"
-                  decoding="async"
-                  className="w-full max-w-[520px] h-auto object-contain drop-shadow-2xl"
-                  style={{ imageRendering: "crisp-edges" }}
-                />
+      {/* ── RIGHT — Hero Image ── */}
+      <div className="hidden lg:flex items-center justify-center relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-cyan-600/10 rounded-3xl blur-3xl" />
+        <div className="relative z-10">
+          <img
+            src="https://skilledustore.com/wp-content/uploads/2026/05/heroskill1.png"
+            alt="SkillEduStore Hero"
+            width={520}
+            height={520}
+            loading="eager"
+            decoding="async"
+            className="w-full max-w-[520px] h-auto object-contain drop-shadow-2xl"
+            style={{ imageRendering: "crisp-edges" }}
+          />
 
-                {/* Floating stat cards */}
-                <div className="absolute top-6 left-0 bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
-                    <BarChart2 className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white font-bold text-sm leading-none">
-                      80+
-                    </p>
-                    <p className="text-gray-400 text-[10px] mt-0.5">
-                      Tools Available
-                    </p>
-                  </div>
-                </div>
+          <div className="absolute top-6 left-0 bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
+              <BarChart2 className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <p className="text-white font-bold text-sm leading-none">80+</p>
+              <p className="text-gray-400 text-[10px] mt-0.5">Tools Available</p>
+            </div>
+          </div>
 
-                <div className="absolute top-6 right-0 bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center flex-shrink-0">
-                    <Star className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white font-bold text-sm leading-none">
-                      4 Year+
-                    </p>
-                    <p className="text-gray-400 text-[10px] mt-0.5">
-                      Experience
-                    </p>
-                  </div>
-                </div>
+          <div className="absolute top-6 right-0 bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center flex-shrink-0">
+              <Star className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <p className="text-white font-bold text-sm leading-none">4 Year+</p>
+              <p className="text-gray-400 text-[10px] mt-0.5">Experience</p>
+            </div>
+          </div>
 
-                <div className="absolute bottom-16 left-0 bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-green-500 flex items-center justify-center flex-shrink-0">
-                    <CheckCircle className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white font-bold text-sm leading-none">
-                      3,000+
-                    </p>
-                    <p className="text-gray-400 text-[10px] mt-0.5">
-                      Happy Users
-                    </p>
-                  </div>
-                </div>
+          <div className="absolute bottom-16 left-0 bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-green-500 flex items-center justify-center flex-shrink-0">
+              <CheckCircle className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <p className="text-white font-bold text-sm leading-none">3,000+</p>
+              <p className="text-gray-400 text-[10px] mt-0.5">Happy Users</p>
+            </div>
+          </div>
 
-                <div className="absolute bottom-16 right-0 bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center flex-shrink-0">
-                    <Zap className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white font-bold text-sm leading-none">
-                      99.99%
-                    </p>
-                    <p className="text-gray-400 text-[10px] mt-0.5">Uptime</p>
-                  </div>
-                </div>
-              </div>
+          <div className="absolute bottom-16 right-0 bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center flex-shrink-0">
+              <Zap className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <p className="text-white font-bold text-sm leading-none">99.99%</p>
+              <p className="text-gray-400 text-[10px] mt-0.5">Uptime</p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
       {/* ── OFFER BANNER ───────────────────────────────────────────── */}
       {/* ── OFFER BANNER ───────────────────────────────────────────── */}
       <section className="py-16 sm:py-20 bg-[#0a0d14]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-            {/* Left — Image */}
-            <div className="w-full lg:w-[420px] flex-shrink-0 rounded-2xl overflow-hidden">
-              <img
-                src="https://skilledustore.com/wp-content/uploads/2025/11/udemy-onetime-payment-offer-skilledustore.jpg"
-                alt="One Time Payment Offer"
-                className="w-full h-full object-cover"
-              />
-            </div>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+      {/* Left — Image */}
+      <div className="w-full lg:w-[420px] flex-shrink-0 rounded-2xl overflow-hidden">
+        <img
+          src="https://skilledustore.com/wp-content/uploads/2025/11/udemy-onetime-payment-offer-skilledustore.jpg"
+          alt="One Time Payment Offer"
+          className="w-full h-auto object-cover"
+        />
+      </div>
 
-            {/* Right — Details */}
-            <div className="flex-1 space-y-5">
-              {/* Badge */}
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1">
-                <Sparkles className="w-3 h-3" />
-                U*demy One-Time Offer
-              </span>
+      {/* Right — Details */}
+      <div className="flex-1 space-y-5">
+        {/* Badge */}
+        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1">
+          <Sparkles className="w-3 h-3" />
+          U*demy One-Time Offer
+        </span>
 
-              {/* Title */}
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
-                One Time Payment{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                  OFFER
-                </span>
-              </h2>
+        {/* Title */}
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
+          One Time Payment{" "}
+          <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            OFFER
+          </span>
+        </h2>
 
-              {/* Price */}
-              <div className="flex items-baseline gap-3">
-                <span className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                  ৳১৫৯৯
-                </span>
-                <span className="text-gray-400 text-sm">
-                  / One-time payment
-                </span>
-              </div>
-
-              {/* Offer end */}
-              <p className="text-gray-400 text-sm">
-                ( OFFER ENDS 29th Jun, 2026 )
-              </p>
-
-              {/* Note */}
-              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 space-y-1.5">
-                <p className="text-gray-300 text-sm">
-                  <span className="text-white font-semibold">Note:</span> BONUS
-                  ACCOUNTS ARE NOT INCLUDED.
-                </p>
-                <p className="text-gray-400 text-sm">
-                  মেয়াদঃ যত দিন আমাদের সার্ভিস চলবে ততদিন আর কোন পেমেন্ট করা
-                  লাগবেনা।
-                </p>
-                <p className="text-gray-400 text-sm">
-                  2 Year এর মধ্যে যেকোনো সমস্যা হলে রিপ্লেসমেন্ট হিসেবে অন্য
-                  প্রোডাক্ট প্রদান করা হবে।
-                </p>
-              </div>
-
-              {/* Buttons */}
-              <div className="flex flex-wrap items-center gap-3 pt-1">
-                <Link href="/tools/6a148a1b718438f9d2311eaf">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white border-0 shadow-lg shadow-pink-500/20 transition-all duration-200 group"
-                  >
-                    <Zap className="mr-2 w-4 h-4" />
-                    Buy Now
-                  </Button>
-                </Link>
-                <Link href="/ud-business">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-gray-700 bg-gray-800/40 text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
-                  >
-                    ☰ View More Details
-                  </Button>
-                </Link>
-              </div>
-
-              {/* Trust chips */}
-              <div className="flex flex-wrap gap-2 pt-1">
-                {["Instant Access", "18/7 Support", "No Auto-Renew"].map(
-                  (b) => (
-                    <span
-                      key={b}
-                      className="inline-flex items-center gap-1.5 text-[11px] text-gray-400 bg-gray-800/50 border border-gray-700/50 rounded-full px-3 py-1"
-                    >
-                      <CheckCircle className="h-3 w-3 text-cyan-400 flex-shrink-0" />
-                      {b}
-                    </span>
-                  ),
-                )}
-              </div>
-            </div>
-          </div>
+        {/* Price */}
+        <div className="flex items-baseline gap-3">
+          <span className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            ৳১৫৯৯
+          </span>
+          <span className="text-gray-400 text-sm">/ One-time payment</span>
         </div>
-      </section>
+
+        {/* Offer end */}
+        <p className="text-gray-400 text-sm">( OFFER ENDS 29th Jun, 2026 )</p>
+
+        {/* Note */}
+        <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 space-y-1.5">
+          <p className="text-gray-300 text-sm">
+            <span className="text-white font-semibold">Note:</span> BONUS
+            ACCOUNTS ARE NOT INCLUDED.
+          </p>
+          <p className="text-gray-400 text-sm">
+            মেয়াদঃ যত দিন আমাদের সার্ভিস চলবে ততদিন আর কোন পেমেন্ট করা
+            লাগবেনা।
+          </p>
+          <p className="text-gray-400 text-sm">
+            2 Year এর মধ্যে যেকোনো সমস্যা হলে রিপ্লেসমেন্ট হিসেবে অন্য
+            প্রোডাক্ট প্রদান করা হবে।
+          </p>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex flex-wrap items-center gap-3 pt-1">
+          <Link href="/tools/6a148a1b718438f9d2311eaf">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white border-0 shadow-lg shadow-pink-500/20 transition-all duration-200 group"
+            >
+              <Zap className="mr-2 w-4 h-4" />
+              Buy Now
+            </Button>
+          </Link>
+          <Link href="/ud-business">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-gray-700 bg-gray-800/40 text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
+            >
+              ☰ View More Details
+            </Button>
+          </Link>
+        </div>
+
+        {/* Trust chips */}
+        <div className="flex flex-wrap gap-2 pt-1">
+          {["Instant Access", "18/7 Support", "No Auto-Renew"].map((b) => (
+            <span
+              key={b}
+              className="inline-flex items-center gap-1.5 text-[11px] text-gray-400 bg-gray-800/50 border border-gray-700/50 rounded-full px-3 py-1"
+            >
+              <CheckCircle className="h-3 w-3 text-cyan-400 flex-shrink-0" />
+              {b}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* ── TOOLS GRID ─────────────────────────────────────────────── */}
       <section className="py-16 sm:py-20 bg-[#0a0d14]">
