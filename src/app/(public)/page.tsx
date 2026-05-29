@@ -227,10 +227,9 @@ export default async function HomePage() {
       <section className="relative overflow-hidden bg-[#03050a] pt-28 pb-16 lg:pt-36 lg:pb-24">
         {/* Background grid */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none hidden sm:block"
           style={{
-            backgroundImage:
-              "linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px)",
+            backgroundImage: "linear-gradient(...)",
             backgroundSize: "48px 48px",
           }}
         />
@@ -335,11 +334,7 @@ export default async function HomePage() {
 
               {/* Trust chips */}
               <div className="flex flex-wrap gap-2">
-                {[
-                  "SSL secured",
-                  "Instant access",
-                  "18/7 support",
-                ].map((b) => (
+                {["SSL secured", "Instant access", "18/7 support"].map((b) => (
                   <span
                     key={b}
                     className="inline-flex items-center gap-1.5 text-[11px] text-gray-400 bg-gray-800/50 border border-gray-700/50 rounded-full px-3 py-1"
