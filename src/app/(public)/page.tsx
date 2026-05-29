@@ -930,7 +930,7 @@ export const metadata: Metadata = {
       index: true,
       follow: true,
       "max-video-preview": -1,
-      "max-image-progressive": "large",
+      "max-image-preview": "large",
       "max-snippet": -1,
     },
   },
