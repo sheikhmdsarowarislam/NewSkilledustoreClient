@@ -14,8 +14,8 @@ function GuidelineItem({ children, highlight, last }: { children: React.ReactNod
   )
 }
 
-export function NoticeBoard() {
-  const [open, setOpen] = useState(true)
+export function NoticeBoard({ hasPurchased }: { hasPurchased: boolean }) {
+  const [open, setOpen] = useState(hasPurchased)
 
   return (
     <div className="mt-2 mb-8 sm:mb-10">

@@ -177,7 +177,7 @@ const hasPurchased = tools.some(tool => tool.paymentStatus === 'paid')
 
         {/* Notice Board */}
 <div className="mb-8 sm:mb-10">
-  <NoticeBoard />
+  <NoticeBoard hasPurchased={hasPurchased}/>
 </div>
 
         {/* CTA when locked */}
