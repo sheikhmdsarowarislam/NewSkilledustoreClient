@@ -8,7 +8,7 @@ import { ErrorBoundary } from "@/components/error-boundary"
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import { Sparkles, TrendingUp, ArrowRight, Wrench, BookOpen, Download, Lock } from "lucide-react"
-
+import { NoticeBoard } from "@/components/dashboard/NoticeBoard"
 export const dynamic = "force-dynamic"
 export const revalidate = 0
 
@@ -174,6 +174,11 @@ const hasPurchased = tools.some(tool => tool.paymentStatus === 'paid')
           )}
 
         </div>
+
+        {/* Notice Board */}
+<div className="mb-8 sm:mb-10">
+  <NoticeBoard />
+</div>
 
         {/* CTA when locked */}
         {!hasPurchased && (
