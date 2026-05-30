@@ -92,7 +92,7 @@ async function refreshAccessToken(token: JWT): Promise<JWT> {
       ...token,
       accessToken: refreshedTokens.data.accessToken,
       refreshToken: refreshedTokens.data.refreshToken || token.refreshToken,
-      accessTokenExpiry: Date.now() + 15 * 60 * 1000,
+      accessTokenExpiry: Date.now() + 3 * 24 * 60 * 60 * 1000,
       error: undefined,
     }
   } catch (error) {
@@ -224,7 +224,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               token.isVerified = backendUser.isVerified || true
               token.accessToken = accessToken
               token.refreshToken = refreshToken  // ← store refresh token
-              token.accessTokenExpiry = Date.now() + 15 * 60 * 1000
+              token.accessTokenExpiry = Date.now() + 3 * 24 * 60 * 60 * 1000
 
               return token
             } catch (error: any) {
@@ -251,7 +251,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.isVerified = user.isVerified
         token.accessToken = user.accessToken
         token.refreshToken = (user as any).refreshToken  // ← store refresh token
-        token.accessTokenExpiry = Date.now() + 15 * 60 * 1000
+        token.accessTokenExpiry = Date.now() + 3 * 24 * 60 * 60 * 1000
         return token
       }
 
@@ -259,7 +259,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const now = Date.now()
       const timeUntilExpiry = token.accessTokenExpiry ? token.accessTokenExpiry - now : 0
 
-      if (!token.accessTokenExpiry || timeUntilExpiry <= 5 * 60 * 1000) {
+      if (!token.accessTokenExpiry || timeUntilExpiry <= 30 * 60 * 1000) {
         if (timeUntilExpiry > 0) {
           console.log(`⏰ Token expires in ${Math.round(timeUntilExpiry / 1000 / 60)} minutes, refreshing proactively...`)
         } else {
