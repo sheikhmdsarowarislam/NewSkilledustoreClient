@@ -28,6 +28,7 @@ declare module "next-auth" {
     avatar?: string
     isVerified: boolean
     accessToken: string
+    refreshToken?: string
   }
 }
 
@@ -259,7 +260,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const now = Date.now()
       const timeUntilExpiry = token.accessTokenExpiry ? token.accessTokenExpiry - now : 0
 
-      if (!token.accessTokenExpiry || timeUntilExpiry <= 30 * 60 * 1000) {
+      if (!token.accessTokenExpiry || timeUntilExpiry <= 5 * 60 * 1000) {
         if (timeUntilExpiry > 0) {
           console.log(`⏰ Token expires in ${Math.round(timeUntilExpiry / 1000 / 60)} minutes, refreshing proactively...`)
         } else {
