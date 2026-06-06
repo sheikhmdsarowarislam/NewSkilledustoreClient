@@ -436,7 +436,7 @@ export default async function HomePage() {
             {/* Left — Image */}
             <div className="w-full lg:w-[420px] flex-shrink-0 rounded-2xl overflow-hidden">
               <img
-                src="https://skilledustore.com/wp-content/uploads/2025/11/udemy-onetime-payment-offer-skilledustore.jpg"
+                src="https://res.cloudinary.com/dit6thzvp/image/upload/q_auto/f_auto/v1780728952/udemy-onetime-payment-offer-skilledustore_yjfoip.jpg"
                 alt="One Time Payment Offer"
                 className="w-full h-auto object-cover"
               />
