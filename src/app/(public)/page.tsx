@@ -359,7 +359,7 @@ export default async function HomePage() {
               {/* Image */}
               <div className="relative z-10">
                 <img
-                  src="https://skilledustore.com/wp-content/uploads/2026/05/heroskill1.png"
+                  src="https://res.cloudinary.com/dit6thzvp/image/upload/q_auto/f_auto/v1780723832/heroskill1_1_ktkdxi.png"
                   alt="SkillEduStore Hero"
                   width={520}
                   height={520}
