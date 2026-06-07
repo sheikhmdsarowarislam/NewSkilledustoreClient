@@ -1,85 +1,128 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronDown, Bell } from "lucide-react"
+import { ChevronDown, BellRing } from "lucide-react"
 
-function GuidelineItem({ children, highlight, last }: { children: React.ReactNode; highlight?: boolean; last?: boolean }) {
+function GuidelineItem({
+  children,
+  variant = "default",
+  last,
+}: {
+  children: React.ReactNode
+  variant?: "default" | "warning" | "danger"
+  last?: boolean
+}) {
+  const dotColor =
+    variant === "warning"
+      ? "bg-amber-400"
+      : variant === "danger"
+      ? "bg-red-400"
+      : "bg-gray-500"
+
+  const textColor =
+    variant === "warning"
+      ? "text-amber-300"
+      : variant === "danger"
+      ? "text-red-400"
+      : "text-gray-300"
+
   return (
-    <div className={`flex items-start gap-3 py-3 ${!last ? "border-b border-gray-800/50" : ""}`}>
-      <span className="text-red-500 mt-0.5 shrink-0 text-xs">{"▶"}</span>
-      <p className={`text-sm leading-relaxed ${highlight ? "text-red-400 font-medium" : "text-gray-300"}`}>
-        {children}
-      </p>
+    <div
+      className={`flex items-start gap-3 py-3 ${
+        !last ? "border-b border-white/[0.06]" : ""
+      }`}
+    >
+      <span
+        className={`mt-[7px] w-1.5 h-1.5 rounded-full shrink-0 ${dotColor}`}
+      />
+      <p className={`text-[13px] leading-relaxed ${textColor}`}>{children}</p>
     </div>
   )
 }
 
-export function NoticeBoard({ hasPurchased }: { hasPurchased: boolean }) {
-  const [open, setOpen] = useState(hasPurchased)
+export function NoticeBoard() {
+  const [open, setOpen] = useState(false)
 
   return (
     <div className="mt-2 mb-8 sm:mb-10">
-      <div className="rounded-2xl border border-red-500/20 bg-gray-900/60 overflow-hidden">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] overflow-hidden">
+        {/* Header */}
         <button
           onClick={() => setOpen(!open)}
-          className="w-full flex items-center justify-between px-5 py-4 hover:bg-gray-800/30 transition-colors duration-200"
+          className="w-full flex items-center justify-between px-4 py-3.5 hover:bg-white/[0.04] transition-colors duration-150"
         >
-          <div className="flex items-center gap-3">
-            <Bell className="w-5 h-5 text-red-400" />
-            <span className="text-sm font-bold text-white">{"Important Guidelines"}</span>
-            <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-red-500/20 text-red-400">
-              {"must watch"}
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0">
+              <BellRing className="w-4 h-4 text-amber-400" />
+            </div>
+            <span className="text-[13px] font-medium text-white">
+              Important guidelines
+            </span>
+            <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              must read
             </span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-gray-600">{open ? "collapse" : "expand"}</span>
-            <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+          <div className="flex items-center gap-1.5">
+            <span className="text-[11px] text-gray-600">
+              {open ? "collapse" : "expand"}
+            </span>
+            <ChevronDown
+              className={`w-3.5 h-3.5 text-gray-500 transition-transform duration-200 ${
+                open ? "rotate-180" : ""
+              }`}
+            />
           </div>
         </button>
 
-        {open && <div className="h-px bg-red-500/20 mx-5" />}
+        {/* Divider */}
+        {open && <div className="h-px bg-white/[0.06] mx-4" />}
 
-        <div className={`transition-all duration-300 overflow-hidden ${open ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"}`}>
-          <div className="px-5 py-4 flex flex-col gap-0">
-
-            <GuidelineItem highlight={true}>
-              {"Our extension has been updated! Please download and install the new version to continue accessing services."}
+        {/* Body */}
+        <div
+          className={`transition-all duration-300 overflow-hidden ${
+            open ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="px-4 pb-3">
+            <GuidelineItem variant="warning">
+              Our extension has been updated! Please download and install the
+              new version to continue accessing services.
             </GuidelineItem>
 
             <GuidelineItem>
-              {"You can log in on any two devices, but "}
-              <strong className="text-red-400 font-semibold">{"you can only access courses on one device at a time."}</strong>
-              {" If your access is "}
-              <strong className="text-red-400 font-semibold">{"Banned"}</strong>
-              {", you will not regain access."}
+              You can log in on any two devices, but{" "}
+              <strong className="text-white font-medium">
+                you can only access courses on one device at a time.
+              </strong>{" "}
+              If your access is{" "}
+              <strong className="text-white font-medium">banned</strong>, you
+              will not regain access.
             </GuidelineItem>
 
-            <GuidelineItem highlight={true}>
-              {"If you share your account with anyone else, your access will be immediately terminated and your account will be permanently banned."}
+            <GuidelineItem variant="danger">
+              If you share your account with anyone else, your access will be
+              immediately terminated and your account will be permanently banned.
             </GuidelineItem>
 
             <GuidelineItem>
-              {"If you have the extension installed, please remove any cookie editor or other cookie-related extensions."}
+              If you have the extension installed, please remove any cookie
+              editor or other cookie-related extensions.
             </GuidelineItem>
 
-            <GuidelineItem>
-              {"Once logged in, simply visit "}
-              <a href="https://gale.udemy.com" target="_blank" rel="noopener noreferrer" className="text-red-400 hover:text-red-300 underline underline-offset-2">
-                {"gale.udemy.com"}
-              </a>
-              {" to access. If logged out, return to the dashboard to log in again."}
+            <GuidelineItem last>
+              Please read our{" "}
+              <a
+                href="/terms"
+                className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+              >
+                Terms &amp; Conditions
+              </a>{" "}
+              carefully. For support, contact{" "}
+              <strong className="text-white font-medium">
+                01311844364 (WhatsApp)
+              </strong>{" "}
+              or send us an inbox message.
             </GuidelineItem>
-
-            <GuidelineItem last={true}>
-              {"Please read our "}
-              <a href="/terms" className="text-red-400 hover:text-red-300 underline underline-offset-2">
-                {"Terms & Conditions"}
-              </a>
-              {" carefully. For support, contact "}
-              <strong className="text-red-400 font-semibold">{"01311844364 (WhatsApp)"}</strong>
-              {" or send us an inbox message."}
-            </GuidelineItem>
-
           </div>
         </div>
       </div>
