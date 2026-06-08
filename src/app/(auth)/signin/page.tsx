@@ -54,8 +54,14 @@ function SignInForm() {
       })
 
       if (result?.error) {
-        setError(result.error)
-      } else if (result?.ok) {
+  const errorMessages: Record<string, string> = {
+    "Configuration": "Invalid email or password. Please try again.",
+    "CredentialsSignin": "Invalid email or password. Please try again.",
+    "AccessDenied": "Access denied. Please contact support.",
+    "Verification": "Verification failed. Please try again.",
+  }
+  setError(errorMessages[result.error] || "Invalid email or password. Please try again.")
+} else if (result?.ok) {
         // Use window.location for a hard redirect to ensure session is loaded
         window.location.href = callbackUrl
       }

@@ -84,7 +84,6 @@ const hasPurchased = tools.some(tool => tool.paymentStatus === 'paid')
             </span>
           )}
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
           {/* Access Tutorial Button */}
