@@ -9,29 +9,24 @@ import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import { Sparkles, TrendingUp, ArrowRight, Wrench, BookOpen, Download, Lock } from "lucide-react"
 import { NoticeBoard } from "@/components/dashboard/NoticeBoard"
-
 export const dynamic = "force-dynamic"
 export const revalidate = 0
 
-const TUTORIAL_LINK = "https://your-tutorial-link.com"
-const EXTENSION_ZIP = "/downloads/extension.zip"
+// ── Replace these with your actual values ─────────────────────────────
+const TUTORIAL_LINK = "https://your-tutorial-link.com"   // ← tutorial URL
+const EXTENSION_ZIP = "/downloads/extension.zip"          // ← zip file path
+// ──────────────────────────────────────────────────────────────────────
 
 export default async function DashboardPage() {
   const session = await auth()
 
-  if (!session?.user)       redirect("/signin")
-  if (session.error)        redirect("/signin?error=SessionError")
-  if (!session.accessToken) redirect("/signin?error=NoAccessToken")
+  if (!session?.user)        redirect("/signin")
+  if (session.error)         redirect("/signin?error=SessionError")
+  if (!session.accessToken)  redirect("/signin?error=NoAccessToken")
 
-  // ✅ নতুন structure: { packages, singles }
-  const toolsData = await getUserToolsServer()
-  const packages: any[] = toolsData?.packages ?? []
-  const singles: any[]  = toolsData?.singles  ?? []
-
-  // ✅ hasPurchased: packages বা singles এ যেকোনো paid/free active item থাকলে
-  const hasPurchased =
-    packages.some((p: any) => p.paymentStatus === "paid" || p.paymentStatus === "free") ||
-    singles.some((s: any)  => s.paymentStatus === "paid" || s.paymentStatus === "free")
+  // Fetch tools to check if user has any active purchase
+  const tools = await getUserToolsServer()
+const hasPurchased = tools.some(tool => tool.paymentStatus === 'paid')
 
   return (
     <div className="w-full max-w-6xl py-6 sm:py-8 lg:py-10">
@@ -181,9 +176,9 @@ export default async function DashboardPage() {
         </div>
 
         {/* Notice Board */}
-        <div className="mt-6">
-          <NoticeBoard />
-        </div>
+<div className="mb-8 sm:mb-10">
+  <NoticeBoard/>
+</div>
 
         {/* CTA when locked */}
         {!hasPurchased && (
@@ -204,8 +199,7 @@ export default async function DashboardPage() {
       {/* Tools Section */}
       <Suspense fallback={<DashboardToolsSkeleton />}>
         <ErrorBoundary>
-          {/* ✅ নতুন structure পাস করছি */}
-          <DashboardToolsWrapper packages={packages} singles={singles} />
+          <DashboardToolsWrapper tools={tools} />
         </ErrorBoundary>
       </Suspense>
 
@@ -247,17 +241,11 @@ export default async function DashboardPage() {
 
 // ── Server Component Wrappers ──────────────────────────────────────────
 
-function DashboardToolsWrapper({
-  packages,
-  singles,
-}: {
-  packages: any[]
-  singles: any[]
-}) {
+// Tools already fetched above — pass as prop to avoid double fetch
+function DashboardToolsWrapper({ tools }: { tools: any[] }) {
   return (
     <div className="mb-8 sm:mb-10">
-      {/* ✅ নতুন props পাস করছি */}
-      <DashboardToolsList packages={packages} singles={singles} />
+      <DashboardToolsList tools={tools} />
     </div>
   )
 }

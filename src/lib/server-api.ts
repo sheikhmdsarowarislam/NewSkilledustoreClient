@@ -630,23 +630,30 @@ export async function getQuizResultsServer(courseId: string): Promise<ChapterIte
 
 
 
-export async function getUserToolsServer(): Promise<{ packages: any[]; singles: any[] }> {
+export async function getUserToolsServer(): Promise<any[]> {
   try {
     const session = await auth()
-    if (!session?.accessToken) return { packages: [], singles: [] }
-
-    const response = await serverRequest<{ data: { packages: any[]; singles: any[] } }>(
+    if (!session?.accessToken) return []
+ 
+    const response = await serverRequest<{ data: any[] }>(
       "/api/v1/enrollment/my-tools",
       { next: { revalidate: 0 } }
     )
-
-    return {
-      packages: response.data?.packages ?? [],
-      singles:  response.data?.singles  ?? [],
-    }
+ 
+    return (response.data || []).map((item: any) => ({
+      _id:           item.tool?._id || item._id,
+      enrollmentId:  item._id,
+      name:          item.tool?.name || "Unknown Tool",
+      thumbnail:     item.tool?.thumbnail,
+      accessLink:    item.tool?.accessLink || "#",
+      price:         item.tool?.price || 0,
+      paymentStatus: item.paymentStatus,
+      validUntil:    item.validUntil || null,
+      amountPaid:    item.amountPaid || 0,
+    }))
   } catch (error) {
     console.error("Failed to fetch user tools:", error)
-    return { packages: [], singles: [] }
+    return []
   }
 }
 
