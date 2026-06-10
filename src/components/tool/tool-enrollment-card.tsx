@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
-import { CheckCircle, Tag, X, CreditCard, MessageSquare } from "lucide-react";
+import { CheckCircle, Tag, X, CreditCard, MessageSquare, Copy, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 // ── API helpers ────────────────────────────────────────────────────────
@@ -148,6 +148,14 @@ export function ToolEnrollmentCard({
   const [transactionId, setTransactionId] = useState("");
   const [txError, setTxError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyNumber = (number: string) => {
+    navigator.clipboard.writeText(number).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   const isAuthenticated = status === "authenticated";
   const accessToken = session?.accessToken as string;
@@ -478,20 +486,26 @@ export function ToolEnrollmentCard({
 
       {/* ── Payment Modal ──────────────────────────────────────────────── */}
       {showPaymentModal && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 backdrop-blur-sm overflow-y-auto">
-          {/* 
-            Mobile: full screen, scrollable, single column
-            Desktop: centered card, max-w-2xl, two columns (left: instructions, right: QR)
-          */}
-          <div className="relative w-full min-h-full md:min-h-0 md:my-8 md:max-w-2xl md:rounded-2xl bg-gray-900 shadow-2xl overflow-hidden">
-
-            {/* ── Modal header ── */}
+        /*
+         * Overlay: full screen, scrollable from top
+         * Mobile  → sheet slides up from bottom, single column, NO QR
+         * Desktop → centered card, max-w-2xl, two columns (left: form, right: QR)
+         */
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/70 backdrop-blur-sm">
+          <div
+            className="
+              relative w-full bg-gray-900 shadow-2xl overflow-hidden
+              rounded-t-2xl max-h-[92vh] overflow-y-auto
+              md:rounded-2xl md:max-w-2xl md:max-h-[90vh]
+            "
+          >
+            {/* ── Sticky header ── */}
             <div className="bg-gradient-to-r from-purple-700 via-pink-600 to-pink-500 px-5 py-4 flex items-center gap-3 sticky top-0 z-10">
               <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
                 <CreditCard className="h-5 w-5 text-white" />
               </div>
               <div className="flex-1 min-w-0">
-                <h2 className="text-lg font-bold text-white leading-tight">কীভাবে এনরোল করবেন?</h2>
+                <h2 className="text-base font-bold text-white leading-tight">কীভাবে এনরোল করবেন?</h2>
                 <p className="text-xs text-white/80">মাত্র ২টি সহজ ধাপ অনুসরণ করুন</p>
               </div>
               <button
@@ -520,38 +534,10 @@ export function ToolEnrollmentCard({
                 </Button>
               </div>
             ) : (
-              /*
-               * Layout:
-               *  Mobile  → single column: QR first (big), then instructions + form
-               *  Desktop → two columns: left=instructions+form, right=QR
-               */
               <div className="flex flex-col md:grid md:grid-cols-2">
 
-                {/* ── QR block — shows ABOVE instructions on mobile, RIGHT on desktop ── */}
-                <div className="flex items-center justify-center p-6 bg-white md:order-2 md:rounded-br-2xl">
-                  <div className="text-center space-y-3 w-full">
-                    <img
-                      src="https://skilledustore.com/wp-content/uploads/2026/05/Qr.jpeg"
-                      alt={`${activeMethod.label} QR Code`}
-                      /* mobile: full width up to 280px; desktop: 224px fixed */
-                      className="w-full max-w-[280px] md:w-56 md:max-w-none aspect-square rounded-xl object-contain mx-auto shadow-md"
-                    />
-                    <p className="text-gray-600 text-sm font-medium">
-                      {activeMethod.label} অ্যাপ দিয়ে QR কোডটি স্ক্যান করুন
-                    </p>
-                    {/* Big bold number under QR */}
-                    <p
-                      className="text-2xl font-extrabold tracking-wide"
-                      style={{ color: activeMethod.color }}
-                    >
-                      {activeMethod.number}
-                    </p>
-                    <p className="text-gray-500 text-xs">({activeMethod.type})</p>
-                  </div>
-                </div>
-
-                {/* ── Instructions + form — LEFT on desktop, BELOW QR on mobile ── */}
-                <div className="p-5 space-y-4 md:order-1">
+                {/* ══ LEFT / MAIN column — form + instructions (both mobile & desktop) ══ */}
+                <div className="p-5 space-y-4">
 
                   {/* Payment method tabs */}
                   <div className="flex rounded-xl overflow-hidden border border-gray-700 bg-gray-800/40">
@@ -562,11 +548,10 @@ export function ToolEnrollmentCard({
                           setActiveTab(method.id);
                           setTransactionId("");
                           setTxError("");
+                          setCopied(false);
                         }}
                         className={`flex-1 py-2.5 text-sm font-bold transition-all ${
-                          activeTab === method.id
-                            ? "text-white"
-                            : "text-gray-500 hover:text-gray-300"
+                          activeTab === method.id ? "text-white" : "text-gray-500 hover:text-gray-300"
                         }`}
                         style={activeTab === method.id ? { background: method.color } : {}}
                       >
@@ -575,28 +560,49 @@ export function ToolEnrollmentCard({
                     ))}
                   </div>
 
-                  {/* Send-to number — big & clear */}
+                  {/* ── Number box with COPY button ── */}
                   <div
                     className="p-4 rounded-xl border-2"
-                    style={{ borderColor: activeMethod.color, background: `${activeMethod.color}12` }}
+                    style={{ borderColor: activeMethod.color, background: `${activeMethod.color}15` }}
                   >
-                    <p className="text-gray-300 text-sm mb-1">
+                    <p className="text-gray-300 text-sm mb-2">
                       টুলের ফি{" "}
                       <span className="font-bold" style={{ color: activeMethod.color }}>
                         {activeMethod.label}
                       </span>{" "}
                       একাউন্টে পাঠান:
                     </p>
-                    {/* ↓ BIG number, impossible to miss */}
-                    <p
-                      className="text-3xl font-extrabold tracking-widest leading-tight"
-                      style={{ color: activeMethod.color }}
-                    >
-                      {activeMethod.number}
-                    </p>
-                    <p className="text-gray-400 text-xs mt-0.5">
-                      {activeMethod.type} নম্বর
-                    </p>
+                    {/* Number row: big number + copy button side by side */}
+                    <div className="flex items-center gap-3">
+                      <p
+                        className="text-2xl sm:text-3xl font-extrabold tracking-widest leading-tight flex-1"
+                        style={{ color: activeMethod.color }}
+                      >
+                        {activeMethod.number}
+                      </p>
+                      <button
+                        onClick={() => handleCopyNumber(activeMethod.number)}
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all flex-shrink-0"
+                        style={
+                          copied
+                            ? { background: "#16a34a22", color: "#4ade80", border: "1px solid #16a34a55" }
+                            : { background: `${activeMethod.color}22`, color: activeMethod.color, border: `1px solid ${activeMethod.color}55` }
+                        }
+                      >
+                        {copied ? (
+                          <>
+                            <Check className="h-3.5 w-3.5" />
+                            কপি হয়েছে
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="h-3.5 w-3.5" />
+                            কপি করুন
+                          </>
+                        )}
+                      </button>
+                    </div>
+                    <p className="text-gray-400 text-xs mt-1">{activeMethod.type} নম্বর</p>
                   </div>
 
                   {/* Steps */}
@@ -622,8 +628,8 @@ export function ToolEnrollmentCard({
                         2
                       </span>
                       <p>
-                        আপনার এনরোল রিকোয়েস্ট সফল হলে, ১০–১৫ মিনিটের মধ্যে
-                        টুলটি ড্যাশবোর্ডে একটিভ হয়ে যাবে।
+                        এনরোল রিকোয়েস্ট সফল হলে, ১০–১৫ মিনিটের মধ্যে টুলটি
+                        ড্যাশবোর্ডে একটিভ হয়ে যাবে।
                       </p>
                     </div>
                   </div>
@@ -649,9 +655,7 @@ export function ToolEnrollmentCard({
                     পরিশোধযোগ্য পরিমাণ:{" "}
                     <span className="text-white font-bold text-lg">৳{finalPrice}</span>
                     {selectedVariation && (
-                      <span className="text-gray-500 text-xs ml-2">
-                        ({selectedVariation.label})
-                      </span>
+                      <span className="text-gray-500 text-xs ml-2">({selectedVariation.label})</span>
                     )}
                   </div>
 
@@ -663,10 +667,7 @@ export function ToolEnrollmentCard({
                     <Input
                       placeholder="Enter Transaction ID"
                       value={transactionId}
-                      onChange={(e) => {
-                        setTransactionId(e.target.value);
-                        setTxError("");
-                      }}
+                      onChange={(e) => { setTransactionId(e.target.value); setTxError(""); }}
                       className="bg-gray-800/60 border-gray-700 text-white placeholder:text-gray-500"
                       disabled={isEnrolling}
                     />
@@ -674,7 +675,7 @@ export function ToolEnrollmentCard({
                   </div>
 
                   {/* Action buttons */}
-                  <div className="flex gap-3 pt-1 pb-2">
+                  <div className="flex gap-3 pb-2">
                     <Button
                       variant="outline"
                       className="flex-1 border-gray-700 text-gray-300 hover:bg-gray-800"
@@ -685,9 +686,7 @@ export function ToolEnrollmentCard({
                     </Button>
                     <Button
                       className="flex-1 text-white border-0"
-                      style={{
-                        background: `linear-gradient(to right, ${activeMethod.color}, #9333ea)`,
-                      }}
+                      style={{ background: `linear-gradient(to right, ${activeMethod.color}, #9333ea)` }}
                       onClick={handlePaymentSubmit}
                       disabled={isEnrolling || !transactionId.trim()}
                     >
@@ -695,7 +694,25 @@ export function ToolEnrollmentCard({
                     </Button>
                   </div>
                 </div>
-                {/* end left column */}
+
+                {/* ══ RIGHT column — QR (desktop only, hidden on mobile) ══ */}
+                <div className="hidden md:flex items-center justify-center p-6 bg-white rounded-br-2xl">
+                  <div className="text-center space-y-3 w-full">
+                    <img
+                      src="https://skilledustore.com/wp-content/uploads/2026/05/Qr.jpeg"
+                      alt={`${activeMethod.label} QR Code`}
+                      className="w-56 aspect-square rounded-xl object-contain mx-auto shadow-md"
+                    />
+                    <p className="text-gray-600 text-sm font-medium">
+                      {activeMethod.label} অ্যাপ দিয়ে QR কোড স্ক্যান করুন
+                    </p>
+                    <p className="text-2xl font-extrabold tracking-wide" style={{ color: activeMethod.color }}>
+                      {activeMethod.number}
+                    </p>
+                    <p className="text-gray-500 text-xs">({activeMethod.type})</p>
+                  </div>
+                </div>
+
               </div>
             )}
           </div>
