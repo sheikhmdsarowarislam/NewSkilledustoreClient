@@ -209,12 +209,9 @@ export function ToolEnrollmentCard({
   };
 
   // ── Main enroll handler ──────────────────────────────────────────────
-  // NOTE: Expired/previously enrolled users can re-enroll freely.
-  // We only block if status is "pending" (awaiting review).
   const handleEnroll = async () => {
     if (isEnrolling) return;
 
-    // If active paid enrollment → go to dashboard
     if (isEnrolled && enrollmentStatus === "paid") {
       router.push("/dashboard");
       return;
@@ -250,7 +247,6 @@ export function ToolEnrollmentCard({
       return;
     }
 
-    // Open payment modal (for new, expired, or rejected users)
     setShowPaymentModal(true);
   };
 
@@ -293,7 +289,6 @@ export function ToolEnrollmentCard({
     if (isEnrolled && enrollmentStatus === "paid") return "Go to Dashboard";
     if (isEnrolled && enrollmentStatus === "pending")
       return "Payment Pending...";
-    // expired / rejected / never enrolled → allow purchase / renew
     if (isEnrolled && enrollmentStatus === "rejected")
       return "Renew / Re-enroll";
     if (isEnrolled) return "Renew Access";
@@ -459,7 +454,6 @@ export function ToolEnrollmentCard({
               isEnrolling ||
               isCheckingEnrollment ||
               enrollmentStatus === "pending"
-              // NOTE: "rejected" and expired users are NOT disabled — they can re-enroll
             }
           >
             {buttonLabel()}
@@ -484,56 +478,82 @@ export function ToolEnrollmentCard({
 
       {/* ── Payment Modal ──────────────────────────────────────────────── */}
       {showPaymentModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="relative w-full max-w-2xl bg-gray-900 rounded-2xl shadow-2xl overflow-hidden">
-            {/* Modal header */}
-            <div className="bg-gradient-to-r from-purple-700 via-pink-600 to-pink-500 px-6 py-5 flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 backdrop-blur-sm overflow-y-auto">
+          {/* 
+            Mobile: full screen, scrollable, single column
+            Desktop: centered card, max-w-2xl, two columns (left: instructions, right: QR)
+          */}
+          <div className="relative w-full min-h-full md:min-h-0 md:my-8 md:max-w-2xl md:rounded-2xl bg-gray-900 shadow-2xl overflow-hidden">
+
+            {/* ── Modal header ── */}
+            <div className="bg-gradient-to-r from-purple-700 via-pink-600 to-pink-500 px-5 py-4 flex items-center gap-3 sticky top-0 z-10">
+              <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
                 <CreditCard className="h-5 w-5 text-white" />
               </div>
-              <div>
-                <h2 className="text-xl font-bold text-white">
-                  কীভাবে এনরোল করবেন?
-                </h2>
-                <p className="text-sm text-white/80">
-                  Complete your enrollment in 2 simple steps
-                </p>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-lg font-bold text-white leading-tight">কীভাবে এনরোল করবেন?</h2>
+                <p className="text-xs text-white/80">মাত্র ২টি সহজ ধাপ অনুসরণ করুন</p>
               </div>
               <button
                 onClick={closeModal}
-                className="ml-auto w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition"
+                className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition flex-shrink-0"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
 
+            {/* ── Success screen ── */}
             {submitSuccess ? (
               <div className="p-8 text-center space-y-4">
                 <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto">
                   <CheckCircle className="h-8 w-8 text-green-400" />
                 </div>
-                <h3 className="text-xl font-bold text-white">
-                  পেমেন্ট সাবমিট হয়েছে!
-                </h3>
+                <h3 className="text-xl font-bold text-white">পেমেন্ট সাবমিট হয়েছে!</h3>
                 <p className="text-gray-400 text-sm">
-                  আপনার এনরোল রিকোয়েস্ট সফল হলে, ১০–১৫ মিনিটের মধ্যে টুলটি
-                  ড্যাশবোর্ডে একটিভ হয়ে যাবে।
+                  আপনার এনরোল রিকোয়েস্ট সফল হলে, ১০–১৫ মিনিটের মধ্যে টুলটি ড্যাশবোর্ডে একটিভ হয়ে যাবে।
                 </p>
                 <Button
                   className="bg-gradient-to-r from-purple-600 to-pink-600 text-white"
-                  onClick={() => {
-                    closeModal();
-                    router.push("/dashboard");
-                  }}
+                  onClick={() => { closeModal(); router.push("/dashboard"); }}
                 >
                   ড্যাশবোর্ডে যান
                 </Button>
               </div>
             ) : (
-              <div className="grid md:grid-cols-2 gap-0">
-                {/* Left: Instructions */}
-                <div className="p-6 space-y-4">
-                  {/* ── Payment method tabs ── */}
+              /*
+               * Layout:
+               *  Mobile  → single column: QR first (big), then instructions + form
+               *  Desktop → two columns: left=instructions+form, right=QR
+               */
+              <div className="flex flex-col md:grid md:grid-cols-2">
+
+                {/* ── QR block — shows ABOVE instructions on mobile, RIGHT on desktop ── */}
+                <div className="flex items-center justify-center p-6 bg-white md:order-2 md:rounded-br-2xl">
+                  <div className="text-center space-y-3 w-full">
+                    <img
+                      src="https://skilledustore.com/wp-content/uploads/2026/05/Qr.jpeg"
+                      alt={`${activeMethod.label} QR Code`}
+                      /* mobile: full width up to 280px; desktop: 224px fixed */
+                      className="w-full max-w-[280px] md:w-56 md:max-w-none aspect-square rounded-xl object-contain mx-auto shadow-md"
+                    />
+                    <p className="text-gray-600 text-sm font-medium">
+                      {activeMethod.label} অ্যাপ দিয়ে QR কোডটি স্ক্যান করুন
+                    </p>
+                    {/* Big bold number under QR */}
+                    <p
+                      className="text-2xl font-extrabold tracking-wide"
+                      style={{ color: activeMethod.color }}
+                    >
+                      {activeMethod.number}
+                    </p>
+                    <p className="text-gray-500 text-xs">({activeMethod.type})</p>
+                  </div>
+                </div>
+
+                {/* ── Instructions + form — LEFT on desktop, BELOW QR on mobile ── */}
+                <div className="p-5 space-y-4 md:order-1">
+
+                  {/* Payment method tabs */}
                   <div className="flex rounded-xl overflow-hidden border border-gray-700 bg-gray-800/40">
                     {PAYMENT_METHODS.map((method) => (
                       <button
@@ -543,45 +563,43 @@ export function ToolEnrollmentCard({
                           setTransactionId("");
                           setTxError("");
                         }}
-                        className={`flex-1 py-2 text-sm font-semibold transition-all ${
+                        className={`flex-1 py-2.5 text-sm font-bold transition-all ${
                           activeTab === method.id
                             ? "text-white"
                             : "text-gray-500 hover:text-gray-300"
                         }`}
-                        style={
-                          activeTab === method.id
-                            ? { background: method.color }
-                            : {}
-                        }
+                        style={activeTab === method.id ? { background: method.color } : {}}
                       >
                         {method.label}
                       </button>
                     ))}
-                    {/* Binance tab — hidden for now, uncomment when ready */}
-                    {/* <button className="flex-1 py-2 text-sm font-semibold text-gray-600 cursor-not-allowed" disabled>
-                      Binance
-                    </button> */}
                   </div>
 
-                  {/* Send to number */}
-                  <div className="p-3 bg-gray-800/60 rounded-xl text-sm text-gray-300">
-                    টুলের ফি{" "}
-                    <span
-                      className="font-bold"
-                      style={{ color: activeMethod.color }}
-                    >
-                      {activeMethod.label}
-                    </span>{" "}
-                    একাউন্টে পাঠান:{" "}
-                    <span
-                      className="font-bold"
+                  {/* Send-to number — big & clear */}
+                  <div
+                    className="p-4 rounded-xl border-2"
+                    style={{ borderColor: activeMethod.color, background: `${activeMethod.color}12` }}
+                  >
+                    <p className="text-gray-300 text-sm mb-1">
+                      টুলের ফি{" "}
+                      <span className="font-bold" style={{ color: activeMethod.color }}>
+                        {activeMethod.label}
+                      </span>{" "}
+                      একাউন্টে পাঠান:
+                    </p>
+                    {/* ↓ BIG number, impossible to miss */}
+                    <p
+                      className="text-3xl font-extrabold tracking-widest leading-tight"
                       style={{ color: activeMethod.color }}
                     >
                       {activeMethod.number}
-                    </span>{" "}
-                    <span className="text-gray-500">({activeMethod.type})</span>
+                    </p>
+                    <p className="text-gray-400 text-xs mt-0.5">
+                      {activeMethod.type} নম্বর
+                    </p>
                   </div>
 
+                  {/* Steps */}
                   <div className="p-4 bg-gray-800/40 rounded-xl space-y-3 text-sm text-gray-300">
                     <div className="flex gap-3">
                       <span
@@ -610,26 +628,26 @@ export function ToolEnrollmentCard({
                     </div>
                   </div>
 
-                  <div className="p-4 bg-gray-800/40 rounded-xl text-sm space-y-1">
-                    <div className="flex items-center gap-2 text-gray-300 font-medium mb-2">
+                  {/* Support */}
+                  <div className="p-3 bg-gray-800/40 rounded-xl text-sm space-y-1.5">
+                    <div className="flex items-center gap-2 text-gray-300 font-medium">
                       <MessageSquare className="h-4 w-4 text-pink-400" />
                       সহায়তার জন্য যোগাযোগ করুন:
                     </div>
                     <p className="text-gray-400">
                       Facebook:{" "}
-                      <span className="text-pink-400">@SkillEduStore</span>
+                      <span className="text-pink-400 font-semibold">@SkillEduStore</span>
                     </p>
                     <p className="text-gray-400">
                       WhatsApp:{" "}
-                      <span className="text-pink-400">+8801311844364</span>
+                      <span className="text-pink-400 font-semibold">+8801311844364</span>
                     </p>
                   </div>
 
+                  {/* Amount */}
                   <div className="text-sm text-gray-400">
                     পরিশোধযোগ্য পরিমাণ:{" "}
-                    <span className="text-white font-bold text-base">
-                      ৳{finalPrice}
-                    </span>
+                    <span className="text-white font-bold text-lg">৳{finalPrice}</span>
                     {selectedVariation && (
                       <span className="text-gray-500 text-xs ml-2">
                         ({selectedVariation.label})
@@ -637,6 +655,7 @@ export function ToolEnrollmentCard({
                     )}
                   </div>
 
+                  {/* Transaction ID input */}
                   <div className="space-y-2">
                     <label className="text-sm text-gray-300 font-medium">
                       Transaction ID / Mobile Number
@@ -649,15 +668,13 @@ export function ToolEnrollmentCard({
                         setTxError("");
                       }}
                       className="bg-gray-800/60 border-gray-700 text-white placeholder:text-gray-500"
-                      style={{ ["--tw-ring-color" as any]: activeMethod.color }}
                       disabled={isEnrolling}
                     />
-                    {txError && (
-                      <p className="text-sm text-red-400">{txError}</p>
-                    )}
+                    {txError && <p className="text-sm text-red-400">{txError}</p>}
                   </div>
 
-                  <div className="flex gap-3 pt-1">
+                  {/* Action buttons */}
+                  <div className="flex gap-3 pt-1 pb-2">
                     <Button
                       variant="outline"
                       className="flex-1 border-gray-700 text-gray-300 hover:bg-gray-800"
@@ -678,27 +695,7 @@ export function ToolEnrollmentCard({
                     </Button>
                   </div>
                 </div>
-
-                {/* Right: QR */}
-                <div className="hidden md:flex items-center justify-center p-6 bg-white rounded-r-2xl">
-                  <div className="text-center space-y-3">
-                    <img
-                      src="https://skilledustore.com/wp-content/uploads/2026/05/Qr.jpeg"
-                      alt={`${activeMethod.label} QR Code`}
-                      className="w-56 h-56 rounded-xl object-contain mx-auto"
-                    />
-                    <p className="text-gray-600 text-sm font-medium">
-                      সেন্ড মানি করতে {activeMethod.label} অ্যাপ দিয়ে QR কোডটি
-                      স্ক্যান করুন
-                    </p>
-                    <p
-                      className="text-gray-800 font-bold"
-                      style={{ color: activeMethod.color }}
-                    >
-                      {activeMethod.number}
-                    </p>
-                  </div>
-                </div>
+                {/* end left column */}
               </div>
             )}
           </div>
