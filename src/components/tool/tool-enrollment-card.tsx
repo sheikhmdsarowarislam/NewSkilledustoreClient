@@ -491,12 +491,12 @@ export function ToolEnrollmentCard({
          * Mobile  → sheet slides up from bottom, single column, NO QR
          * Desktop → centered card, max-w-2xl, two columns (left: form, right: QR)
          */
-        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 md:p-6">
           <div
             className="
               relative w-full bg-gray-900 shadow-2xl overflow-hidden
-              rounded-t-2xl max-h-[92vh] overflow-y-auto
-              md:rounded-2xl md:max-w-2xl md:max-h-[90vh]
+              rounded-2xl max-h-[88vh] overflow-y-auto
+              md:max-w-2xl
             "
           >
             {/* ── Sticky header ── */}
@@ -572,17 +572,18 @@ export function ToolEnrollmentCard({
                       </span>{" "}
                       একাউন্টে পাঠান:
                     </p>
-                    {/* Number row: big number + copy button side by side */}
-                    <div className="flex items-center gap-3">
-                      <p
-                        className="text-2xl sm:text-3xl font-extrabold tracking-widest leading-tight flex-1"
-                        style={{ color: activeMethod.color }}
-                      >
-                        {activeMethod.number}
-                      </p>
+                    {/* Number */}
+                    <p
+                      className="text-2xl sm:text-3xl font-extrabold tracking-widest leading-tight"
+                      style={{ color: activeMethod.color }}
+                    >
+                      {activeMethod.number}
+                    </p>
+                    {/* Copy button — on mobile: inline next to number via flex row wrapper; on desktop: block below */}
+                    <div className="mt-2">
                       <button
                         onClick={() => handleCopyNumber(activeMethod.number)}
-                        className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all flex-shrink-0"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
                         style={
                           copied
                             ? { background: "#16a34a22", color: "#4ade80", border: "1px solid #16a34a55" }
