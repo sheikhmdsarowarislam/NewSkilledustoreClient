@@ -486,14 +486,13 @@ export function ToolEnrollmentCard({
 
       {/* ── Payment Modal ──────────────────────────────────────────────── */}
       {showPaymentModal && (
-        /*
-         * Overlay: full screen, scrollable from top
-         * Mobile  → sheet slides up from bottom, single column, NO QR
-         * Desktop → centered card, max-w-2xl, two columns (left: form, right: QR)
-         */
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm overflow-y-auto py-6 px-4 md:px-6">
+        <div
+          className="fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm overflow-y-auto"
+          onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
+        >
+          <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
           <div
-            className="relative w-full bg-gray-900 shadow-2xl overflow-hidden rounded-2xl my-auto md:max-w-3xl"
+            className="relative w-full bg-gray-900 shadow-2xl overflow-hidden rounded-2xl md:max-w-3xl"
           >
             {/* ── Sticky header ── */}
             <div className="bg-gradient-to-r from-purple-700 via-pink-600 to-pink-500 px-5 py-4 flex items-center gap-3 sticky top-0 z-10">
@@ -712,6 +711,7 @@ export function ToolEnrollmentCard({
 
               </div>
             )}
+          </div>
           </div>
         </div>
       )}
