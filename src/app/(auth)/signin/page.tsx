@@ -162,10 +162,19 @@ function SignInForm() {
               )}
               
               {urlError && !error && (
-                <Alert variant="warning" title="Authentication Error">
-                  {urlError}
-                </Alert>
-              )}
+  <Alert variant="warning" title={
+    urlError === "session_expired" ? "Session Expired" :
+    urlError === "SessionError" ? "Session Error" :
+    urlError === "NoAccessToken" ? "Authentication Failed" :
+    "Authentication Error"
+  }>
+    {urlError === "session_expired" || urlError === "SessionError"
+      ? "Your session has expired. Please sign in again to continue."
+      : urlError === "NoAccessToken"
+      ? "Authentication failed. Please sign in again."
+      : "Please sign in to continue."}
+  </Alert>
+)}
               
               {error && (
                 <Alert variant="error">

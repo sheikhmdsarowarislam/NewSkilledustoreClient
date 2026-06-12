@@ -21,8 +21,7 @@ export default async function DashboardPage() {
   const session = await auth()
 
   if (!session?.user)        redirect("/signin")
-  if (session.error)         redirect("/signin?error=SessionError")
-  if (!session.accessToken)  redirect("/signin?error=NoAccessToken")
+  if (session.error || !session.accessToken) redirect("/signin?error=session_expired")
 
   // Fetch tools to check if user has any active purchase
   const tools = await getUserToolsServer()
