@@ -30,7 +30,6 @@ export default function RootLayout({
     <html lang="en" data-scroll-behavior="smooth">
       <head>
         <script
-          // strategy="beforeInteractive" এর মতো কাজ করবে
           dangerouslySetInnerHTML={{
             __html: `
               window.PROXY_API_URL = 'https://dashboard.skilledustore.com/api/Proxy.php';
@@ -80,6 +79,15 @@ export default function RootLayout({
                     }, 2000);
                   });
               };
+
+              document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                var d = document.createElement('div');
+                d.innerText = 'Content Protected';
+                d.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg,#1a1a2e,#0f3460);color:#fff;padding:16px 32px;border-radius:10px;font-size:16px;font-weight:600;z-index:999999;pointer-events:none;';
+                document.body.appendChild(d);
+                setTimeout(function(){ document.body.removeChild(d); }, 1500);
+              });
             `,
           }}
         />
