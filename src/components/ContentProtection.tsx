@@ -5,31 +5,46 @@ import { useEffect, useState } from 'react';
 export default function ContentProtection({ children }: { children: React.ReactNode }) {
   const [showAlert, setShowAlert] = useState(false);
 
+  const trigger = () => {
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 2500);
+  };
+
   useEffect(() => {
-    // Right click disable
     const handleContextMenu = (e: MouseEvent) => {
       e.preventDefault();
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 2500);
+      trigger();
     };
 
-    // Keyboard shortcuts disable (Ctrl+U, Ctrl+S, Ctrl+Shift+I, F12)
     const handleKeyDown = (e: KeyboardEvent) => {
+      const ctrl = e.ctrlKey || e.metaKey; // Windows/Linux = Ctrl, Mac = Cmd
+
       if (
+        // DevTools
         e.key === 'F12' ||
-        (e.ctrlKey && e.key === 'u') ||
-        (e.ctrlKey && e.key === 's') ||
-        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-        (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-        (e.ctrlKey && e.shiftKey && e.key === 'C')
+        (ctrl && e.shiftKey && ['i', 'I', 'j', 'J', 'c', 'C'].includes(e.key)) ||
+        // View Source
+        (ctrl && ['u', 'U'].includes(e.key)) ||
+        // Save
+        (ctrl && ['s', 'S'].includes(e.key)) ||
+        // Print
+        (ctrl && ['p', 'P'].includes(e.key)) ||
+        // Find (source reveal)
+        (ctrl && ['f', 'F'].includes(e.key)) ||
+        // Select All
+        (ctrl && ['a', 'A'].includes(e.key)) ||
+        // Copy / Cut
+        (ctrl && ['c', 'C', 'x', 'X'].includes(e.key)) ||
+        // Linux DevTools
+        (e.ctrlKey && e.shiftKey && e.key === 'Delete') ||
+        // Mac specific
+        (e.metaKey && e.altKey && ['i', 'I', 'j', 'J', 'c', 'C', 'u', 'U'].includes(e.key))
       ) {
         e.preventDefault();
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 2500);
+        trigger();
       }
     };
 
-    // Text selection disable
     document.body.style.userSelect = 'none';
     document.addEventListener('contextmenu', handleContextMenu);
     document.addEventListener('keydown', handleKeyDown);
@@ -45,7 +60,6 @@ export default function ContentProtection({ children }: { children: React.ReactN
     <>
       {children}
 
-      {/* Content Protected Popup */}
       {showAlert && (
         <div
           style={{
