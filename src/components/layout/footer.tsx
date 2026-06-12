@@ -163,21 +163,33 @@ export function Footer() {
         {/* Bottom Bar */}
         {/* Bottom Bar */}
         <div className="border-t border-gray-800/50 pt-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-gray-500 text-center sm:text-left">
-              © {currentYear} SkilleduStore. All Rights Reserved
-            </p>
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="inline-flex items-center gap-2 bg-gray-800/80 hover:bg-gray-700/80 border border-gray-700/50 hover:border-purple-500/40 text-gray-300 hover:text-white text-sm font-medium px-5 py-2.5 rounded-full transition-all duration-300 group"
-            >
-              <span className="text-base group-hover:-translate-y-0.5 transition-transform duration-300">
-                🚀
-              </span>
-              Back to Top
-            </button>
-          </div>
-        </div>
+  <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p className="text-sm text-gray-500 text-center sm:text-left">
+      © {currentYear} SkilleduStore. All Rights Reserved
+    </p>
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      className="inline-flex items-center gap-2 bg-gray-800/80 hover:bg-gray-700/80 border border-gray-700/50 hover:border-purple-500/40 text-gray-300 hover:text-white text-sm font-medium px-5 py-2.5 rounded-full transition-all duration-300 group"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="group-hover:-translate-y-0.5 transition-transform duration-300"
+      >
+        <path d="M12 19V5" />
+        <path d="M5 12l7-7 7 7" />
+      </svg>
+      Back to Top
+    </button>
+  </div>
+</div>
       </div>
     </footer>
   );

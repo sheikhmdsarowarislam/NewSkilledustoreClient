@@ -11,33 +11,26 @@ export default function ContentProtection({ children }: { children: React.ReactN
   };
 
   useEffect(() => {
+    // Right click block
     const handleContextMenu = (e: MouseEvent) => {
       e.preventDefault();
       trigger();
     };
 
+    // Keyboard shortcuts block
     const handleKeyDown = (e: KeyboardEvent) => {
-      const ctrl = e.ctrlKey || e.metaKey; // Windows/Linux = Ctrl, Mac = Cmd
+      const ctrl = e.ctrlKey || e.metaKey;
 
       if (
-        // DevTools
         e.key === 'F12' ||
         (ctrl && e.shiftKey && ['i', 'I', 'j', 'J', 'c', 'C'].includes(e.key)) ||
-        // View Source
         (ctrl && ['u', 'U'].includes(e.key)) ||
-        // Save
         (ctrl && ['s', 'S'].includes(e.key)) ||
-        // Print
         (ctrl && ['p', 'P'].includes(e.key)) ||
-        // Find (source reveal)
         (ctrl && ['f', 'F'].includes(e.key)) ||
-        // Select All
         (ctrl && ['a', 'A'].includes(e.key)) ||
-        // Copy / Cut
         (ctrl && ['c', 'C', 'x', 'X'].includes(e.key)) ||
-        // Linux DevTools
         (e.ctrlKey && e.shiftKey && e.key === 'Delete') ||
-        // Mac specific
         (e.metaKey && e.altKey && ['i', 'I', 'j', 'J', 'c', 'C', 'u', 'U'].includes(e.key))
       ) {
         e.preventDefault();
@@ -45,14 +38,41 @@ export default function ContentProtection({ children }: { children: React.ReactN
       }
     };
 
+    // DevTools open detection — window size vs screen size compare
+    const detectDevTools = () => {
+      const threshold = 160;
+      const widthDiff = window.outerWidth - window.innerWidth;
+      const heightDiff = window.outerHeight - window.innerHeight;
+
+      if (widthDiff > threshold || heightDiff > threshold) {
+        trigger();
+        // DevTools খোলা থাকলে page blank করে দাও
+        document.body.style.display = 'none';
+      } else {
+        document.body.style.display = '';
+      }
+    };
+
+    // প্রতি ১ সেকেন্ডে check করবে
+    const devToolsInterval = setInterval(detectDevTools, 1000);
+
+    // debugger trap — DevTools console খুললে freeze করবে
+    const debuggerTrap = setInterval(() => {
+      // eslint-disable-next-line no-debugger
+      (function() { /* @cc_on return; */ const start = +new Date(); debugger; const end = +new Date(); if (end - start > 100) { document.body.style.display = 'none'; } })();
+    }, 3000);
+
     document.body.style.userSelect = 'none';
     document.addEventListener('contextmenu', handleContextMenu);
     document.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.body.style.userSelect = '';
+      document.body.style.display = '';
       document.removeEventListener('contextmenu', handleContextMenu);
       document.removeEventListener('keydown', handleKeyDown);
+      clearInterval(devToolsInterval);
+      clearInterval(debuggerTrap);
     };
   }, []);
 
@@ -98,23 +118,10 @@ export default function ContentProtection({ children }: { children: React.ReactN
             >
               🔒
             </div>
-            <h2
-              style={{
-                color: '#ffffff',
-                fontSize: '22px',
-                fontWeight: 600,
-                margin: '0 0 8px',
-              }}
-            >
+            <h2 style={{ color: '#ffffff', fontSize: '22px', fontWeight: 600, margin: '0 0 8px' }}>
               Content Protected
             </h2>
-            <p
-              style={{
-                color: 'rgba(255,255,255,0.65)',
-                fontSize: '14px',
-                margin: 0,
-              }}
-            >
+            <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '14px', margin: 0 }}>
               এই content copy বা download করার অনুমতি নেই।
             </p>
           </div>
