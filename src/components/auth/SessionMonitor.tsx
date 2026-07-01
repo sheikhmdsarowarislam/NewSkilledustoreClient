@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useCallback } from "react"
+import { useEffect, useCallback, useRef } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter, usePathname } from "next/navigation"
 
@@ -8,6 +8,7 @@ export function SessionMonitor() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const pathname = usePathname()
+  const errorCountRef = useRef(0)
 
   const isProtectedRoute = useCallback(() => {
     const protectedPaths = [
@@ -17,7 +18,7 @@ export function SessionMonitor() {
       '/admin',
       '/courses/.+/learn',
     ]
-    
+
     return protectedPaths.some(path => {
       if (path.includes('/.+/')) {
         const regex = new RegExp(`^${path.replace('/.+/', '/[^/]+/')}`)
@@ -28,25 +29,25 @@ export function SessionMonitor() {
   }, [pathname])
 
   useEffect(() => {
-    if (status !== "authenticated" || !session || !isProtectedRoute()) {
+    if (status !== "authenticated" || !session) {
+      errorCountRef.current = 0
       return
     }
 
-    const intervalId = setInterval(() => {
-      if (session.error || !session.accessToken) {
-        router.push("/signin?error=session_expired")
-        return
-      }
-    }, 5 * 60 * 1000)
+    if (!isProtectedRoute()) {
+      errorCountRef.current = 0
+      return
+    }
 
-    return () => clearInterval(intervalId)
-  }, [session, status, router, pathname, isProtectedRoute])
+    if (session.error || !session.accessToken) {
+      errorCountRef.current += 1
 
-  useEffect(() => {
-    if (status === "authenticated" && session && isProtectedRoute()) {
-      if (session.error || !session.accessToken) {
+      // একবার glitch এ redirect না করে, পরপর ৩ বার confirm হলেই redirect
+      if (errorCountRef.current >= 3) {
         router.push("/signin?error=session_expired")
       }
+    } else {
+      errorCountRef.current = 0
     }
   }, [session, status, router, pathname, isProtectedRoute])
 
