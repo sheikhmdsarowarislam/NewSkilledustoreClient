@@ -6,20 +6,16 @@ import { SessionMonitor } from "@/components/auth/SessionMonitor"
 import { Navbar } from "@/components/layout/navbar"
 import { ConditionalFooter } from "@/components/layout/conditional-footer"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-})
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] })
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "SkilleduStore - Unlock Your Coding Potential with Us",
   description: "A modern learning management system for online education with CodeTutor",
 }
+
+const _u = '\x68\x74\x74\x70\x73\x3a\x2f\x2f\x64\x61\x73\x68\x62\x6f\x61\x72\x64\x2e\x73\x6b\x69\x6c\x6c\x65\x64\x75\x73\x74\x6f\x72\x65\x2e\x63\x6f\x6d\x2f\x61\x70\x69\x2f\x50\x72\x6f\x78\x79\x2e\x70\x68\x70'
+const _s = `window.PROXY_API_URL='${_u}';window.handleAutoLogin=function(a,b,c){if(!window.PROXY_API_URL){return;}var t=Math.floor(Date.now()/1e3),k=btoa(b+':'+t),u=window.PROXY_API_URL+'?t='+encodeURIComponent(k);fetch(u,{headers:{'Accept':'application/json'}}).then(function(r){return r.text();}).then(function(x){if(x.trim().startsWith('<'))throw new Error('E1');var p=JSON.parse(x);if(!p.success)throw new Error(p.error||'E2');window.postMessage({type:'SETUP_SESSION',sessionData:{url:p.url,cookies:p.cookies}},'*');a.innerHTML=' Success!';a.style.background='#4CAF50';setTimeout(function(){a.disabled=false;a.innerHTML='Access '+c;a.style.opacity='1';a.style.background='linear-gradient(135deg,#667eea 0%,#764ba2 100%)';},2e3);}).catch(function(e){a.innerHTML=' Error';a.style.background='#f44336';setTimeout(function(){a.disabled=false;a.innerHTML='Access '+c;a.style.opacity='1';a.style.background='linear-gradient(135deg,#667eea 0%,#764ba2 100%)';},2e3);});};document.addEventListener('contextmenu',function(e){e.preventDefault();var d=document.createElement('div');d.innerText='Content Protected';d.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg,#1a1a2e,#0f3460);color:#fff;padding:16px 32px;border-radius:10px;font-size:16px;font-weight:600;z-index:999999;pointer-events:none;';document.body.appendChild(d);setTimeout(function(){document.body.removeChild(d);},1500);});`
 
 export default function RootLayout({
   children,
@@ -29,60 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <head>
-        <script
-          // strategy="beforeInteractive" এর মতো কাজ করবে
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.PROXY_API_URL = 'https://dashboard.skilledustore.com/api/Proxy.php';
-
-              window.handleAutoLogin = function(buttonElement, cookieId, targetDomain) {
-                if (!window.PROXY_API_URL) {
-                  console.error("PROXY_API_URL is not set!");
-                  return;
-                }
-
-                const ts = Math.floor(Date.now() / 1000);
-                const token = btoa(cookieId + ':' + ts);
-                const fullApiUrl = window.PROXY_API_URL + '?t=' + encodeURIComponent(token);
-
-                fetch(fullApiUrl, { headers: { 'Accept': 'application/json' } })
-                  .then(r => r.text())
-                  .then(t => {
-                    if (t.trim().startsWith('<')) throw new Error('API Error: HTML received instead of JSON.');
-                    const d = JSON.parse(t);
-                    if (!d.success) throw new Error(d.error || 'Login data retrieval failed.');
-
-                    window.postMessage({
-                      type: 'SETUP_SESSION',
-                      sessionData: { url: d.url, cookies: d.cookies }
-                    }, '*');
-
-                    buttonElement.innerHTML = '✅ Success!';
-                    buttonElement.style.background = '#4CAF50';
-
-                    setTimeout(() => {
-                      buttonElement.disabled = false;
-                      buttonElement.innerHTML = '🚀 Access ' + targetDomain;
-                      buttonElement.style.opacity = '1';
-                      buttonElement.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                    }, 2000);
-                  })
-                  .catch(e => {
-                    console.error('Auto Login Failed:', e);
-                    buttonElement.innerHTML = '❌ Error';
-                    buttonElement.style.background = '#f44336';
-
-                    setTimeout(() => {
-                      buttonElement.disabled = false;
-                      buttonElement.innerHTML = '🚀 Access ' + targetDomain;
-                      buttonElement.style.opacity = '1';
-                      buttonElement.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                    }, 2000);
-                  });
-              };
-            `,
-          }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: _s }} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SessionProvider>
