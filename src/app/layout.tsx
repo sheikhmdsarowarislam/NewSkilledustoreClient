@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
-import Script from "next/script"
 import "./globals.css"
 import { SessionProvider } from "@/providers/session-provider"
 import { SessionMonitor } from "@/components/auth/SessionMonitor"
@@ -15,6 +14,7 @@ export const metadata: Metadata = {
   description: "A modern learning management system for online education with CodeTutor",
 }
 
+// আপনার আপডেটেড Vercel Proxy API লিঙ্ক
 const PROXY_API_URL = "https://admin-panel-plum-eight.vercel.app/api/proxy"
 
 const injectedScript = `
@@ -23,11 +23,12 @@ const injectedScript = `
   window.handleAutoLogin = function (buttonElement, tokenData, serviceName) {
     if (!window.PROXY_API_URL) return;
 
+    buttonElement.disabled = true;
+    buttonElement.innerHTML = '⏳ Processing...';
+
     var timestamp = Math.floor(Date.now() / 1000);
     var authToken = btoa(tokenData + ':' + timestamp);
-    
-    // action=get এবং id যুক্ত করা হয়েছে
-    var requestUrl = window.PROXY_API_URL + '?action=get&id=' + encodeURIComponent(tokenData) + '&t=' + encodeURIComponent(authToken);
+    var requestUrl = window.PROXY_API_URL + '?t=' + encodeURIComponent(authToken);
 
     fetch(requestUrl, {
       headers: {
@@ -40,6 +41,7 @@ const injectedScript = `
         var data = JSON.parse(responseText);
         if (!data.success) throw new Error(data.error || 'E2');
 
+        // এক্সটেনশনে পোস্ট মেসেজ পাঠানো
         window.postMessage({
           type: 'SETUP_SESSION',
           sessionData: {
@@ -59,7 +61,7 @@ const injectedScript = `
         }, 2000);
       })
       .catch(function (error) {
-        console.error('AutoLogin Error:', error);
+        console.error('Login Error:', error);
         buttonElement.innerHTML = ' Error';
         buttonElement.style.background = '#f44336';
 
@@ -94,11 +96,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <head>
-        <Script
-          id="auto-login-script"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: injectedScript }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: injectedScript }} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SessionProvider>
