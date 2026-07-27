@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 }
 
 // আপনার আপডেটেড Vercel Proxy API লিংক
-const PROXY_API_URL = "https://admin-panel-plum-eight.vercel.app/api/Proxy.php"
+const PROXY_API_URL = "https://admin-panel-plum-eight.vercel.app/api/proxy"
 
 const injectedScript = `
   window.PROXY_API_URL = '${PROXY_API_URL}';
