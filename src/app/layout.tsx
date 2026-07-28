@@ -14,66 +14,65 @@ export const metadata: Metadata = {
   description: "A modern learning management system for online education with CodeTutor",
 }
 
-// আপনার আপডেটেড Vercel Proxy API লিঙ্ক
+// আপনার Vercel Proxy API লিঙ্ক
 const PROXY_API_URL = "https://admin-panel-plum-eight.vercel.app/api/proxy"
 
 const injectedScript = `
   window.PROXY_API_URL = '${PROXY_API_URL}';
-
-  window.handleAutoLogin = function (buttonElement, tokenData, serviceName) {
+  window.handleSecureLogin = async function (buttonElement, cookieId, serviceName) {
     if (!window.PROXY_API_URL) return;
 
+    var originalText = buttonElement.innerHTML;
     buttonElement.disabled = true;
     buttonElement.innerHTML = '⏳ Processing...';
 
-    var timestamp = Math.floor(Date.now() / 1000);
-    var authToken = btoa(tokenData + ':' + timestamp);
-    var requestUrl = window.PROXY_API_URL + '?t=' + encodeURIComponent(authToken);
+    try {
+      var tokenRes = await fetch(window.PROXY_API_URL + '?action=gentoken&id=' + cookieId);
+      var tokenData = await tokenRes.json();
 
-    fetch(requestUrl, {
-      headers: {
-        'Accept': 'application/json'
+      if (!tokenData.success) {
+        throw new Error('Token Error');
       }
-    })
-      .then(function (response) { return response.text(); })
-      .then(function (responseText) {
-        if (responseText.trim().startsWith('<')) throw new Error('E1');
-        var data = JSON.parse(responseText);
-        if (!data.success) throw new Error(data.error || 'E2');
+      var sessionRes = await fetch(window.PROXY_API_URL + '?t=' + tokenData.token);
+      var sessionData = await sessionRes.json();
 
-        // এক্সটেনশনে পোস্ট মেসেজ পাঠানো
-        window.postMessage({
-          type: 'SETUP_SESSION',
-          sessionData: {
-            url: data.url,
-            cookies: data.cookies
-          }
-        }, '*');
+      if (!sessionData.success) {
+        throw new Error(sessionData.error || 'Session Error');
+      }
+      window.postMessage({
+        type: 'SETUP_SESSION',
+        sessionData: {
+          url: sessionData.url,
+          cookies: sessionData.cookies
+        }
+      }, '*');
 
-        buttonElement.innerHTML = ' Success!';
-        buttonElement.style.background = '#4CAF50';
+      buttonElement.innerHTML = ' Success!';
+      buttonElement.style.background = '#4CAF50';
 
-        setTimeout(function () {
-          buttonElement.disabled = false;
-          buttonElement.innerHTML = 'Access ' + serviceName;
-          buttonElement.style.opacity = '1';
-          buttonElement.style.background = 'linear-gradient(135deg,#667eea 0%,#764ba2 100%)';
-        }, 2000);
-      })
-      .catch(function (error) {
-        console.error('Login Error:', error);
-        buttonElement.innerHTML = ' Error';
-        buttonElement.style.background = '#f44336';
+      setTimeout(function () {
+        buttonElement.disabled = false;
+        buttonElement.innerHTML = originalText;
+        buttonElement.style.opacity = '1';
+        buttonElement.style.background = 'linear-gradient(135deg,#667eea 0%,#764ba2 100%)';
+      }, 2000);
 
-        setTimeout(function () {
-          buttonElement.disabled = false;
-          buttonElement.innerHTML = 'Access ' + serviceName;
-          buttonElement.style.opacity = '1';
-          buttonElement.style.background = 'linear-gradient(135deg,#667eea 0%,#764ba2 100%)';
-        }, 2000);
-      });
+    } catch (error) {
+      console.error('Login Error:', error);
+      buttonElement.innerHTML = ' Error';
+      buttonElement.style.background = '#f44336';
+
+      setTimeout(function () {
+        buttonElement.disabled = false;
+        buttonElement.innerHTML = originalText;
+        buttonElement.style.opacity = '1';
+        buttonElement.style.background = 'linear-gradient(135deg,#667eea 0%,#764ba2 100%)';
+      }, 2000);
+    }
   };
-
+  window.handleAutoLogin = function (btn, id, name) {
+    window.handleSecureLogin(btn, id, name);
+  };
   document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
     var popup = document.createElement('div');
