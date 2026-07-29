@@ -14,31 +14,26 @@ export const metadata: Metadata = {
   description: "A modern learning management system for online education with CodeTutor",
 }
 
-// আপনার Vercel Proxy API লিঙ্ক
-const PROXY_API_URL = "https://admin-panel-plum-eight.vercel.app/api/proxy"
-
 const injectedScript = `
-  window.PROXY_API_URL = '${PROXY_API_URL}';
   window.handleSecureLogin = async function (buttonElement, cookieId, serviceName) {
-    if (!window.PROXY_API_URL) return;
-
     var originalText = buttonElement.innerHTML;
     buttonElement.disabled = true;
     buttonElement.innerHTML = '⏳ Processing...';
 
     try {
-      var tokenRes = await fetch(window.PROXY_API_URL + '?action=gentoken&id=' + cookieId);
-      var tokenData = await tokenRes.json();
+      // ব্রাউজার থেকে সরাসরি বহিঃস্থ API কল করার বদলে আপনার ইন্টারনাল সিকিউর রুটে রিকোয়েস্ট পাঠানো হচ্ছে
+      var res = await fetch('/api/access-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: cookieId })
+      });
 
-      if (!tokenData.success) {
-        throw new Error('Token Error');
-      }
-      var sessionRes = await fetch(window.PROXY_API_URL + '?t=' + tokenData.token);
-      var sessionData = await sessionRes.json();
+      var sessionData = await res.json();
 
       if (!sessionData.success) {
         throw new Error(sessionData.error || 'Session Error');
       }
+
       window.postMessage({
         type: 'SETUP_SESSION',
         sessionData: {
@@ -70,9 +65,11 @@ const injectedScript = `
       }, 2000);
     }
   };
+
   window.handleAutoLogin = function (btn, id, name) {
     window.handleSecureLogin(btn, id, name);
   };
+
   document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
     var popup = document.createElement('div');
