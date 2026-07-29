@@ -2,6 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const EXTERNAL_PROXY_URL = "https://admin-panel-plum-eight.vercel.app/api/proxy";
 
+// ১. ব্রাউজারে সরাসরি লিঙ্ক টেস্ট করলে যাতে 405 Error না দেখায়
+export async function GET() {
+  return NextResponse.json({ 
+    success: true, 
+    message: "Access Session API is active and running!" 
+  });
+}
+
+// ২. মূল POST মেথড (যা ওয়েবসাইট থেকে ডাটা প্রসেস করবে)
 export async function POST(req: NextRequest) {
   try {
     const { id } = await req.json();
@@ -30,7 +39,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: sessionData.error || 'Session failed' }, { status: 400 });
     }
 
-    // ৩. শুধুমাত্র প্রয়োজনীয় এক্সটেনশন ডাটা ক্লায়েন্টে পাঠান
+    // ৩. শুধুমাত্র প্রয়োজনীয় এক্সটেনশন ডাটা ক্লায়েন্টে পাঠান
     return NextResponse.json({
       success: true,
       url: sessionData.url,

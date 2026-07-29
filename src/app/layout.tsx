@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 }
 
 const injectedScript = `
-  // গ্লোবাল ফ্ল্যাগ যা একাধিক ক্লিক বা ডুপ্লিকেট কল আটকাবে
+  // গ্লোবাল ফ্ল্যাগ যা ডুপ্লিকেট ক্লিক বা একই সাথে দুটি ট্যাব ওপেন আটকাবে
   window.isAccessSessionProcessing = false;
 
   window.handleSecureLogin = async function (buttonElement, cookieId, serviceName) {
-    // ১. যদি ইতোমধ্যে একটি প্রসেসিং চালু থাকে, তবে দ্বিতীয় ক্লিক আটকাবে
+    // ১. যদি ইতোমধ্যে কাজ চালু থাকে, তবে ২য় ক্লিক ব্লক করে দেবে
     if (window.isAccessSessionProcessing) return;
     window.isAccessSessionProcessing = true;
 
@@ -41,7 +41,7 @@ const injectedScript = `
         throw new Error(sessionData.error || 'Session Error');
       }
 
-      // এক্সটেনশনে মেসেজ পাঠানো
+      // এক্সটেনশনে তথ্য পাঠানো
       window.postMessage({
         type: 'SETUP_SESSION',
         sessionData: {
@@ -58,7 +58,7 @@ const injectedScript = `
         buttonElement.innerHTML = originalText;
         buttonElement.style.opacity = '1';
         buttonElement.style.background = 'linear-gradient(135deg,#667eea 0%,#764ba2 100%)';
-        window.isAccessSessionProcessing = false; // লক রিলিজ
+        window.isAccessSessionProcessing = false; // লক খুলে দেওয়া হলো
       }, 2000);
 
     } catch (error) {
@@ -71,12 +71,12 @@ const injectedScript = `
         buttonElement.innerHTML = originalText;
         buttonElement.style.opacity = '1';
         buttonElement.style.background = 'linear-gradient(135deg,#667eea 0%,#764ba2 100%)';
-        window.isAccessSessionProcessing = false; // লক রিলিজ
+        window.isAccessSessionProcessing = false; // লক খুলে দেওয়া হলো
       }, 2000);
     }
   };
 
-  // ডুপ্লিকেট কল এড়াতে Alias সরাসরি অ্যাসাইন করা হলো
+  // ডুপ্লিকেট ফাংশন হ্যান্ডলার
   window.handleAutoLogin = window.handleSecureLogin;
 
   document.addEventListener('contextmenu', function (e) {
