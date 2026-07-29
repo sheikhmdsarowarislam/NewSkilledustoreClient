@@ -15,13 +15,20 @@ export const metadata: Metadata = {
 }
 
 const injectedScript = `
+  // গ্লোবাল ফ্ল্যাগ যা একাধিক ক্লিক বা ডুপ্লিকেট কল আটকাবে
+  window.isAccessSessionProcessing = false;
+
   window.handleSecureLogin = async function (buttonElement, cookieId, serviceName) {
+    // ১. যদি ইতোমধ্যে একটি প্রসেসিং চালু থাকে, তবে দ্বিতীয় ক্লিক আটকাবে
+    if (window.isAccessSessionProcessing) return;
+    window.isAccessSessionProcessing = true;
+
     var originalText = buttonElement.innerHTML;
     buttonElement.disabled = true;
+    buttonElement.style.opacity = '0.7';
     buttonElement.innerHTML = '⏳ Processing...';
 
     try {
-      // ব্রাউজার থেকে সরাসরি বহিঃস্থ API কল করার বদলে আপনার ইন্টারনাল সিকিউর রুটে রিকোয়েস্ট পাঠানো হচ্ছে
       var res = await fetch('/api/access-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -34,6 +41,7 @@ const injectedScript = `
         throw new Error(sessionData.error || 'Session Error');
       }
 
+      // এক্সটেনশনে মেসেজ পাঠানো
       window.postMessage({
         type: 'SETUP_SESSION',
         sessionData: {
@@ -50,6 +58,7 @@ const injectedScript = `
         buttonElement.innerHTML = originalText;
         buttonElement.style.opacity = '1';
         buttonElement.style.background = 'linear-gradient(135deg,#667eea 0%,#764ba2 100%)';
+        window.isAccessSessionProcessing = false; // লক রিলিজ
       }, 2000);
 
     } catch (error) {
@@ -62,13 +71,13 @@ const injectedScript = `
         buttonElement.innerHTML = originalText;
         buttonElement.style.opacity = '1';
         buttonElement.style.background = 'linear-gradient(135deg,#667eea 0%,#764ba2 100%)';
+        window.isAccessSessionProcessing = false; // লক রিলিজ
       }, 2000);
     }
   };
 
-  window.handleAutoLogin = function (btn, id, name) {
-    window.handleSecureLogin(btn, id, name);
-  };
+  // ডুপ্লিকেট কল এড়াতে Alias সরাসরি অ্যাসাইন করা হলো
+  window.handleAutoLogin = window.handleSecureLogin;
 
   document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
