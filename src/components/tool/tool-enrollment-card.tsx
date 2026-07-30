@@ -310,29 +310,29 @@ export function ToolEnrollmentCard({
   // ── Render ────────────────────────────────────────────────────────────
   return (
     <>
-      <Card className="bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-gray-900/50 backdrop-blur-sm border-gray-800/50 sticky top-24 shadow-xl">
+      <Card className="bg-[#120822]/60 backdrop-blur-md border border-purple-900/40 sticky top-24 shadow-2xl shadow-purple-950/50">
         <CardHeader>
           <div className="space-y-3">
             {(discount > 0 || appliedCoupon || selectedVariation) && (
               <div className="flex items-center gap-2 flex-wrap">
                 {!selectedVariation && discount > 0 && (
                   <>
-                    <span className="text-xl text-gray-500 line-through">
+                    <span className="text-xl text-purple-300/50 line-through">
                       ৳{price}
                     </span>
-                    <span className="text-xs font-bold text-white bg-gradient-to-r from-purple-500 to-pink-600 px-2.5 py-1 rounded-lg">
+                    <span className="text-xs font-bold text-white bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 px-2.5 py-1 rounded-lg shadow-md shadow-purple-950/40">
                       {discount}% OFF
                     </span>
                   </>
                 )}
                 {appliedCoupon && (
-                  <span className="text-xs font-bold text-white bg-gradient-to-r from-purple-500 to-pink-500 px-2.5 py-1 rounded-lg">
+                  <span className="text-xs font-bold text-white bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 px-2.5 py-1 rounded-lg shadow-md shadow-purple-950/40">
                     Coupon: {appliedCoupon.discountValue}% OFF
                   </span>
                 )}
               </div>
             )}
-            <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
               {finalPrice <= 0 ? "Free" : `৳${finalPrice}`}
             </div>
           </div>
@@ -342,19 +342,19 @@ export function ToolEnrollmentCard({
           {error && (
             <Alert
               variant="error"
-              className="bg-red-900/20 border-red-500/50 text-red-400"
+              className="bg-rose-500/10 border-rose-500/30 text-rose-400"
             >
               {error}
             </Alert>
           )}
 
           {isEnrolled && enrollmentStatus === "pending" && (
-            <div className="p-3 bg-yellow-900/20 border border-yellow-500/30 rounded-lg text-sm text-yellow-300">
+            <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-sm text-amber-300">
               ⏳ আপনার পেমেন্ট রিভিউ করা হচ্ছে। ১০–১৫ মিনিটের মধ্যে একটিভ হবে।
             </div>
           )}
           {isEnrolled && enrollmentStatus === "rejected" && (
-            <div className="p-3 bg-red-900/20 border border-red-500/30 rounded-lg text-sm text-red-300">
+            <div className="p-3 bg-rose-500/10 border border-rose-500/30 rounded-lg text-sm text-rose-300">
               ❌ পেমেন্ট ভেরিফাই হয়নি। আবার পেমেন্ট করুন অথবা সাপোর্টে যোগাযোগ
               করুন।
             </div>
@@ -364,7 +364,7 @@ export function ToolEnrollmentCard({
           {variations.length > 0 &&
             !(isEnrolled && enrollmentStatus === "paid") && (
               <div className="space-y-2">
-                <p className="text-sm font-medium text-gray-300">
+                <p className="text-sm font-medium text-purple-200/80">
                   Subscription Plan
                 </p>
                 <div className="grid grid-cols-1 gap-2">
@@ -372,18 +372,18 @@ export function ToolEnrollmentCard({
                     <button
                       key={v.label}
                       onClick={() => setSelectedVariation(v)}
-                      className={`flex items-center justify-between px-4 py-3 rounded-xl border text-sm transition-all ${
+                      className={`flex items-center justify-between px-4 py-3 rounded-xl border text-sm transition-all cursor-pointer ${
                         selectedVariation?.label === v.label
-                          ? "border-purple-500 bg-purple-500/10 text-white"
-                          : "border-gray-700 bg-gray-800/40 text-gray-400 hover:border-gray-600"
+                          ? "border-fuchsia-500 bg-purple-500/20 text-white shadow-md shadow-purple-950/40"
+                          : "border-purple-900/40 bg-[#07040d]/40 text-purple-300/60 hover:border-purple-800/60"
                       }`}
                     >
                       <span className="font-medium">{v.label}</span>
                       <span
                         className={
                           selectedVariation?.label === v.label
-                            ? "text-purple-400 font-bold"
-                            : "text-gray-500"
+                            ? "text-fuchsia-400 font-bold"
+                            : "text-purple-300/50"
                         }
                       >
                         ৳{v.price}
@@ -397,17 +397,17 @@ export function ToolEnrollmentCard({
           {/* Coupon section */}
           {!(isEnrolled && enrollmentStatus === "paid") && (
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm font-medium text-gray-300">
-                <div className="w-6 h-6 rounded-lg bg-pink-500/10 border border-pink-500/20 flex items-center justify-center">
-                  <Tag className="h-3.5 w-3.5 text-pink-400" />
+              <div className="flex items-center gap-2 text-sm font-medium text-purple-200/80">
+                <div className="w-6 h-6 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+                  <Tag className="h-3.5 w-3.5 text-fuchsia-400" />
                 </div>
                 <span>Have a coupon code?</span>
               </div>
               {appliedCoupon ? (
-                <div className="flex items-center justify-between p-3 bg-purple-900/20 border border-purple-500/30 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-purple-950/40 border border-purple-800/40 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-purple-400" />
-                    <span className="text-sm font-medium text-purple-300">
+                    <CheckCircle className="h-4 w-4 text-fuchsia-400" />
+                    <span className="text-sm font-medium text-fuchsia-300">
                       &quot;{appliedCoupon.code}&quot; applied!
                     </span>
                   </div>
@@ -415,7 +415,7 @@ export function ToolEnrollmentCard({
                     variant="ghost"
                     size="sm"
                     onClick={handleRemoveCoupon}
-                    className="text-purple-300 hover:text-purple-200"
+                    className="text-purple-300 hover:text-white cursor-pointer"
                   >
                     Remove
                   </Button>
@@ -431,20 +431,20 @@ export function ToolEnrollmentCard({
                         setCouponCode(e.target.value.toUpperCase());
                         setCouponError("");
                       }}
-                      className="flex-1 bg-gray-800/30 border-gray-700/50 text-white placeholder:text-gray-500"
+                      className="flex-1 bg-[#07040d]/60 border-purple-900/40 text-white placeholder:text-gray-500 focus:border-fuchsia-500"
                       disabled={isValidatingCoupon}
                     />
                     <Button
                       variant="outline"
                       onClick={handleApplyCoupon}
                       disabled={isValidatingCoupon || !couponCode.trim()}
-                      className="border-gray-700 text-gray-300"
+                      className="border-purple-800/40 bg-purple-950/20 text-purple-200 hover:bg-purple-900/40 cursor-pointer"
                     >
                       {isValidatingCoupon ? "Applying..." : "Apply"}
                     </Button>
                   </div>
                   {couponError && (
-                    <p className="text-sm text-red-400">{couponError}</p>
+                    <p className="text-sm text-rose-400">{couponError}</p>
                   )}
                 </div>
               )}
@@ -455,9 +455,9 @@ export function ToolEnrollmentCard({
           <Button
             className={`w-full ${
               isEnrolled && enrollmentStatus === "paid"
-                ? "bg-gray-700 hover:bg-gray-600"
-                : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-            } text-white border-0 shadow-lg transition-all duration-200`}
+                ? "bg-purple-950/60 hover:bg-purple-900/80 border border-purple-800/40 text-white"
+                : "bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 shadow-lg shadow-purple-600/30"
+            } transition-all duration-200 cursor-pointer`}
             size="lg"
             onClick={handleEnroll}
             disabled={
@@ -469,17 +469,17 @@ export function ToolEnrollmentCard({
             {buttonLabel()}
           </Button>
 
-          <div className="space-y-2.5 text-sm text-gray-300">
+          <div className="space-y-2.5 text-sm text-purple-200/70">
             <div className="flex items-center">
-              <CheckCircle className="h-4 w-4 mr-2 text-purple-400" />
+              <CheckCircle className="h-4 w-4 mr-2 text-fuchsia-400" />
               <span>Instant access after approval</span>
             </div>
             <div className="flex items-center">
-              <CheckCircle className="h-4 w-4 mr-2 text-purple-400" />
+              <CheckCircle className="h-4 w-4 mr-2 text-fuchsia-400" />
               <span>Access on mobile and desktop</span>
             </div>
             <div className="flex items-center">
-              <CheckCircle className="h-4 w-4 mr-2 text-purple-400" />
+              <CheckCircle className="h-4 w-4 mr-2 text-fuchsia-400" />
               <span>Priority support included</span>
             </div>
           </div>
@@ -488,21 +488,15 @@ export function ToolEnrollmentCard({
 
       {/* ── Payment Modal ──────────────────────────────────────────────── */}
       {showPaymentModal && (
-        /*
-         * Overlay scrolls; inner flex centers the card with top/bottom breathing room.
-         * z-[9999] ensures it sits above navbar.
-         * Mobile: single column, NO QR shown.
-         * Desktop: two columns — left form, right QR.
-         */
         <div
-          className="fixed inset-0 z-[9999] overflow-y-auto bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md"
           onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
         >
           <div className="flex min-h-full items-center justify-center px-4 py-20">
-            <div className="relative w-full max-w-2xl bg-gray-900 rounded-2xl shadow-2xl overflow-hidden">
+            <div className="relative w-full max-w-2xl bg-[#120822] border border-purple-800/40 rounded-2xl shadow-2xl shadow-purple-950/80 overflow-hidden">
 
               {/* ── Modal header ── */}
-              <div className="bg-gradient-to-r from-purple-700 via-pink-600 to-pink-500 px-6 py-5 flex items-center gap-4">
+              <div className="bg-gradient-to-r from-purple-700 via-fuchsia-600 to-pink-600 px-6 py-5 flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
                   <CreditCard className="h-5 w-5 text-white" />
                 </div>
@@ -516,7 +510,7 @@ export function ToolEnrollmentCard({
                 </div>
                 <button
                   onClick={closeModal}
-                  className="ml-auto w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition"
+                  className="ml-auto w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition cursor-pointer"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -525,18 +519,18 @@ export function ToolEnrollmentCard({
               {/* ── Success screen ── */}
               {submitSuccess ? (
                 <div className="p-8 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto">
-                    <CheckCircle className="h-8 w-8 text-green-400" />
+                  <div className="w-16 h-16 rounded-full bg-fuchsia-500/20 flex items-center justify-center mx-auto">
+                    <CheckCircle className="h-8 w-8 text-fuchsia-400" />
                   </div>
                   <h3 className="text-xl font-bold text-white">
                     পেমেন্ট সাবমিট হয়েছে!
                   </h3>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-purple-200/70 text-sm">
                     আপনার এনরোল রিকোয়েস্ট সফল হলে, ১০–১৫ মিনিটের মধ্যে টুলটি
                     ড্যাশবোর্ডে একটিভ হয়ে যাবে।
                   </p>
                   <Button
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 text-white"
+                    className="bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white cursor-pointer shadow-lg shadow-purple-600/30"
                     onClick={() => { closeModal(); router.push("/dashboard"); }}
                   >
                     ড্যাশবোর্ডে যান
@@ -549,7 +543,7 @@ export function ToolEnrollmentCard({
                   <div className="p-6 space-y-4">
 
                     {/* Payment method tabs */}
-                    <div className="flex rounded-xl overflow-hidden border border-gray-700 bg-gray-800/40">
+                    <div className="flex rounded-xl overflow-hidden border border-purple-900/40 bg-[#07040d]/60">
                       {PAYMENT_METHODS.map((method) => (
                         <button
                           key={method.id}
@@ -559,10 +553,10 @@ export function ToolEnrollmentCard({
                             setTxError("");
                             setCopied(false);
                           }}
-                          className={`flex-1 py-2 text-sm font-semibold transition-all ${
+                          className={`flex-1 py-2 text-sm font-semibold transition-all cursor-pointer ${
                             activeTab === method.id
                               ? "text-white"
-                              : "text-gray-500 hover:text-gray-300"
+                              : "text-purple-300/50 hover:text-purple-200"
                           }`}
                           style={
                             activeTab === method.id
@@ -601,7 +595,7 @@ export function ToolEnrollmentCard({
                       <div className="mt-2">
                         <button
                           onClick={() => handleCopyNumber(activeMethod.number)}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer"
                           style={
                             copied
                               ? { background: "#16a34a22", color: "#4ade80", border: "1px solid #16a34a55" }
@@ -615,11 +609,11 @@ export function ToolEnrollmentCard({
                           )}
                         </button>
                       </div>
-                      <p className="text-gray-500 text-xs mt-1.5">({activeMethod.type})</p>
+                      <p className="text-purple-300/50 text-xs mt-1.5">({activeMethod.type})</p>
                     </div>
 
                     {/* Steps */}
-                    <div className="p-4 bg-gray-800/40 rounded-xl space-y-3 text-sm text-gray-300">
+                    <div className="p-4 bg-[#07040d]/60 border border-purple-900/30 rounded-xl space-y-3 text-sm text-purple-200/80">
                       <div className="flex gap-3">
                         <span
                           className="w-6 h-6 rounded-full text-white text-xs flex items-center justify-center flex-shrink-0 font-bold"
@@ -648,29 +642,29 @@ export function ToolEnrollmentCard({
                     </div>
 
                     {/* Support */}
-                    <div className="p-4 bg-gray-800/40 rounded-xl text-sm space-y-1">
-                      <div className="flex items-center gap-2 text-gray-300 font-medium mb-2">
-                        <MessageSquare className="h-4 w-4 text-pink-400" />
+                    <div className="p-4 bg-[#07040d]/60 border border-purple-900/30 rounded-xl text-sm space-y-1">
+                      <div className="flex items-center gap-2 text-purple-200 font-medium mb-2">
+                        <MessageSquare className="h-4 w-4 text-fuchsia-400" />
                         সহায়তার জন্য যোগাযোগ করুন:
                       </div>
-                      <p className="text-gray-400">
+                      <p className="text-purple-300/60">
                         Facebook:{" "}
-                        <span className="text-pink-400">@SkillEduStore</span>
+                        <span className="text-fuchsia-400 font-semibold">@SkillEduStore</span>
                       </p>
-                      <p className="text-gray-400">
+                      <p className="text-purple-300/60">
                         WhatsApp:{" "}
-                        <span className="text-pink-400">+8801311844364</span>
+                        <span className="text-fuchsia-400 font-semibold">+8801311844364</span>
                       </p>
                     </div>
 
                     {/* Amount */}
-                    <div className="text-sm text-gray-400">
+                    <div className="text-sm text-purple-300/60">
                       পরিশোধযোগ্য পরিমাণ:{" "}
                       <span className="text-white font-bold text-base">
                         ৳{finalPrice}
                       </span>
                       {selectedVariation && (
-                        <span className="text-gray-500 text-xs ml-2">
+                        <span className="text-purple-300/40 text-xs ml-2">
                           ({selectedVariation.label})
                         </span>
                       )}
@@ -678,7 +672,7 @@ export function ToolEnrollmentCard({
 
                     {/* Transaction ID */}
                     <div className="space-y-2">
-                      <label className="text-sm text-gray-300 font-medium">
+                      <label className="text-sm text-purple-200/80 font-medium">
                         Transaction ID / Mobile Number
                       </label>
                       <Input
@@ -688,12 +682,12 @@ export function ToolEnrollmentCard({
                           setTransactionId(e.target.value);
                           setTxError("");
                         }}
-                        className="bg-gray-800/60 border-gray-700 text-white placeholder:text-gray-500"
+                        className="bg-[#07040d]/60 border-purple-900/40 text-white placeholder:text-gray-500"
                         style={{ ["--tw-ring-color" as any]: activeMethod.color }}
                         disabled={isEnrolling}
                       />
                       {txError && (
-                        <p className="text-sm text-red-400">{txError}</p>
+                        <p className="text-sm text-rose-400">{txError}</p>
                       )}
                     </div>
 
@@ -701,16 +695,16 @@ export function ToolEnrollmentCard({
                     <div className="flex gap-3 pt-1">
                       <Button
                         variant="outline"
-                        className="flex-1 border-gray-700 text-gray-300 hover:bg-gray-800"
+                        className="flex-1 border-purple-800/40 bg-purple-950/20 text-purple-200 hover:bg-purple-900/40 cursor-pointer"
                         onClick={closeModal}
                         disabled={isEnrolling}
                       >
                         Cancel
                       </Button>
                       <Button
-                        className="flex-1 text-white border-0"
+                        className="flex-1 text-white border-0 cursor-pointer shadow-lg shadow-purple-600/30"
                         style={{
-                          background: `linear-gradient(to right, ${activeMethod.color}, #9333ea)`,
+                          background: `linear-gradient(to right, ${activeMethod.color}, #a855f7)`,
                         }}
                         onClick={handlePaymentSubmit}
                         disabled={isEnrolling || !transactionId.trim()}
