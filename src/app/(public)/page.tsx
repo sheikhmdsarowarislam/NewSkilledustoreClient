@@ -430,105 +430,119 @@ export default async function HomePage() {
       </section>
 
       {/* ── OFFER BANNER ───────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-[#0a0d14]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-            {/* Left — Image */}
-            <div className="w-full lg:w-[420px] flex-shrink-0 rounded-2xl overflow-hidden">
-              <img
-                src="https://res.cloudinary.com/dit6thzvp/image/upload/q_auto/f_auto/v1780728952/udemy-onetime-payment-offer-skilledustore_yjfoip.jpg"
-                alt="One Time Payment Offer"
-                className="w-full h-auto object-cover"
-              />
-            </div>
+<section className="py-16 sm:py-20 bg-[#0a0d14] relative overflow-hidden">
+  {/* Ambient Background Glow (Optional subtle backdrop glow) */}
+  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-600/10 blur-[120px] pointer-events-none rounded-full" />
 
-            {/* Right — Details */}
-            <div className="flex-1 space-y-5">
-              {/* Badge */}
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1">
-                <Sparkles className="w-3 h-3" />
-                U*demy One-Time Offer
-              </span>
-
-              {/* Title */}
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
-                One Time Payment{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                  OFFER
-                </span>
-              </h2>
-
-              {/* Price */}
-              <div className="flex items-baseline gap-3">
-                <span className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                  ৳১৫৯৯
-                </span>
-                <span className="text-gray-400 text-sm">
-                  / One-time payment
-                </span>
-              </div>
-
-              {/* Offer end */}
-              <p className="text-gray-400 text-sm">
-                ( OFFER ENDS 29th Jun, 2026 )
-              </p>
-
-              {/* Note */}
-              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 space-y-1.5">
-                <p className="text-gray-300 text-sm">
-                  <span className="text-white font-semibold">Note:</span> BONUS
-                  ACCOUNTS ARE NOT INCLUDED.
-                </p>
-                <p className="text-gray-400 text-sm">
-                  মেয়াদঃ যত দিন আমাদের সার্ভিস চলবে ততদিন আর কোন পেমেন্ট করা
-                  লাগবেনা।
-                </p>
-                <p className="text-gray-400 text-sm">
-                  2 Year এর মধ্যে যেকোনো সমস্যা হলে রিপ্লেসমেন্ট হিসেবে অন্য
-                  প্রোডাক্ট প্রদান করা হবে।
-                </p>
-              </div>
-
-              {/* Buttons */}
-              <div className="flex flex-wrap items-center gap-3 pt-1">
-                <Link href="/tools/6a148a1b718438f9d2311eaf">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white border-0 shadow-lg shadow-pink-500/20 transition-all duration-200 group"
-                  >
-                    <Zap className="mr-2 w-4 h-4" />
-                    Buy Now
-                  </Button>
-                </Link>
-                <Link href="/ud-business">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-gray-700 bg-gray-800/40 text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
-                  >
-                    ☰ View More Details
-                  </Button>
-                </Link>
-              </div>
-
-              {/* Trust chips */}
-              <div className="flex flex-wrap gap-2 pt-1">
-                {["Instant Access", "18/7 Support", "No Auto-Renew"].map(
-                  (b) => (
-                    <span
-                      key={b}
-                      className="inline-flex items-center gap-1.5 text-[11px] text-gray-400 bg-gray-800/50 border border-gray-700/50 rounded-full px-3 py-1"
-                    >
-                      <CheckCircle className="h-3 w-3 text-cyan-400 flex-shrink-0" />
-                      {b}
-                    </span>
-                  ),
-                )}
-              </div>
-            </div>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    {/* Main Glass Container */}
+    <div className="bg-gray-900/40 border border-gray-800/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl shadow-black/50">
+      <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+        
+        {/* Left — Image with Hover Glow & Subtle Border */}
+        <div className="w-full lg:w-[420px] flex-shrink-0 group relative">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+          <div className="relative rounded-2xl overflow-hidden border border-gray-800/80 bg-gray-950">
+            <img
+              src="https://res.cloudinary.com/dit6thzvp/image/upload/q_auto/f_auto/v1780728952/udemy-onetime-payment-offer-skilledustore_yjfoip.jpg"
+              alt="One Time Payment Offer"
+              className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            />
           </div>
         </div>
-      </section>
+
+        {/* Right — Details */}
+        <div className="flex-1 space-y-6 w-full">
+          
+          {/* Header & Badges */}
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 rounded-full px-3.5 py-1.5 backdrop-blur-md">
+                <Sparkles className="w-3.5 h-3.5" />
+                U*demy One-Time Offer
+              </span>
+              <span className="text-xs text-amber-400/90 bg-amber-500/10 border border-amber-500/20 rounded-full px-3 py-1 font-medium">
+                ⏱️ Limited Period
+              </span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+              One Time Payment{" "}
+              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">
+                OFFER
+              </span>
+            </h2>
+          </div>
+
+          {/* Pricing Section */}
+          <div className="flex flex-wrap items-baseline gap-3 p-4 rounded-2xl bg-gray-950/50 border border-gray-800/60 w-fit">
+            <span className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent tracking-tight">
+              ৳১৫৯৯
+            </span>
+            <div className="flex flex-col">
+              <span className="text-gray-300 text-sm font-semibold">One-time payment</span>
+              <span className="text-gray-500 text-xs">( OFFER ENDS 29th Jun, 2026 )</span>
+            </div>
+          </div>
+
+          {/* Styled Note Box */}
+          <div className="bg-gray-950/60 border border-gray-800/80 rounded-2xl p-4 sm:p-5 space-y-2.5 shadow-inner">
+            <div className="flex items-center gap-2 text-rose-400 text-xs sm:text-sm font-bold uppercase tracking-wider">
+              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+              Note: BONUS ACCOUNTS ARE NOT INCLUDED.
+            </div>
+            <ul className="space-y-1.5 text-gray-300 text-xs sm:text-sm">
+              <li className="flex items-start gap-2">
+                <span className="text-cyan-400 mt-0.5">🔹</span>
+                <span><strong>মেয়াদঃ</strong> যত দিন আমাদের সার্ভিস চলবে ততদিন আর কোন পেমেন্ট করা লাগবেনা।</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-cyan-400 mt-0.5">🔹</span>
+                <span><strong>2 Year ওয়ারেন্টিঃ</strong> এর মধ্যে যেকোনো সমস্যা হলে রিপ্লেসমেন্ট হিসেবে অন্য প্রোডাক্ট প্রদান করা হবে।</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center gap-4 pt-1">
+            <Link href="/tools/6a148a1b718438f9d2311eaf">
+              <Button
+                size="lg"
+                className="h-12 px-7 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-semibold rounded-xl border-0 shadow-lg shadow-pink-600/25 hover:shadow-pink-600/40 hover:-translate-y-0.5 transition-all duration-200 group"
+              >
+                <Zap className="mr-2 w-4 h-4 fill-current group-hover:scale-110 transition-transform" />
+                Buy Now
+              </Button>
+            </Link>
+            <Link href="/ud-business">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-12 px-6 border-gray-700/80 bg-gray-900/60 text-gray-300 hover:bg-gray-800 hover:text-white rounded-xl transition-all duration-200"
+              >
+                ☰ View More Details
+              </Button>
+            </Link>
+          </div>
+
+          {/* Trust Badges */}
+          <div className="flex flex-wrap gap-2.5 pt-2 border-t border-gray-800/60">
+            {["Instant Access", "18/7 Support", "No Auto-Renew"].map((badge) => (
+              <span
+                key={badge}
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-300 bg-gray-900/80 border border-gray-800 rounded-lg px-3 py-1.5"
+              >
+                <CheckCircle className="h-3.5 w-3.5 text-cyan-400 flex-shrink-0" />
+                {badge}
+              </span>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* ── TOOLS GRID ─────────────────────────────────────────────── */}
       <section className="py-16 sm:py-20 bg-[#0a0d14]">
