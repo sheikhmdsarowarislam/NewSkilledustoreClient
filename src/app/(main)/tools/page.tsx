@@ -70,12 +70,12 @@ async function ToolsList({ searchParams }: ToolsPageProps) {
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center py-16 sm:py-20">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-red-600/20 to-orange-600/20 border border-red-500/30 mb-6 shadow-lg shadow-red-500/20">
-          <AlertCircle className="w-10 h-10 text-red-400" />
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-rose-600/20 to-pink-600/20 border border-rose-500/30 mb-6 shadow-lg shadow-rose-500/20">
+          <AlertCircle className="w-10 h-10 text-rose-400" />
         </div>
         <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">Failed to Load Tools</h3>
-        <p className="text-gray-400 text-sm max-w-md text-center mb-2">{error}</p>
-        <p className="text-xs text-gray-500">Please try refreshing the page</p>
+        <p className="text-purple-200/60 text-sm max-w-md text-center mb-2">{error}</p>
+        <p className="text-xs text-purple-300/40">Please try refreshing the page</p>
       </div>
     )
   }
@@ -83,14 +83,14 @@ async function ToolsList({ searchParams }: ToolsPageProps) {
   if (tools.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 sm:py-20">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-600/20 to-pink-600/20 border border-purple-500/30 mb-6 shadow-lg shadow-purple-500/20">
-          <Wrench className="w-10 h-10 text-purple-400" />
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-600/20 to-fuchsia-600/20 border border-purple-500/30 mb-6 shadow-lg shadow-purple-500/20">
+          <Wrench className="w-10 h-10 text-fuchsia-400" />
         </div>
         <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">No Tools Found</h3>
-        <p className="text-gray-400 text-sm max-w-md text-center mb-2">
+        <p className="text-purple-200/60 text-sm max-w-md text-center mb-2">
           No tools are available at the moment.
         </p>
-        <p className="text-xs text-gray-500">Please check back later</p>
+        <p className="text-xs text-purple-300/40">Please check back later</p>
       </div>
     )
   }
@@ -108,15 +108,15 @@ async function ToolsList({ searchParams }: ToolsPageProps) {
       {total > 12 && (
         <div className="mt-12 sm:mt-16 flex items-center justify-center">
           <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-300" />
-            <div className="relative bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-900/90 backdrop-blur-sm border border-gray-800/50 rounded-2xl px-6 sm:px-8 py-4 sm:py-5 shadow-xl">
-              <p className="text-sm sm:text-base font-medium text-gray-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-300" />
+            <div className="relative bg-[#120822]/90 backdrop-blur-md border border-purple-800/40 rounded-2xl px-6 sm:px-8 py-4 sm:py-5 shadow-xl">
+              <p className="text-sm sm:text-base font-medium text-purple-200/70">
                 Showing{" "}
-                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
                   {tools.length}
                 </span>{" "}
                 of{" "}
-                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-pink-400 via-fuchsia-400 to-violet-400 bg-clip-text text-transparent">
                   {total}
                 </span>{" "}
                 tools
@@ -132,30 +132,30 @@ async function ToolsList({ searchParams }: ToolsPageProps) {
 // ── Main Page ──────────────────────────────────────────────────────────
 export default async function ToolsPage({ searchParams }: ToolsPageProps) {
   return (
-    <div className="min-h-screen bg-[#03050a]">
+    <div className="min-h-screen bg-[#07040d]">
       {/* Header */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-purple-900/20 via-[#03050a] to-pink-900/20 pt-28 sm:pt-32 pb-16 sm:pb-20">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-10 left-10 w-[400px] h-[400px] bg-purple-600/15 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-0 right-10 w-[500px] h-[500px] bg-pink-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
+      <div className="relative overflow-hidden bg-gradient-to-br from-purple-950/30 via-[#07040d] to-fuchsia-950/20 pt-28 sm:pt-32 pb-16 sm:pb-20 border-b border-purple-900/30">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-60">
+          <div className="absolute top-10 left-10 w-[400px] h-[400px] bg-purple-600/15 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-0 right-10 w-[500px] h-[500px] bg-fuchsia-600/10 rounded-full blur-[140px] animate-pulse" style={{ animationDelay: "1s" }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-pink-600/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "2s" }} />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600/20 via-pink-600/20 to-purple-600/20 border border-purple-500/30 rounded-full px-4 sm:px-5 py-2 mb-6 backdrop-blur-sm shadow-lg shadow-purple-500/20">
+            <div className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 rounded-full px-4 sm:px-5 py-2 mb-6 backdrop-blur-md shadow-lg shadow-purple-950/40">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-pink-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-pink-400" />
               </span>
-              <span className="text-xs sm:text-sm font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-purple-300 bg-clip-text text-transparent uppercase tracking-wider">
+              <span className="text-xs sm:text-sm font-bold bg-gradient-to-r from-violet-300 via-fuchsia-300 to-pink-300 bg-clip-text text-transparent uppercase tracking-wider">
                 Premium Tools
               </span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6">
               <span className="block mb-2 text-white">Explore All Tools</span>
-              <span className="block text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="block text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
                 Access. Build. Achieve.
               </span>
             </h1>
@@ -168,21 +168,20 @@ export default async function ToolsPage({ searchParams }: ToolsPageProps) {
       </div>
 
       {/* Main Content */}
-      {/* Main Content */}
-<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-12">
         {/* Tools Grid */}
         <div className="pb-16 sm:pb-20">
           <div className="mb-6 sm:mb-8">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 p-0.5 shadow-lg shadow-purple-500/20">
-                <div className="w-full h-full bg-[#0a0d14] rounded-[6px] flex items-center justify-center">
-                  <Wrench className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-400" />
+                <div className="w-full h-full bg-[#07040d] rounded-[6px] flex items-center justify-center">
+                  <Wrench className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-fuchsia-400" />
                 </div>
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-white">Available Tools</h2>
             </div>
             <p className="text-sm sm:text-base text-gray-400 flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-purple-400" />
+              <TrendingUp className="w-4 h-4 text-fuchsia-400" />
               Choose from our curated collection of tools
             </p>
           </div>
