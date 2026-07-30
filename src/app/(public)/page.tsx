@@ -222,34 +222,34 @@ const FAQS = [
 
 export default async function HomePage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#07040d]">
       {/* ── HERO ───────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#03050a] pt-28 pb-16 lg:pt-36 lg:pb-24">
-        {/* Background grid - desktop only, removed on mobile to prevent glitch */}
+      <section className="relative overflow-hidden bg-[#07040d] pt-28 pb-16 lg:pt-36 lg:pb-24">
+        {/* Background grid - Purple Tinted */}
         <div
-          className="absolute inset-0 pointer-events-none hidden sm:block"
+          className="absolute inset-0 pointer-events-none hidden sm:block opacity-60"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px)",
+              "linear-gradient(rgba(139,92,246,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.06) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
           }}
         />
 
-        {/* Glow orbs - desktop only, blur removed on mobile to prevent glitch */}
-        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-blue-600/10 rounded-full hidden sm:block" />
-        <div className="absolute -bottom-32 -right-32 w-[600px] h-[600px] bg-cyan-600/8 rounded-full hidden sm:block" />
+        {/* Neon Glow orbs - Purple / Pink */}
+        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-600/15 rounded-full blur-[120px] hidden sm:block" />
+        <div className="absolute -bottom-32 -right-32 w-[600px] h-[600px] bg-fuchsia-600/10 rounded-full blur-[140px] hidden sm:block" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* ── LEFT ── */}
             <div className="space-y-7">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-blue-500/8 border border-blue-500/20 rounded-full px-3.5 py-1.5">
+              <div className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 rounded-full px-3.5 py-1.5 backdrop-blur-md">
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-pink-400" />
                 </span>
-                <span className="text-[11px] font-semibold text-cyan-400 tracking-widest uppercase">
+                <span className="text-[11px] font-semibold text-purple-300 tracking-widest uppercase">
                   3,000+ happy learners trust SkillEduStore
                 </span>
               </div>
@@ -260,7 +260,7 @@ export default async function HomePage() {
                   <span className="text-white">Learn smarter today.</span>
                 </h1>
                 <h1 className="text-[2.4rem] sm:text-5xl lg:text-[3.2rem] xl:text-[3.6rem] font-extrabold leading-[1.1] tracking-tight">
-                  <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-500 bg-clip-text text-transparent">
                     One affordable plan.
                   </span>
                 </h1>
@@ -274,7 +274,7 @@ export default async function HomePage() {
                 </span>{" "}
                 — Ude*my, Cours*era, LinkedIn Learning & more — at group-buy
                 pricing. Up to{" "}
-                <span className="text-cyan-400 font-medium">
+                <span className="text-fuchsia-400 font-medium">
                   80% off retail
                 </span>
                 .
@@ -285,7 +285,7 @@ export default async function HomePage() {
                 <Link href="/tools">
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white border-0 shadow-lg shadow-blue-500/20 transition-all duration-200 group text-sm px-6"
+                    className="w-full sm:w-auto bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 shadow-lg shadow-purple-600/30 transition-all duration-200 group text-sm px-6"
                   >
                     Get Started — ৳450/month
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -295,7 +295,7 @@ export default async function HomePage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="w-full sm:w-auto border-gray-700 bg-gray-800/40 text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200 text-sm px-6"
+                    className="w-full sm:w-auto border-purple-800/40 bg-purple-950/20 text-purple-200 hover:bg-purple-900/40 hover:text-white transition-all duration-200 text-sm px-6"
                   >
                     View Dashboard
                   </Button>
@@ -303,24 +303,24 @@ export default async function HomePage() {
               </div>
 
               {/* Stats row */}
-              <div className="flex items-center gap-6 pt-2 border-t border-gray-800/60">
+              <div className="flex items-center gap-6 pt-2 border-t border-purple-900/30">
                 {[
                   {
                     val: "80+",
                     label: "Learning tools",
-                    color: "text-blue-400",
+                    color: "text-purple-400",
                   },
                   {
                     val: "2K+",
                     label: "Happy users",
-                    color: "text-emerald-400",
+                    color: "text-fuchsia-400",
                   },
                   {
                     val: "99.9%",
                     label: "Uptime SLA",
-                    color: "text-violet-400",
+                    color: "text-pink-400",
                   },
-                  { val: "৳0", label: "Setup fee", color: "text-cyan-400" },
+                  { val: "৳0", label: "Setup fee", color: "text-violet-300" },
                 ].map((s) => (
                   <div key={s.label} className="text-center">
                     <p className={`text-lg sm:text-xl font-bold ${s.color}`}>
@@ -342,9 +342,9 @@ export default async function HomePage() {
                 ].map((b) => (
                   <span
                     key={b}
-                    className="inline-flex items-center gap-1.5 text-[11px] text-gray-400 bg-gray-800/50 border border-gray-700/50 rounded-full px-3 py-1"
+                    className="inline-flex items-center gap-1.5 text-[11px] text-gray-300 bg-purple-950/30 border border-purple-800/30 rounded-full px-3 py-1"
                   >
-                    <CheckCircle className="h-3 w-3 text-cyan-400 flex-shrink-0" />
+                    <CheckCircle className="h-3 w-3 text-fuchsia-400 flex-shrink-0" />
                     {b}
                   </span>
                 ))}
@@ -353,8 +353,8 @@ export default async function HomePage() {
 
             {/* ── RIGHT — Hero Image ── */}
             <div className="hidden lg:flex items-center justify-center relative">
-              {/* Glow behind image - desktop only */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-cyan-600/10 rounded-3xl" />
+              {/* Glow behind image */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-fuchsia-600/15 to-transparent rounded-3xl blur-2xl" />
 
               {/* Image */}
               <div className="relative z-10">
@@ -365,62 +365,62 @@ export default async function HomePage() {
                   height={520}
                   loading="eager"
                   decoding="async"
-                  className="w-full max-w-[520px] h-auto object-contain drop-shadow-2xl"
+                  className="w-full max-w-[520px] h-auto object-contain drop-shadow-[0_20px_50px_rgba(168,85,247,0.25)]"
                   style={{ imageRendering: "crisp-edges" }}
                 />
 
                 {/* Floating stat cards */}
-                <div className="absolute top-6 left-0 bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
+                <div className="absolute top-6 left-0 bg-[#120a21]/90 backdrop-blur-md border border-purple-800/40 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-fuchsia-500 flex items-center justify-center flex-shrink-0">
                     <BarChart2 className="w-4 h-4 text-white" />
                   </div>
                   <div>
                     <p className="text-white font-bold text-sm leading-none">
                       80+
                     </p>
-                    <p className="text-gray-400 text-[10px] mt-0.5">
+                    <p className="text-purple-300 text-[10px] mt-0.5">
                       Tools Available
                     </p>
                   </div>
                 </div>
 
-                <div className="absolute top-6 right-0 bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center flex-shrink-0">
+                <div className="absolute top-6 right-0 bg-[#120a21]/90 backdrop-blur-md border border-purple-800/40 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-fuchsia-500 to-pink-500 flex items-center justify-center flex-shrink-0">
                     <Star className="w-4 h-4 text-white" />
                   </div>
                   <div>
                     <p className="text-white font-bold text-sm leading-none">
                       4 Year+
                     </p>
-                    <p className="text-gray-400 text-[10px] mt-0.5">
+                    <p className="text-purple-300 text-[10px] mt-0.5">
                       Experience
                     </p>
                   </div>
                 </div>
 
-                <div className="absolute bottom-16 left-0 bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-green-500 flex items-center justify-center flex-shrink-0">
+                <div className="absolute bottom-16 left-0 bg-[#120a21]/90 backdrop-blur-md border border-purple-800/40 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-purple-600 flex items-center justify-center flex-shrink-0">
                     <CheckCircle className="w-4 h-4 text-white" />
                   </div>
                   <div>
                     <p className="text-white font-bold text-sm leading-none">
                       3,000+
                     </p>
-                    <p className="text-gray-400 text-[10px] mt-0.5">
+                    <p className="text-purple-300 text-[10px] mt-0.5">
                       Happy Users
                     </p>
                   </div>
                 </div>
 
-                <div className="absolute bottom-16 right-0 bg-gray-900/90 backdrop-blur-sm border border-gray-700/50 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center flex-shrink-0">
+                <div className="absolute bottom-16 right-0 bg-[#120a21]/90 backdrop-blur-md border border-purple-800/40 rounded-xl px-3.5 py-2.5 shadow-xl flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center flex-shrink-0">
                     <Zap className="w-4 h-4 text-white" />
                   </div>
                   <div>
                     <p className="text-white font-bold text-sm leading-none">
                       99.99%
                     </p>
-                    <p className="text-gray-400 text-[10px] mt-0.5">Uptime</p>
+                    <p className="text-purple-300 text-[10px] mt-0.5">Uptime</p>
                   </div>
                 </div>
               </div>
@@ -430,11 +430,11 @@ export default async function HomePage() {
       </section>
 
       {/* ── OFFER BANNER ───────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-[#0a0d14]">
+      <section className="py-16 sm:py-20 bg-[#07040d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 bg-[#120921]/60 border border-purple-800/40 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-2xl shadow-purple-950/50">
             {/* Left — Image */}
-            <div className="w-full lg:w-[420px] flex-shrink-0 rounded-2xl overflow-hidden">
+            <div className="w-full lg:w-[420px] flex-shrink-0 rounded-2xl overflow-hidden border border-purple-700/30">
               <img
                 src="https://res.cloudinary.com/dit6thzvp/image/upload/q_auto/f_auto/v1780728952/udemy-onetime-payment-offer-skilledustore_yjfoip.jpg"
                 alt="One Time Payment Offer"
@@ -445,22 +445,22 @@ export default async function HomePage() {
             {/* Right — Details */}
             <div className="flex-1 space-y-5">
               {/* Badge */}
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1">
-                <Sparkles className="w-3 h-3" />
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-fuchsia-300 bg-fuchsia-500/10 border border-fuchsia-500/20 rounded-full px-3 py-1">
+                <Sparkles className="w-3 h-3 text-fuchsia-400" />
                 U*demy One-Time Offer
               </span>
 
               {/* Title */}
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
                 One Time Payment{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
                   OFFER
                 </span>
               </h2>
 
               {/* Price */}
               <div className="flex items-baseline gap-3">
-                <span className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                <span className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                   ৳১৫৯৯
                 </span>
                 <span className="text-gray-400 text-sm">
@@ -469,12 +469,12 @@ export default async function HomePage() {
               </div>
 
               {/* Offer end */}
-              <p className="text-gray-400 text-sm">
+              <p className="text-purple-300/70 text-sm">
                 ( OFFER ENDS 29th Jun, 2026 )
               </p>
 
               {/* Note */}
-              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 space-y-1.5">
+              <div className="bg-[#180e2d]/80 border border-purple-800/30 rounded-xl p-4 space-y-1.5">
                 <p className="text-gray-300 text-sm">
                   <span className="text-white font-semibold">Note:</span> BONUS
                   ACCOUNTS ARE NOT INCLUDED.
@@ -494,7 +494,7 @@ export default async function HomePage() {
                 <Link href="/tools/6a148a1b718438f9d2311eaf">
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white border-0 shadow-lg shadow-pink-500/20 transition-all duration-200 group"
+                    className="bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 shadow-lg shadow-purple-600/30 transition-all duration-200 group"
                   >
                     <Zap className="mr-2 w-4 h-4" />
                     Buy Now
@@ -504,7 +504,7 @@ export default async function HomePage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-gray-700 bg-gray-800/40 text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
+                    className="border-purple-800/40 bg-purple-950/20 text-purple-200 hover:bg-purple-900/40 hover:text-white transition-all duration-200"
                   >
                     ☰ View More Details
                   </Button>
@@ -517,9 +517,9 @@ export default async function HomePage() {
                   (b) => (
                     <span
                       key={b}
-                      className="inline-flex items-center gap-1.5 text-[11px] text-gray-400 bg-gray-800/50 border border-gray-700/50 rounded-full px-3 py-1"
+                      className="inline-flex items-center gap-1.5 text-[11px] text-gray-300 bg-purple-950/40 border border-purple-800/30 rounded-full px-3 py-1"
                     >
-                      <CheckCircle className="h-3 w-3 text-cyan-400 flex-shrink-0" />
+                      <CheckCircle className="h-3 w-3 text-fuchsia-400 flex-shrink-0" />
                       {b}
                     </span>
                   ),
@@ -531,18 +531,18 @@ export default async function HomePage() {
       </section>
 
       {/* ── TOOLS GRID ─────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-[#0a0d14]">
+      <section className="py-16 sm:py-20 bg-[#07040d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-              <span className="text-xs sm:text-sm font-bold text-blue-400 uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 rounded-full px-4 py-1.5 mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-fuchsia-400" />
+              <span className="text-xs sm:text-sm font-bold text-fuchsia-400 uppercase tracking-wider">
                 80+ Premium Learning Tools
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
               Every Platform Your{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
                 Growth Needs
               </span>
             </h2>
@@ -556,19 +556,19 @@ export default async function HomePage() {
             {TOOLS.map((tool) => (
               <Card
                 key={tool.name}
-                className="group relative overflow-hidden bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-gray-900/50 border-gray-800/50 hover:border-blue-500/40 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
+                className="group relative overflow-hidden bg-[#120822]/50 border-purple-900/30 hover:border-fuchsia-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-purple-950/40 hover:scale-[1.02]"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-cyan-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 via-transparent to-pink-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <CardHeader className="relative z-10 space-y-3 p-5 sm:p-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-blue-500/20">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-purple-500/20">
                       {tool.abbr}
                     </div>
                     <div>
                       <CardTitle className="text-base text-white font-bold">
                         {tool.name}
                       </CardTitle>
-                      <span className="text-xs text-cyan-400 font-semibold">
+                      <span className="text-xs text-fuchsia-400 font-semibold">
                         From {tool.from}/3mo
                       </span>
                     </div>
@@ -585,7 +585,7 @@ export default async function HomePage() {
             <Link href="/tools">
               <Button
                 variant="outline"
-                className="border-blue-500/30 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20"
+                className="border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20 hover:text-white"
               >
                 View all 80+ tools →
               </Button>
@@ -595,12 +595,12 @@ export default async function HomePage() {
       </section>
 
       {/* ── PRICING ────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-[#0a0d14]">
+      <section className="py-16 sm:py-20 bg-[#07040d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
               Simple,{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
                 Learning
               </span>{" "}
               Package
@@ -617,20 +617,20 @@ export default async function HomePage() {
                 className={`relative rounded-2xl p-6 border transition-all duration-300
                 ${
                   plan.highlight
-                    ? "bg-gradient-to-br from-blue-900/40 to-cyan-900/30 border-blue-500/50 shadow-xl shadow-blue-500/20 scale-105"
-                    : "bg-gray-900/50 border-gray-800/50 hover:border-gray-700"
+                    ? "bg-gradient-to-br from-purple-950/60 to-fuchsia-950/40 border-fuchsia-500/50 shadow-2xl shadow-purple-900/30 scale-105"
+                    : "bg-[#120822]/50 border-purple-900/30 hover:border-purple-700/50"
                 }`}
               >
                 {plan.highlight && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md shadow-pink-500/20">
                     BEST VALUE
                   </span>
                 )}
                 <h3 className="text-xl font-bold text-white mb-1">
                   {plan.name}
                 </h3>
-                <p className="text-gray-400 text-sm mb-3">{plan.desc}</p>
-                <p className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-6">
+                <p className="text-purple-300/70 text-sm mb-3">{plan.desc}</p>
+                <p className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent mb-6">
                   {plan.price}
                   <span className="text-base text-gray-400 font-normal">
                     {plan.period}
@@ -642,7 +642,7 @@ export default async function HomePage() {
                       key={t}
                       className="flex items-center gap-2 text-sm text-gray-300"
                     >
-                      <CheckCircle className="h-4 w-4 text-cyan-400 flex-shrink-0" />
+                      <CheckCircle className="h-4 w-4 text-fuchsia-400 flex-shrink-0" />
                       {t}
                     </li>
                   ))}
@@ -652,8 +652,8 @@ export default async function HomePage() {
                     variant="outline"
                     className={`w-full ${
                       plan.highlight
-                        ? "border-blue-500/50 text-blue-400 hover:bg-blue-500/10"
-                        : "border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white"
+                        ? "border-fuchsia-500/50 text-fuchsia-300 hover:bg-fuchsia-500/10"
+                        : "border-purple-800/40 text-purple-200 hover:bg-purple-900/40 hover:text-white"
                     }`}
                   >
                     View Full Tool List
@@ -663,8 +663,8 @@ export default async function HomePage() {
                   <Button
                     className={`w-full ${
                       plan.highlight
-                        ? "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white border-0"
-                        : "bg-gray-800 hover:bg-gray-700 text-white border border-gray-700"
+                        ? "bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 shadow-lg shadow-fuchsia-600/30"
+                        : "bg-purple-950/40 hover:bg-purple-900/60 text-white border border-purple-800/40"
                     }`}
                   >
                     Get Started
@@ -677,12 +677,12 @@ export default async function HomePage() {
       </section>
 
       {/* ── HOW IT WORKS ───────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-[#0a0d14]">
+      <section className="py-16 sm:py-20 bg-[#07040d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Get Started in{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
                 3 Simple Steps
               </span>
             </h2>
@@ -712,11 +712,11 @@ export default async function HomePage() {
             ].map((s) => (
               <div
                 key={s.step}
-                className="bg-gray-900/50 border border-gray-800/50 rounded-2xl p-6 hover:border-blue-500/30 transition-all duration-300 group"
+                className="bg-[#120822]/50 border border-purple-900/30 rounded-2xl p-6 hover:border-fuchsia-500/40 transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 p-0.5 mb-4 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
-                  <div className="w-full h-full bg-[#0a0d14] rounded-[11px] flex items-center justify-center">
-                    <span className="text-blue-400 font-bold text-sm">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 p-0.5 mb-4 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-full h-full bg-[#07040d] rounded-[11px] flex items-center justify-center">
+                    <span className="text-fuchsia-400 font-bold text-sm">
                       {s.step}
                     </span>
                   </div>
@@ -732,12 +732,12 @@ export default async function HomePage() {
       </section>
 
       {/* ── FEATURES ───────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-[#0a0d14]">
+      <section className="py-16 sm:py-20 bg-[#07040d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Why Choose{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
                 SkillEduStore?
               </span>
             </h2>
@@ -750,12 +750,12 @@ export default async function HomePage() {
             {FEATURES.map((f) => (
               <Card
                 key={f.title}
-                className="group relative overflow-hidden bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-gray-900/50 border-gray-800/50 hover:border-blue-500/40 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
+                className="group relative overflow-hidden bg-[#120822]/50 border-purple-900/30 hover:border-fuchsia-500/40 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
               >
                 <CardHeader className="relative z-10 space-y-4 p-5 sm:p-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 p-0.5 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
-                    <div className="w-full h-full bg-[#0a0d14] rounded-[11px] flex items-center justify-center">
-                      <f.icon className="h-5 w-5 text-blue-400" />
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 p-0.5 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-full h-full bg-[#07040d] rounded-[11px] flex items-center justify-center">
+                      <f.icon className="h-5 w-5 text-fuchsia-400" />
                     </div>
                   </div>
                   <CardTitle className="text-lg text-white font-bold">
@@ -772,12 +772,12 @@ export default async function HomePage() {
       </section>
 
       {/* ── REVIEWS ────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-[#0a0d14]">
+      <section className="py-16 sm:py-20 bg-[#07040d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Trusted by{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
                 3,000+ Learners
               </span>
             </h2>
@@ -789,13 +789,13 @@ export default async function HomePage() {
             {REVIEWS.map((r) => (
               <div
                 key={r.name}
-                className="bg-gray-900/50 border border-gray-800/50 rounded-2xl p-6 space-y-4 hover:border-blue-500/30 transition-all duration-300"
+                className="bg-[#120822]/50 border border-purple-900/30 rounded-2xl p-6 space-y-4 hover:border-fuchsia-500/30 transition-all duration-300"
               >
                 <div className="flex gap-1">
                   {Array.from({ length: r.stars }).map((_, i) => (
                     <Star
                       key={i}
-                      className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                      className="h-4 w-4 fill-amber-400 text-amber-400"
                     />
                   ))}
                 </div>
@@ -803,12 +803,12 @@ export default async function HomePage() {
                   {r.text}
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white text-xs font-bold">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold">
                     {r.abbr}
                   </div>
                   <div>
                     <p className="text-white text-sm font-semibold">{r.name}</p>
-                    <p className="text-gray-500 text-xs">{r.role}</p>
+                    <p className="text-purple-300/60 text-xs">{r.role}</p>
                   </div>
                 </div>
               </div>
@@ -818,12 +818,12 @@ export default async function HomePage() {
       </section>
 
       {/* ── FAQ ────────────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-[#0a0d14]">
+      <section className="py-16 sm:py-20 bg-[#07040d]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Frequently Asked{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
                 Questions
               </span>
             </h2>
@@ -835,7 +835,7 @@ export default async function HomePage() {
             {FAQS.map((faq) => (
               <div
                 key={faq.q}
-                className="bg-gray-900/50 border border-gray-800/50 rounded-xl p-5 hover:border-blue-500/30 transition-all duration-300"
+                className="bg-[#120822]/50 border border-purple-900/30 rounded-xl p-5 hover:border-fuchsia-500/30 transition-all duration-300"
               >
                 <h3 className="text-white font-semibold mb-2">{faq.q}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{faq.a}</p>
@@ -846,12 +846,12 @@ export default async function HomePage() {
       </section>
 
       {/* ── CTA ────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-[#0a0d14]">
+      <section className="py-20 bg-[#07040d]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-gray-900/50 border border-gray-800 rounded-2xl p-12 sm:p-16 text-center">
+          <div className="bg-gradient-to-br from-[#180e2e]/80 via-[#120822]/60 to-[#180e2e]/80 border border-purple-800/40 rounded-2xl p-12 sm:p-16 text-center shadow-2xl shadow-purple-950/60">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               Start Learning{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
                 Smarter Today
               </span>
             </h2>
@@ -863,7 +863,7 @@ export default async function HomePage() {
               <Link href="/tools">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white shadow-lg shadow-blue-500/25 transition-all duration-200 group"
+                  className="w-full sm:w-auto bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-lg shadow-purple-600/30 transition-all duration-200 group"
                 >
                   Create Free Account
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -873,7 +873,7 @@ export default async function HomePage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="w-full sm:w-auto border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white"
+                  className="w-full sm:w-auto border-purple-800/40 text-purple-200 hover:bg-purple-900/40 hover:text-white"
                 >
                   See the Dashboard
                 </Button>
