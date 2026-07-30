@@ -137,25 +137,25 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
   }
 
   return (
-    <Card className="relative overflow-hidden bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-gray-900/50 border-gray-800/50 hover:border-blue-500/30 transition-all duration-300 shadow-xl group">
+    <Card className="relative overflow-hidden bg-[#120822]/50 border-purple-900/30 hover:border-fuchsia-500/40 transition-all duration-300 shadow-xl shadow-purple-950/30 group">
       {/* Decorative gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-cyan-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 via-transparent to-pink-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       
       <CardHeader className="relative z-10">
         <div className="flex items-start justify-between">
           <div>
             <CardTitle className="text-white text-2xl font-bold flex items-center gap-2">
-              <User className="w-6 h-6 text-blue-400" />
+              <User className="w-6 h-6 text-fuchsia-400" />
               Personal Information
             </CardTitle>
-            <CardDescription className="text-gray-400 mt-1">
+            <CardDescription className="text-purple-300/60 mt-1">
               Manage your account details and preferences
             </CardDescription>
           </div>
           {user.isVerified && (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30">
-              <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="text-xs font-semibold text-emerald-400">Verified</span>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/30">
+              <CheckCircle className="w-3.5 h-3.5 text-fuchsia-400" />
+              <span className="text-xs font-semibold text-fuchsia-300">Verified</span>
             </div>
           )}
         </div>
@@ -163,29 +163,29 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
       
       <CardContent className="space-y-6 relative z-10">
         {error && (
-          <Alert variant="error" className="bg-red-500/10 border-red-500/30 text-red-400">
+          <Alert variant="error" className="bg-rose-500/10 border-rose-500/30 text-rose-400">
             {error}
           </Alert>
         )}
         {success && (
-          <Alert variant="success" className="bg-emerald-500/10 border-emerald-500/30 text-emerald-400">
+          <Alert variant="success" className="bg-fuchsia-500/10 border-fuchsia-500/30 text-fuchsia-300">
             {success}
           </Alert>
         )}
 
         {/* Avatar Section */}
-        <div className="flex items-center gap-6 p-6 rounded-xl bg-gradient-to-br from-gray-800/40 to-gray-900/40 border border-gray-700/50">
+        <div className="flex items-center gap-6 p-6 rounded-xl bg-[#07040d]/60 border border-purple-900/30">
           <div className="relative group/avatar">
             {/* Avatar Display */}
             {(avatarPreview || user.avatar) ? (
               <div className="relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full blur opacity-75 group-hover/avatar:opacity-100 transition-opacity"></div>
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500 via-fuchsia-500 to-pink-500 rounded-full blur opacity-75 group-hover/avatar:opacity-100 transition-opacity"></div>
                 <Image
                   src={avatarPreview || user.avatar || "https://res.cloudinary.com/dj8fpb6tq/image/upload/v1758530649/qllwshtuqe3njr8pzim6.png"}
                   alt={user.name}
                   width={80}
                   height={80}
-                  className="relative h-20 w-20 shrink-0 rounded-full border-2 border-gray-900 object-cover"
+                  className="relative h-20 w-20 shrink-0 rounded-full border-2 border-[#07040d] object-cover"
                 />
                 {/* Camera overlay on hover - only for non-social auth users */}
                 {!isSocialAuthUser && (
@@ -199,8 +199,8 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
               </div>
             ) : (
               <div className="relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full blur opacity-75 group-hover/avatar:opacity-100 transition-opacity"></div>
-                <div className="relative h-20 w-20 rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center border-2 border-gray-900">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500 via-fuchsia-500 to-pink-500 rounded-full blur opacity-75 group-hover/avatar:opacity-100 transition-opacity"></div>
+                <div className="relative h-20 w-20 rounded-full bg-gradient-to-br from-purple-600 via-fuchsia-600 to-pink-600 flex items-center justify-center border-2 border-[#07040d]">
                   <span className="text-white text-2xl font-bold">
                     {user.name.charAt(0).toUpperCase()}
                   </span>
@@ -236,7 +236,7 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
                 className={
                   user.role === "instructor" 
                     ? "bg-violet-500/20 text-violet-300 border-violet-500/30 hover:bg-violet-500/30" 
-                    : "bg-blue-500/20 text-blue-300 border-blue-500/30 hover:bg-blue-500/30"
+                    : "bg-purple-500/20 text-fuchsia-300 border-purple-500/30 hover:bg-purple-500/30"
                 }
               >
                 <ShieldCheck className="w-3 h-3 mr-1" />
@@ -251,7 +251,7 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
                   size="sm"
                   onClick={handleAvatarUpload}
                   disabled={isUploadingAvatar}
-                  className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white text-xs h-8 px-3"
+                  className="bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs h-8 px-3 cursor-pointer border-0 shadow-lg shadow-purple-600/30"
                 >
                   <Upload className="w-3 h-3 mr-1" />
                   {isUploadingAvatar ? "Uploading..." : "Upload"}
@@ -261,7 +261,7 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
                   variant="outline"
                   onClick={handleAvatarCancel}
                   disabled={isUploadingAvatar}
-                  className="border-gray-700 bg-gray-800/50 text-gray-300 hover:bg-gray-700 text-xs h-8 px-3"
+                  className="border-purple-800/40 bg-purple-950/20 text-purple-200 hover:bg-purple-900/40 text-xs h-8 px-3 cursor-pointer"
                 >
                   <X className="w-3 h-3 mr-1" />
                   Cancel
@@ -270,7 +270,7 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
             )}
             
             {!avatarPreview && (
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-purple-300/50 mt-2">
                 {isSocialAuthUser 
                   ? "Avatar is linked to your social account and cannot be changed"
                   : "Hover over avatar and click to upload a new picture"
@@ -283,8 +283,8 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
         {/* Form Fields */}
         <div className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
-              <User className="w-4 h-4 text-blue-400" />
+            <label className="text-sm font-medium text-purple-200/80 flex items-center gap-2">
+              <User className="w-4 h-4 text-fuchsia-400" />
               Full Name
             </label>
             <div className="relative">
@@ -292,21 +292,21 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
                 value={isEditing ? formData.name : user.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 disabled={!isEditing}
-                className={`bg-gray-800/50 border-gray-700/50 text-white placeholder:text-gray-500 ${
-                  isEditing ? 'focus:border-blue-500/50 focus:ring-blue-500/20' : ''
+                className={`bg-[#07040d]/60 border-purple-900/40 text-white placeholder:text-gray-500 ${
+                  isEditing ? 'focus:border-fuchsia-500 focus:ring-fuchsia-500/20' : ''
                 }`}
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
-              <Mail className="w-4 h-4 text-blue-400" />
+            <label className="text-sm font-medium text-purple-200/80 flex items-center gap-2">
+              <Mail className="w-4 h-4 text-fuchsia-400" />
               Email Address
             </label>
-            <div className="relative flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gray-800/30 border border-gray-700/50">
+            <div className="relative flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#07040d]/40 border border-purple-900/30">
               <span className="text-white flex-1">{user.email}</span>
-              <span className="text-xs text-gray-500 bg-gray-700/50 px-2 py-1 rounded">Read-only</span>
+              <span className="text-xs text-purple-300/50 bg-purple-950/40 border border-purple-800/30 px-2 py-1 rounded">Read-only</span>
             </div>
           </div>
         </div>
@@ -318,7 +318,7 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
               <Button 
                 onClick={handleSave} 
                 disabled={isSaving}
-                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white border-0 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200 group/btn"
+                className="bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 shadow-lg shadow-purple-600/30 transition-all duration-200 group/btn cursor-pointer"
               >
                 <Save className="w-4 h-4 mr-2 group-hover/btn:scale-110 transition-transform" />
                 {isSaving ? "Saving..." : "Save Changes"}
@@ -327,7 +327,7 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
                 variant="outline"
                 onClick={handleCancel}
                 disabled={isSaving}
-                className="border-gray-700 bg-gray-800/50 text-gray-300 hover:bg-gray-700 hover:text-white hover:border-gray-600 transition-all duration-200"
+                className="border-purple-800/40 bg-purple-950/20 text-purple-200 hover:bg-purple-900/40 hover:text-white transition-all duration-200 cursor-pointer"
               >
                 <X className="w-4 h-4 mr-2" />
                 Cancel
@@ -336,7 +336,7 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
           ) : (
             <Button 
               onClick={() => setIsEditing(true)}
-              className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white border-0 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200 group/btn"
+              className="bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 shadow-lg shadow-purple-600/30 transition-all duration-200 group/btn cursor-pointer"
             >
               <Edit2 className="w-4 h-4 mr-2 group-hover/btn:scale-110 transition-transform" />
               Edit Profile
@@ -347,4 +347,3 @@ export function ProfileForm({ user, accessToken }: ProfileFormProps) {
     </Card>
   )
 }
-

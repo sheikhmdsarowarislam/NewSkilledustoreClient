@@ -69,21 +69,21 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#03050a] px-4 pt-16">
+    <div className="min-h-screen flex items-center justify-center bg-[#07040d] px-4 pt-16">
       {/* Background orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-72 h-72 bg-cyan-600/10 rounded-full blur-3xl" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-60">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-600/15 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-72 h-72 bg-fuchsia-600/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
       </div>
 
       <div className="w-full max-w-md relative z-10">
         {/* Card */}
-        <Card className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 shadow-2xl">
+        <Card className="bg-[#120822]/60 backdrop-blur-xl border border-purple-900/40 shadow-2xl shadow-purple-950/50">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center text-white">
               Create Account
             </CardTitle>
-            <CardDescription className="text-center text-gray-400">
+            <CardDescription className="text-center text-purple-300/60">
               Start your learning journey today
             </CardDescription>
           </CardHeader>
@@ -98,36 +98,22 @@ export default function SignUpPage() {
                 disabled={socialLoading !== null}
                 iconOnly
               />
-              {/* <SocialButton 
-                provider="github"
-                onClick={() => handleSocialLogin("github")}
-                isLoading={socialLoading === "github"}
-                disabled={socialLoading !== null}
-                iconOnly
-              /> */}
-              {/* <SocialButton 
-                provider="facebook"
-                onClick={() => handleSocialLogin("facebook")}
-                isLoading={socialLoading === "facebook"}
-                disabled={socialLoading !== null}
-                iconOnly
-              /> */}
             </div>
 
             {/* Divider */}
             <div className="relative mb-6">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-gray-800" />
+                <span className="w-full border-t border-purple-900/40" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-gray-900 px-2 text-gray-500">Or with email</span>
+                <span className="bg-[#120822] px-2 text-purple-300/50">Or with email</span>
               </div>
             </div>
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
-                <Alert variant="error">
+                <Alert variant="error" className="bg-rose-500/10 border-rose-500/30 text-rose-400">
                   {error}
                 </Alert>
               )}
@@ -181,7 +167,7 @@ export default function SignUpPage() {
               <Button
                 type="submit"
                 size="lg"
-                className="w-full"
+                className="w-full bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 shadow-lg shadow-purple-600/30 cursor-pointer"
                 isLoading={isLoading}
                 disabled={socialLoading !== null}
               >
@@ -191,11 +177,11 @@ export default function SignUpPage() {
           </CardContent>
           
           <CardFooter className="flex flex-col space-y-4">
-            <div className="text-sm text-center text-gray-400">
+            <div className="text-sm text-center text-purple-300/60">
               Already have an account?{" "}
               <Link
                 href="/signin"
-                className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+                className="text-fuchsia-400 hover:text-fuchsia-300 font-semibold transition-colors"
               >
                 Sign in
               </Link>
