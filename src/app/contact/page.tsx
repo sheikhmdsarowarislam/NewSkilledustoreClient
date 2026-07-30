@@ -12,8 +12,8 @@ const CONTACT_OPTIONS = [
     title: "WhatsApp Support",
     desc: "Chat with our support team on WhatsApp anytime.",
     action: "+880 1311-844364",
-    color: "from-blue-500 to-cyan-500",
-    text: "text-blue-400",
+    color: "from-purple-500 to-fuchsia-500",
+    text: "text-fuchsia-400",
     available: true,
   },
   {
@@ -22,7 +22,7 @@ const CONTACT_OPTIONS = [
     desc: "Send us a message and we'll reply within 24 hours.",
     action: "support@skilledustore.com",
     color: "from-violet-500 to-purple-500",
-    text: "text-violet-400",
+    text: "text-purple-300",
     available: true,
   },
   {
@@ -30,8 +30,8 @@ const CONTACT_OPTIONS = [
     title: "Response Time",
     desc: "We typically reply within a few hours on business days.",
     action: "Available 18/7",
-    color: "from-emerald-500 to-green-500",
-    text: "text-emerald-400",
+    color: "from-fuchsia-500 to-pink-500",
+    text: "text-pink-400",
     available: true,
   },
 ]
@@ -80,28 +80,28 @@ export default function ContactPage() {
   const setField = (k: keyof typeof form, v: string) => setForm(f => ({ ...f, [k]: v }))
 
   return (
-    <div className="min-h-screen bg-[#03050a]">
+    <div className="min-h-screen bg-[#07040d]">
 
       {/* ── HERO ── */}
       <section className="relative overflow-hidden pt-32 pb-16 lg:pt-40 lg:pb-20">
-        <div className="absolute inset-0 pointer-events-none"
+        <div className="absolute inset-0 pointer-events-none opacity-60"
           style={{
-            backgroundImage: "linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px)",
+            backgroundImage: "linear-gradient(rgba(139,92,246,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.06) 1px, transparent 1px)",
             backgroundSize: "48px 48px"
           }}
         />
-        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-16 -right-32 w-[400px] h-[400px] bg-cyan-600/8 rounded-full blur-3xl" />
+        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-600/15 rounded-full blur-[120px]" />
+        <div className="absolute -bottom-16 -right-32 w-[400px] h-[400px] bg-fuchsia-600/10 rounded-full blur-[120px]" />
 
         <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 bg-blue-500/8 border border-blue-500/20 rounded-full px-3.5 py-1.5 mb-6">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="text-[11px] font-semibold text-cyan-400 tracking-widest uppercase">Get in touch</span>
+          <div className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 rounded-full px-3.5 py-1.5 mb-6 backdrop-blur-md">
+            <Sparkles className="w-3.5 h-3.5 text-fuchsia-400" />
+            <span className="text-[11px] font-semibold text-purple-300 tracking-widest uppercase">Get in touch</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight mb-5">
             <span className="text-white">We're here</span><br />
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-500 bg-clip-text text-transparent">
               to help.
             </span>
           </h1>
@@ -116,7 +116,7 @@ export default function ContactPage() {
               href="https://wa.me/8801311844364"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 hover:border-green-400/60 rounded-full px-4 py-2 text-green-400 text-xs font-semibold transition-all hover:bg-green-500/15"
+              className="inline-flex items-center gap-2 bg-fuchsia-500/10 border border-fuchsia-500/30 hover:border-fuchsia-400/60 rounded-full px-4 py-2 text-fuchsia-300 text-xs font-semibold transition-all hover:bg-fuchsia-500/20"
             >
               <Phone className="w-3.5 h-3.5" />
               WhatsApp: 01311844364
@@ -125,7 +125,7 @@ export default function ContactPage() {
               href="https://facebook.com/skilledustore"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 hover:border-blue-400/60 rounded-full px-4 py-2 text-blue-400 text-xs font-semibold transition-all hover:bg-blue-500/15"
+              className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/30 hover:border-purple-400/60 rounded-full px-4 py-2 text-purple-300 text-xs font-semibold transition-all hover:bg-purple-500/20"
             >
               <Facebook className="w-3.5 h-3.5" />
               @skilledustore
@@ -139,10 +139,10 @@ export default function ContactPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {CONTACT_OPTIONS.map(opt => (
-              <Card key={opt.title} className="group relative overflow-hidden bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-gray-900/50 border-gray-800/50 hover:border-blue-500/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
+              <Card key={opt.title} className="group relative overflow-hidden bg-[#120822]/50 border-purple-900/30 hover:border-fuchsia-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-purple-950/40 hover:scale-[1.02]">
                 <CardHeader className="relative z-10 space-y-4 p-5">
-                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${opt.color} p-0.5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    <div className="w-full h-full bg-[#0a0d14] rounded-[9px] flex items-center justify-center">
+                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${opt.color} p-0.5 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform duration-300`}>
+                    <div className="w-full h-full bg-[#07040d] rounded-[9px] flex items-center justify-center">
                       <opt.icon className={`h-4 w-4 ${opt.text}`} />
                     </div>
                   </div>
@@ -157,31 +157,31 @@ export default function ContactPage() {
       </section>
 
       {/* ── FORM + FAQ ── */}
-      <section className="py-12 border-t border-gray-800/50">
+      <section className="py-12 border-t border-purple-900/30">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-10">
 
             {/* Contact Form */}
             <div>
               <div className="mb-6">
-                <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 mb-3">
-                  <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">Send a message</span>
+                <div className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 rounded-full px-4 py-1.5 mb-3">
+                  <span className="text-xs font-bold text-fuchsia-400 uppercase tracking-wider">Send a message</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold text-white">
-                  Drop us a <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">line</span>
+                  Drop us a <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">line</span>
                 </h2>
               </div>
 
               {sent ? (
-                <div className="bg-emerald-900/20 border border-emerald-500/30 rounded-2xl p-8 text-center">
-                  <div className="w-14 h-14 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle className="h-7 w-7 text-emerald-400" />
+                <div className="bg-fuchsia-950/20 border border-fuchsia-500/30 rounded-2xl p-8 text-center shadow-xl shadow-purple-950/50">
+                  <div className="w-14 h-14 rounded-full bg-fuchsia-500/20 flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle className="h-7 w-7 text-fuchsia-400" />
                   </div>
                   <h3 className="text-white font-semibold text-lg mb-2">Message sent!</h3>
                   <p className="text-gray-400 text-sm">We'll get back to you within 24 hours.</p>
                   <button
                     onClick={() => { setSent(false); setForm({ name: "", email: "", subject: "", message: "" }) }}
-                    className="mt-5 text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+                    className="mt-5 text-xs text-fuchsia-400 hover:text-fuchsia-300 transition-colors"
                   >
                     Send another message
                   </button>
@@ -190,54 +190,54 @@ export default function ContactPage() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs text-gray-400 mb-1 block">Name *</label>
+                      <label className="text-xs text-purple-200/70 mb-1 block">Name *</label>
                       <input
                         value={form.name}
                         onChange={e => setField("name", e.target.value)}
                         placeholder="Your name"
                         required
-                        className="w-full bg-gray-800/60 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                        className="w-full bg-[#120822]/60 border border-purple-900/40 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-fuchsia-500 transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="text-xs text-gray-400 mb-1 block">Email *</label>
+                      <label className="text-xs text-purple-200/70 mb-1 block">Email *</label>
                       <input
                         type="email"
                         value={form.email}
                         onChange={e => setField("email", e.target.value)}
                         placeholder="you@example.com"
                         required
-                        className="w-full bg-gray-800/60 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                        className="w-full bg-[#120822]/60 border border-purple-900/40 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-fuchsia-500 transition-colors"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-xs text-gray-400 mb-1 block">Subject</label>
+                    <label className="text-xs text-purple-200/70 mb-1 block">Subject</label>
                     <input
                       value={form.subject}
                       onChange={e => setField("subject", e.target.value)}
                       placeholder="What's this about?"
-                      className="w-full bg-gray-800/60 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                      className="w-full bg-[#120822]/60 border border-purple-900/40 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-fuchsia-500 transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs text-gray-400 mb-1 block">Message *</label>
+                    <label className="text-xs text-purple-200/70 mb-1 block">Message *</label>
                     <textarea
                       value={form.message}
                       onChange={e => setField("message", e.target.value)}
                       placeholder="Tell us how we can help..."
                       rows={5}
                       required
-                      className="w-full bg-gray-800/60 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                      className="w-full bg-[#120822]/60 border border-purple-900/40 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-fuchsia-500 transition-colors resize-none"
                     />
                   </div>
 
                   <Button
                     type="submit"
                     disabled={sending || !form.name || !form.email || !form.message}
-                    className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white border-0 shadow-lg shadow-blue-500/20 gap-2 disabled:opacity-50"
+                    className="w-full bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 shadow-lg shadow-purple-600/30 gap-2 disabled:opacity-50 cursor-pointer"
                   >
                     {sending ? (
                       <>
@@ -258,7 +258,7 @@ export default function ContactPage() {
                       href="https://wa.me/8801311844364"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-2 bg-green-500/10 border border-green-500/20 hover:border-green-500/40 rounded-xl px-4 py-2.5 text-green-400 text-xs font-semibold transition-all"
+                      className="flex-1 flex items-center justify-center gap-2 bg-fuchsia-500/10 border border-fuchsia-500/20 hover:border-fuchsia-500/40 rounded-xl px-4 py-2.5 text-fuchsia-300 text-xs font-semibold transition-all"
                     >
                       <Phone className="w-3.5 h-3.5" />
                       WhatsApp Us
@@ -267,7 +267,7 @@ export default function ContactPage() {
                       href="https://facebook.com/skilledustore"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-2 bg-blue-500/10 border border-blue-500/20 hover:border-blue-500/40 rounded-xl px-4 py-2.5 text-blue-400 text-xs font-semibold transition-all"
+                      className="flex-1 flex items-center justify-center gap-2 bg-purple-500/10 border border-purple-500/20 hover:border-purple-500/40 rounded-xl px-4 py-2.5 text-purple-300 text-xs font-semibold transition-all"
                     >
                       <Facebook className="w-3.5 h-3.5" />
                       Facebook Page
@@ -280,17 +280,17 @@ export default function ContactPage() {
             {/* FAQ */}
             <div>
               <div className="mb-6">
-                <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 mb-3">
-                  <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">Quick answers</span>
+                <div className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 rounded-full px-4 py-1.5 mb-3">
+                  <span className="text-xs font-bold text-fuchsia-400 uppercase tracking-wider">Quick answers</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold text-white">
-                  Common <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">questions</span>
+                  Common <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">questions</span>
                 </h2>
               </div>
 
               <div className="space-y-3">
                 {FAQS.map(faq => (
-                  <div key={faq.q} className="bg-gray-900/60 border border-gray-800/50 rounded-xl p-4 hover:border-blue-500/20 transition-all duration-300">
+                  <div key={faq.q} className="bg-[#120822]/50 border border-purple-900/30 rounded-xl p-4 hover:border-fuchsia-500/30 transition-all duration-300">
                     <h3 className="text-white font-medium text-sm mb-1.5">{faq.q}</h3>
                     <p className="text-gray-400 text-xs leading-relaxed">{faq.a}</p>
                   </div>
@@ -303,22 +303,22 @@ export default function ContactPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-20 border-t border-gray-800/50">
+      <section className="py-20 border-t border-purple-900/30">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-gray-900/50 via-gray-800/30 to-gray-900/50 border border-gray-800 rounded-2xl p-12 text-center">
+          <div className="bg-gradient-to-br from-[#180e2e]/80 via-[#120822]/60 to-[#180e2e]/80 border border-purple-800/40 rounded-2xl p-12 text-center shadow-2xl shadow-purple-950/50">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Ready to get started?
             </h2>
             <p className="text-gray-400 mb-8">Access 100+ premium SEO tools at group-buy pricing. Available 18/7 support.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/tools">
-                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white border-0 shadow-lg shadow-blue-500/20 group px-8">
+                <Button size="lg" className="bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 shadow-lg shadow-purple-600/30 group px-8">
                   Browse all tools
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </Button>
               </Link>
               <Link href="/about">
-                <Button size="lg" variant="outline" className="border-gray-700 bg-gray-800/40 text-gray-300 hover:bg-gray-800 hover:text-white px-8">
+                <Button size="lg" variant="outline" className="border-purple-800/40 text-purple-200 hover:bg-purple-900/40 hover:text-white px-8">
                   Learn about us
                 </Button>
               </Link>

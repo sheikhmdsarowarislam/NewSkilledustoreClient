@@ -33,8 +33,8 @@ const NavLink = ({
       href={href}
       className={`px-4 py-2 rounded-lg transition-all duration-300 text-base ${
         isActive
-          ? "bg-white/10 text-white font-semibold"
-          : "text-gray-300 hover:text-white hover:bg-white/5 font-medium"
+          ? "bg-purple-500/15 text-white font-semibold border border-purple-500/30"
+          : "text-gray-300 hover:text-white hover:bg-purple-950/30 font-medium"
       } ${className}`}
     >
       {children}
@@ -79,25 +79,25 @@ export function Navbar() {
   return (
     <>
       <nav
-        className="w-full fixed top-0 left-0 right-0 bg-black/95 border-b border-gray-800/50 z-50"
+        className="w-full fixed top-0 left-0 right-0 bg-[#07040d]/95 backdrop-blur-md border-b border-purple-900/30 z-50"
         role="navigation"
         aria-label="Main navigation"
       >
         {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-cyan-600/5 to-blue-600/5 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-600/5 via-fuchsia-600/5 to-pink-600/5 pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between relative">
           {/* Left: Logo */}
           <div className="flex items-center">
             <Link href="/" className="group" aria-label="CodeTutor Home">
               <h1 className="font-bold w-auto h-9 flex items-center text-white justify-center gap-2.5 transition-all duration-300">
-                <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 p-0.5 shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/40 transition-all duration-300">
-                  <div className="w-full h-full bg-[#0a0d14] rounded-[8px] flex items-center justify-center">
-                    <GraduationCap className="h-5 w-5 text-blue-400" />
+                <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-purple-500 via-fuchsia-500 to-pink-500 p-0.5 shadow-lg shadow-purple-500/20 group-hover:shadow-purple-500/40 transition-all duration-300">
+                  <div className="w-full h-full bg-[#07040d] rounded-[8px] flex items-center justify-center">
+                    <GraduationCap className="h-5 w-5 text-fuchsia-400" />
                   </div>
                 </div>
                 <div className="flex text-base items-center gap-0.5">
-                  <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent font-bold">
+                  <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent font-bold">
                     Skilledu
                   </span>
                   <span className="text-white font-bold">Store</span>
@@ -126,8 +126,8 @@ export function Navbar() {
           <div className="flex items-center space-x-2">
             {isLoading ? (
               <div className="hidden md:flex items-center space-x-2">
-                <div className="h-9 w-24 bg-gray-800/50 rounded-lg animate-pulse" />
-                <div className="h-9 w-9 bg-gray-800/50 rounded-full animate-pulse" />
+                <div className="h-9 w-24 bg-purple-950/40 rounded-lg animate-pulse" />
+                <div className="h-9 w-9 bg-purple-950/40 rounded-full animate-pulse" />
               </div>
             ) : isAuthenticated ? (
               <div className="hidden md:flex items-center gap-2">
@@ -152,7 +152,7 @@ export function Navbar() {
                 <div className="relative flex items-center">
                   <button
                     onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                    className="p-1 rounded-lg hover:bg-gray-800/50 transition-colors flex items-center justify-center"
+                    className="p-1 rounded-lg hover:bg-purple-900/30 transition-colors flex items-center justify-center"
                     aria-label="User menu"
                   >
                     {user?.avatar && !avatarError ? (
@@ -161,11 +161,11 @@ export function Navbar() {
                         alt={user.name || "User"}
                         width={36}
                         height={36}
-                        className="h-9 w-9 rounded-full border-2 border-blue-500 hover:border-cyan-500 transition-colors object-cover"
+                        className="h-9 w-9 rounded-full border-2 border-purple-500 hover:border-fuchsia-400 transition-colors object-cover"
                         onError={() => setAvatarError(true)}
                       />
                     ) : (
-                      <div className="h-9 w-9 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 flex items-center justify-center hover:scale-110 transition-transform">
+                      <div className="h-9 w-9 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center hover:scale-110 transition-transform">
                         <span className="text-white text-sm font-medium">
                           {user?.name?.charAt(0).toUpperCase() || "U"}
                         </span>
@@ -174,27 +174,27 @@ export function Navbar() {
                   </button>
 
                   {isProfileMenuOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-48 bg-[#0a0d14] border border-gray-800 rounded-lg shadow-lg py-1 z-50">
+                    <div className="absolute right-0 top-full mt-2 w-48 bg-[#120822] border border-purple-800/40 rounded-lg shadow-xl shadow-purple-950/80 py-1 z-50">
                       <Link
                         href="/profile"
-                        className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-800/50 hover:text-white"
+                        className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-purple-900/40 hover:text-white"
                         onClick={() => setIsProfileMenuOpen(false)}
                       >
-                        <User className="h-4 w-4 mr-2" />
+                        <User className="h-4 w-4 mr-2 text-purple-400" />
                         Profile
                       </Link>
                       <Link
                         href="/profile/settings"
-                        className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-800/50 hover:text-white"
+                        className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-purple-900/40 hover:text-white"
                         onClick={() => setIsProfileMenuOpen(false)}
                       >
-                        <Settings className="h-4 w-4 mr-2" />
+                        <Settings className="h-4 w-4 mr-2 text-purple-400" />
                         Settings
                       </Link>
-                      <hr className="my-1 border-gray-800" />
+                      <hr className="my-1 border-purple-900/40" />
                       <button
                         onClick={handleSignOut}
-                        className="flex items-center w-full px-4 py-2 text-sm text-red-400 hover:bg-gray-800/50"
+                        className="flex items-center w-full px-4 py-2 text-sm text-rose-400 hover:bg-rose-500/10"
                       >
                         <LogOut className="h-4 w-4 mr-2" />
                         Sign Out
@@ -207,7 +207,7 @@ export function Navbar() {
               <div className="hidden md:flex items-center gap-3">
                 <Link href="/signin">
                   <button
-                    className="px-6 py-2.5 rounded-xl border-2 text-white border-gray-700 hover:border-gray-600 hover:bg-gray-800/50 cursor-pointer transition-all duration-300 font-medium"
+                    className="px-6 py-2.5 rounded-xl border-2 text-white border-purple-800/40 hover:border-purple-600 hover:bg-purple-950/30 cursor-pointer transition-all duration-300 font-medium"
                     aria-label="Login to your account"
                   >
                     Login
@@ -215,7 +215,7 @@ export function Navbar() {
                 </Link>
                 <Link href="/signup">
                   <button
-                    className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-2.5 rounded-xl cursor-pointer transition-all duration-300 font-medium shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-105"
+                    className="bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-6 py-2.5 rounded-xl cursor-pointer transition-all duration-300 font-medium shadow-lg shadow-purple-600/25 hover:shadow-purple-600/40 hover:scale-105"
                     aria-label="Create a new account"
                   >
                     Register
@@ -229,7 +229,7 @@ export function Navbar() {
               {!isLoading && !isAuthenticated && (
                 <Link href="/signin">
                   <button
-                    className="border-2 cursor-pointer border-gray-700 hover:border-gray-600 hover:bg-gray-800/50 transition-all duration-300 text-white px-4 py-1.5 rounded-lg text-sm font-medium"
+                    className="border-2 cursor-pointer border-purple-800/40 hover:border-purple-600 hover:bg-purple-950/30 transition-all duration-300 text-white px-4 py-1.5 rounded-lg text-sm font-medium"
                     aria-label="Login to your account"
                   >
                     Login
@@ -239,7 +239,7 @@ export function Navbar() {
 
               <button
                 onClick={toggleMobileMenu}
-                className="lg:hidden p-2 rounded-lg hover:bg-white/5 transition-all duration-300 relative z-[60]"
+                className="lg:hidden p-2 rounded-lg hover:bg-purple-900/30 transition-all duration-300 relative z-[60]"
                 aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isMobileMenuOpen}
               >
@@ -269,17 +269,16 @@ export function Navbar() {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 lg:hidden z-40">
-          {/* Backdrop - blur removed */}
+          {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-black/70"
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={toggleMobileMenu}
           />
 
           {/* Mobile Menu Panel */}
           <div className="absolute top-[73px] left-0 right-0 bottom-0 overflow-y-auto">
-            {/* Background - blur orbs removed */}
-            <div className="absolute inset-0 bg-gray-950" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/15 via-transparent to-cyan-900/15" />
+            <div className="absolute inset-0 bg-[#07040d]" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-purple-950/30 via-transparent to-fuchsia-950/20" />
 
             {/* Content */}
             <div className="relative max-w-7xl mx-auto px-4 py-6 space-y-1">
@@ -287,8 +286,8 @@ export function Navbar() {
                 href="/"
                 className={`block px-4 py-4 rounded-xl text-lg font-medium transition-all duration-300 border ${
                   pathname === "/"
-                    ? "bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-white border-blue-500/30 shadow-lg shadow-blue-500/20"
-                    : "text-gray-200 hover:text-white hover:bg-gray-800/50 border-gray-800/50 hover:border-gray-700"
+                    ? "bg-gradient-to-r from-purple-600/20 via-fuchsia-600/20 to-pink-600/20 text-white border-purple-500/40 shadow-lg shadow-purple-950/50"
+                    : "text-gray-200 hover:text-white hover:bg-purple-950/30 border-purple-900/20 hover:border-purple-800/40"
                 }`}
                 onClick={toggleMobileMenu}
               >
@@ -298,8 +297,8 @@ export function Navbar() {
                 href="/tools"
                 className={`block px-4 py-4 rounded-xl text-lg font-medium transition-all duration-300 border ${
                   pathname === "/tools"
-                    ? "bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-white border-blue-500/30 shadow-lg shadow-blue-500/20"
-                    : "text-gray-200 hover:text-white hover:bg-gray-800/50 border-gray-800/50 hover:border-gray-700"
+                    ? "bg-gradient-to-r from-purple-600/20 via-fuchsia-600/20 to-pink-600/20 text-white border-purple-500/40 shadow-lg shadow-purple-950/50"
+                    : "text-gray-200 hover:text-white hover:bg-purple-950/30 border-purple-900/20 hover:border-purple-800/40"
                 }`}
                 onClick={toggleMobileMenu}
               >
@@ -309,8 +308,8 @@ export function Navbar() {
                 href="/about"
                 className={`block px-4 py-4 rounded-xl text-lg font-medium transition-all duration-300 border ${
                   pathname === "/about"
-                    ? "bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-white border-blue-500/30 shadow-lg shadow-blue-500/20"
-                    : "text-gray-200 hover:text-white hover:bg-gray-800/50 border-gray-800/50 hover:border-gray-700"
+                    ? "bg-gradient-to-r from-purple-600/20 via-fuchsia-600/20 to-pink-600/20 text-white border-purple-500/40 shadow-lg shadow-purple-950/50"
+                    : "text-gray-200 hover:text-white hover:bg-purple-950/30 border-purple-900/20 hover:border-purple-800/40"
                 }`}
                 onClick={toggleMobileMenu}
               >
@@ -320,8 +319,8 @@ export function Navbar() {
                 href="/contact"
                 className={`block px-4 py-4 rounded-xl text-lg font-medium transition-all duration-300 border ${
                   pathname === "/contact"
-                    ? "bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-white border-blue-500/30 shadow-lg shadow-blue-500/20"
-                    : "text-gray-200 hover:text-white hover:bg-gray-800/50 border-gray-800/50 hover:border-gray-700"
+                    ? "bg-gradient-to-r from-purple-600/20 via-fuchsia-600/20 to-pink-600/20 text-white border-purple-500/40 shadow-lg shadow-purple-950/50"
+                    : "text-gray-200 hover:text-white hover:bg-purple-950/30 border-purple-900/20 hover:border-purple-800/40"
                 }`}
                 onClick={toggleMobileMenu}
               >
@@ -330,13 +329,13 @@ export function Navbar() {
 
               {isAuthenticated && (
                 <>
-                  <div className="border-t border-gray-800/50 my-4 pt-4 space-y-1">
+                  <div className="border-t border-purple-900/30 my-4 pt-4 space-y-1">
                     <Link
                       href="/dashboard"
                       className={`block px-4 py-4 rounded-xl text-lg font-medium transition-all duration-300 border ${
                         pathname === "/dashboard"
-                          ? "bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-white border-blue-500/30 shadow-lg shadow-blue-500/20"
-                          : "text-gray-200 hover:text-white hover:bg-gray-800/50 border-gray-800/50 hover:border-gray-700"
+                          ? "bg-gradient-to-r from-purple-600/20 via-fuchsia-600/20 to-pink-600/20 text-white border-purple-500/40 shadow-lg shadow-purple-950/50"
+                          : "text-gray-200 hover:text-white hover:bg-purple-950/30 border-purple-900/20 hover:border-purple-800/40"
                       }`}
                       onClick={toggleMobileMenu}
                     >
@@ -347,8 +346,8 @@ export function Navbar() {
                         href="/instructor"
                         className={`block px-4 py-4 rounded-xl text-lg font-medium transition-all duration-300 border ${
                           pathname === "/instructor"
-                            ? "bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-white border-blue-500/30 shadow-lg shadow-blue-500/20"
-                            : "text-gray-200 hover:text-white hover:bg-gray-800/50 border-gray-800/50 hover:border-gray-700"
+                            ? "bg-gradient-to-r from-purple-600/20 via-fuchsia-600/20 to-pink-600/20 text-white border-purple-500/40 shadow-lg shadow-purple-950/50"
+                            : "text-gray-200 hover:text-white hover:bg-purple-950/30 border-purple-900/20 hover:border-purple-800/40"
                         }`}
                         onClick={toggleMobileMenu}
                       >
@@ -360,8 +359,8 @@ export function Navbar() {
                         href="/admin"
                         className={`block px-4 py-4 rounded-xl text-lg font-medium transition-all duration-300 border ${
                           pathname === "/admin"
-                            ? "bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-white border-blue-500/30 shadow-lg shadow-blue-500/20"
-                            : "text-gray-200 hover:text-white hover:bg-gray-800/50 border-gray-800/50 hover:border-gray-700"
+                            ? "bg-gradient-to-r from-purple-600/20 via-fuchsia-600/20 to-pink-600/20 text-white border-purple-500/40 shadow-lg shadow-purple-950/50"
+                            : "text-gray-200 hover:text-white hover:bg-purple-950/30 border-purple-900/20 hover:border-purple-800/40"
                         }`}
                         onClick={toggleMobileMenu}
                       >
@@ -372,8 +371,8 @@ export function Navbar() {
                       href="/profile"
                       className={`block px-4 py-4 rounded-xl text-lg font-medium transition-all duration-300 border ${
                         pathname === "/profile"
-                          ? "bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-white border-blue-500/30 shadow-lg shadow-blue-500/20"
-                          : "text-gray-200 hover:text-white hover:bg-gray-800/50 border-gray-800/50 hover:border-gray-700"
+                          ? "bg-gradient-to-r from-purple-600/20 via-fuchsia-600/20 to-pink-600/20 text-white border-purple-500/40 shadow-lg shadow-purple-950/50"
+                          : "text-gray-200 hover:text-white hover:bg-purple-950/30 border-purple-900/20 hover:border-purple-800/40"
                       }`}
                       onClick={toggleMobileMenu}
                     >
@@ -384,7 +383,7 @@ export function Navbar() {
                         handleSignOut();
                         toggleMobileMenu();
                       }}
-                      className="block w-full text-left px-4 py-4 rounded-xl text-lg font-medium transition-all duration-300 border text-red-400 hover:text-red-300 hover:bg-red-500/10 border-red-500/20 hover:border-red-500/40"
+                      className="block w-full text-left px-4 py-4 rounded-xl text-lg font-medium transition-all duration-300 border text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 border-rose-500/20 hover:border-rose-500/40"
                     >
                       Sign Out
                     </button>
@@ -393,9 +392,9 @@ export function Navbar() {
               )}
 
               {!isAuthenticated && !isLoading && (
-                <div className="border-t border-gray-800/50 my-4 pt-4 flex flex-col gap-3">
+                <div className="border-t border-purple-900/30 my-4 pt-4 flex flex-col gap-3">
                   <Link href="/signup" onClick={toggleMobileMenu}>
-                    <button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-3.5 rounded-xl cursor-pointer transition-all duration-300 font-medium shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] border border-blue-500/30">
+                    <button className="w-full bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-6 py-3.5 rounded-xl cursor-pointer transition-all duration-300 font-medium shadow-lg shadow-purple-600/30 hover:shadow-purple-600/50 hover:scale-[1.02] border border-purple-500/30">
                       Register
                     </button>
                   </Link>
