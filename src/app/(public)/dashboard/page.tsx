@@ -15,7 +15,7 @@ export const revalidate = 0
 
 // ── Replace these with your actual values ─────────────────────────────
 const TUTORIAL_LINK = "https://your-tutorial-link.com"   // ← tutorial URL
-const EXTENSION_ZIP = "https://skilledustore.shop/downloads/skillEduStore.zip"          // ← zip file path
+const EXTENSION_ZIP = "https://skilledustore.shop/downloads/Skilledustoretoolz.zip"          // ← zip file path
 // ──────────────────────────────────────────────────────────────────────
 
 export default async function DashboardPage() {
