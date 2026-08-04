@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, Suspense, useRef } from "react"
-import { signIn } from "next-auth/react"
+import { useState, Suspense, useRef, useEffect } from "react"
+import { signIn, signOut, useSession } from "next-auth/react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -16,6 +16,8 @@ function SignInForm() {
   const urlError = searchParams.get("error")
   const message = searchParams.get("message")
 
+  const { data: session, status } = useSession()
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,6 +26,13 @@ function SignInForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [socialLoading, setSocialLoading] = useState<string | null>(null)
   const formRef = useRef<HTMLFormElement>(null)
+
+  // Clear any existing invalid/stale session when arriving on the signin page
+  useEffect(() => {
+    if (status === "authenticated" || session || urlError) {
+      signOut({ redirect: false })
+    }
+  }, [status, session, urlError])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
