@@ -1,12 +1,11 @@
 "use client"
 
 import { useEffect, useCallback, useRef } from "react"
-import { useSession } from "next-auth/react"
-import { useRouter, usePathname } from "next/navigation"
+import { useSession, signOut } from "next-auth/react"
+import { usePathname } from "next/navigation"
 
 export function SessionMonitor() {
   const { data: session, status } = useSession()
-  const router = useRouter()
   const pathname = usePathname()
   const errorCountRef = useRef(0)
 
@@ -44,12 +43,13 @@ export function SessionMonitor() {
 
       // একবার glitch এ redirect না করে, পরপর ৩ বার confirm হলেই redirect
       if (errorCountRef.current >= 3) {
-        router.push("/signin?error=session_expired")
+        // router.push এর বদলে signOut ব্যবহার করা হয়েছে সেশন মেমোরি ক্লিয়ার করতে
+        signOut({ callbackUrl: "/signin?error=session_expired" })
       }
     } else {
       errorCountRef.current = 0
     }
-  }, [session, status, router, pathname, isProtectedRoute])
+  }, [session, status, pathname, isProtectedRoute])
 
   return null
 }
