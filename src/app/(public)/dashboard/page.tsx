@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic"
 export const revalidate = 0
 
 // ── Replace these with your actual values ─────────────────────────────
-const TUTORIAL_LINK = "https://your-tutorial-link.com"   // ← tutorial URL
+const TUTORIAL_LINK = "https://youtu.be/iAgG8P5i6MA"   // ← tutorial URL
 const EXTENSION_ZIP = "https://skilledustore.shop/downloads/Skilledustoretoolz.zip"          // ← zip file path
 // ──────────────────────────────────────────────────────────────────────
 
