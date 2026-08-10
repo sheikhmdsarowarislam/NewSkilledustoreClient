@@ -327,10 +327,6 @@
 
 
 
-
-
-
-
 import NextAuth, { User } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import Google from "next-auth/providers/google"
@@ -391,16 +387,13 @@ function getTokenExpiry(accessToken: string): number {
   } catch {
     console.warn("⚠️ Could not decode token expiry, using fallback")
   }
-  // Fallback: 14 minutes from now
   return Date.now() + 14 * 60 * 1000
 }
 
 /**
  * Refresh token দিয়ে নতুন access token নেয়
- * Cookie loop বা infinite retry নেই
  */
 async function refreshAccessToken(token: JWT): Promise<JWT> {
-  // refreshToken না থাকলে সাথে সাথে error return — loop নেই
   if (!token.refreshToken) {
     console.error("❌ No refresh token available")
     return { ...token, error: "RefreshAccessTokenError" }
@@ -429,8 +422,8 @@ async function refreshAccessToken(token: JWT): Promise<JWT> {
     return {
       ...token,
       accessToken,
-      refreshToken: refreshToken || token.refreshToken, // নতুন না এলে পুরনোটা রাখো
-      accessTokenExpiry: getTokenExpiry(accessToken),   // backend এর exact expiry
+      refreshToken: refreshToken || token.refreshToken,
+      accessTokenExpiry: getTokenExpiry(accessToken),
       error: undefined,
     }
   } catch (error) {
@@ -473,7 +466,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const res = await fetch(`${API_URL}/api/v1/user/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            credentials: "include",
+            // FIX: পুরনো/stale refreshToken cookie ব্যাক-এন্ডে পাঠানো বন্ধ —
+            // এটাই session_expired অবস্থায় "Invalid email or password" এর
+            // সবচেয়ে সম্ভাব্য কারণ ছিল। fresh login-এ কোনো cookie লাগার কথা না।
             body: JSON.stringify({
               email: credentials.email,
               password: credentials.password,
@@ -483,7 +478,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const response = await res.json()
 
           if (!res.ok || !response.success) {
-            console.error("Login failed:", response.message)
+            // FIX: আসল backend message clearly log হচ্ছে, যাতে
+            // "invalid credentials" vs "server error" vs অন্য কিছু — আলাদা করা যায়
+            console.error(
+              `❌ Login failed | status: ${res.status} | backend message:`,
+              response.message
+            )
             throw new Error(response.message || "Authentication failed")
           }
 
@@ -513,24 +513,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
   callbacks: {
     async jwt({ token, user, account }) {
-      // ── ১. Initial sign in (credentials) ──
-      // FIX: account?.provider চেকের বদলে সরাসরি accessToken presence চেক করা হচ্ছে,
-      // কারণ credentials provider-এর ক্ষেত্রে মাঝে মাঝে account object সঠিকভাবে না আসায়
-      // এই ব্লক স্কিপ হয়ে যাচ্ছিল এবং token.refreshToken সেট হওয়ার আগেই
-      // refreshAccessToken() কল হয়ে "No refresh token" error সেট হয়ে যাচ্ছিল
-      if (user && (user as any).accessToken && (!account || account.provider === "credentials")) {
+      if (user && account?.provider === "credentials") {
         token.id = user.id
-        token.role = (user as any).role
-        token.avatar = (user as any).avatar
-        token.isVerified = (user as any).isVerified
-        token.accessToken = (user as any).accessToken
+        token.role = user.role
+        token.avatar = user.avatar
+        token.isVerified = user.isVerified
+        token.accessToken = user.accessToken
         token.refreshToken = (user as any).refreshToken
-        token.accessTokenExpiry = getTokenExpiry((user as any).accessToken) // backend expiry
+        token.accessTokenExpiry = getTokenExpiry(user.accessToken)
         token.error = undefined
         return token
       }
 
-      // ── ২. Social login (Google, GitHub, Facebook) ──
       if (user && account?.provider && account.provider !== "credentials") {
         let retries = 3
         let lastError: Error | null = null
@@ -579,7 +573,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             token.isVerified = backendUser.isVerified || true
             token.accessToken = accessToken
             token.refreshToken = refreshToken
-            token.accessTokenExpiry = getTokenExpiry(accessToken) // backend expiry
+            token.accessTokenExpiry = getTokenExpiry(accessToken)
             token.error = undefined
 
             return token
@@ -587,7 +581,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             lastError = error
             retries--
 
-            // Unrecoverable error হলে retry করো না
             if (
               error.message?.includes("email") ||
               error.message?.includes("Invalid")
@@ -606,9 +599,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         throw lastError || new Error("Social authentication failed")
       }
 
-      // ── ৩. Subsequent requests — token check ──
-
-      // FIX 1: Error থাকলে আর refresh করো না → loop বন্ধ
       if (token.error === "RefreshAccessTokenError") {
         return token
       }
@@ -618,7 +608,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         ? token.accessTokenExpiry - now
         : 0
 
-      // FIX 2: Expiry নেই বা 5 মিনিটের কম বাকি → refresh
       if (!token.accessTokenExpiry || timeUntilExpiry <= 5 * 60 * 1000) {
         if (timeUntilExpiry > 0) {
           console.log(
@@ -630,11 +619,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return await refreshAccessToken(token)
       }
 
-      // Token এখনো valid
       return token
     },
 
     async session({ session, token }) {
+      // FIX: token-এ error থাকলে session.user গুলো আর populate করবো না,
+      // যাতে frontend (Navbar) সহজে বুঝতে পারে session আসলে invalid।
+      if (token?.error) {
+        session.error = token.error
+        return session
+      }
+
       if (token && session.user) {
         session.user.id = token.id
         session.user.role = token.role
@@ -653,10 +648,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   session: {
     strategy: "jwt",
-    maxAge: 7 * 24 * 60 * 60, // 7 days
+    maxAge: 7 * 24 * 60 * 60,
   },
   jwt: {
-    maxAge: 7 * 24 * 60 * 60, // 7 days
+    maxAge: 7 * 24 * 60 * 60,
   },
   trustHost: true,
 })

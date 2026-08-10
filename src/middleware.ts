@@ -42,50 +42,48 @@
 
 
 
-
-
-
-
 import { auth } from "@/auth"
 import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
 
-function clearAuthCookies(response: NextResponse, req: NextRequest) {
-  req.cookies.getAll().forEach((cookie) => {
-    if (cookie.name.includes("session-token") || cookie.name.includes("authjs")) {
-      response.cookies.set(cookie.name, "", { maxAge: 0, path: "/" })
-    }
-  })
-  return response
+const SESSION_COOKIE_NAMES = [
+  "authjs.session-token",
+  "__Secure-authjs.session-token",
+  // পুরনো next-auth v4 নাম রেখে দিলাম, কোনো ক্ষতি নেই যদি ব্যবহার না হয়
+  "next-auth.session-token",
+  "__Secure-next-auth.session-token",
+]
+
+function redirectAndClearSession(req: any, path: string) {
+  const res = NextResponse.redirect(new URL(path, req.url))
+  // FIX: শুধু redirect করলেই হবে না — broken/stale session cookie
+  // clear না করলে navbar/client state পুরনো (fake logged-in) session
+  // নিয়ে থেকে যায়, আর ইউজার আবার Dashboard-এ ক্লিক করলে লুপে পড়ে।
+  for (const name of SESSION_COOKIE_NAMES) {
+    res.cookies.delete(name)
+  }
+  return res
 }
 
 export default auth((req) => {
   const session = req.auth
 
-  // Check if session has a refresh error
   if (session?.error === "RefreshAccessTokenError") {
     console.error("⚠️ Middleware: Token refresh failed, redirecting to signin")
-    const response = NextResponse.redirect(new URL("/signin?error=session_expired", req.url))
-    return clearAuthCookies(response, req)
+    return redirectAndClearSession(req, "/signin?error=session_expired")
   }
 
-  // Check if session has any error
   if (session?.error) {
     console.error("⚠️ Middleware: Session error detected:", session.error)
-    const response = NextResponse.redirect(new URL("/signin?error=SessionError", req.url))
-    return clearAuthCookies(response, req)
+    return redirectAndClearSession(req, "/signin?error=SessionError")
   }
 
-  // Check if the user is trying to access a protected route without a session
   if (!session && req.nextUrl.pathname.match(/^\/(dashboard|profile|instructor|admin|courses\/[^/]+\/learn)/)) {
     return NextResponse.redirect(new URL("/signin", req.url))
   }
 
-  // Check if session exists but access token is missing (for protected routes)
   if (session && !session.accessToken && req.nextUrl.pathname.match(/^\/(dashboard|profile|instructor|admin|courses\/[^/]+\/learn)/)) {
     console.error("⚠️ Middleware: Session exists but access token missing")
-    const response = NextResponse.redirect(new URL("/signin?error=NoAccessToken", req.url))
-    return clearAuthCookies(response, req)
+    return redirectAndClearSession(req, "/signin?error=NoAccessToken")
   }
 
   return NextResponse.next()
