@@ -276,11 +276,11 @@ function SignInForm() {
   // FIX: middleware থেকে session error নিয়ে signin page-এ এলে
   // পুরনো/stale client-side session (এবং cookie) সাথে সাথে ক্লিয়ার করে দেয়
   // যাতে navbar আর signin form-এর state sync থাকে (logged-out দেখায়)
-  useEffect(() => {
-    if (urlError === "session_expired" || urlError === "SessionError" || urlError === "NoAccessToken") {
-      signOut({ redirect: false })
-    }
-  }, [urlError])
+  // useEffect(() => {
+  //   if (urlError === "session_expired" || urlError === "SessionError" || urlError === "NoAccessToken") {
+  //     signOut({ redirect: false })
+  //   }
+  // }, [urlError])
 
   // FIX: browser back/forward cache (bfcache) থেকে page ফিরে এলে
   // আগের ফেইলড attempt-এর stale error state clear করে দেয়
