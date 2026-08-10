@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, Suspense, useRef } from "react"
+import { useState, useEffect, Suspense, useRef } from "react"
 import { signIn } from "next-auth/react"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter, usePathname } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,6 +12,8 @@ import { SocialButton } from "@/components/ui/social-button"
 
 function SignInForm() {
   const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard"
   const urlError = searchParams.get("error")
   const message = searchParams.get("message")
@@ -25,24 +27,28 @@ function SignInForm() {
   const [socialLoading, setSocialLoading] = useState<string | null>(null)
   const formRef = useRef<HTMLFormElement>(null)
 
+  // FIX: page load হওয়ার সাথে সাথেই URL থেকে stale ?error=... বাদ দিয়ে দিচ্ছি।
+  // কারণ পরে signIn() call করার সময় default callbackUrl = window.location.href
+  // ধরে, তাই বর্তমান URL-এ পুরনো error query থেকে গেলে সেটা পরের সফল
+  // login-কেও ভুলভাবে "error" হিসেবে দেখাবে।
+  useEffect(() => {
+    if (urlError) {
+      const params = new URLSearchParams(searchParams.toString())
+      params.delete("error")
+      const cleanUrl = params.toString() ? `${pathname}?${params.toString()}` : pathname
+      router.replace(cleanUrl, { scroll: false })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    
-    // Prevent double submission
-    if (isLoading) {
-      return
-    }
-    
-    // Additional protection using form ref
-    if (formRef.current?.dataset.submitting === 'true') {
-      return
-    }
-    
-    if (formRef.current) {
-      formRef.current.dataset.submitting = 'true'
-    }
-    
+
+    if (isLoading) return
+    if (formRef.current?.dataset.submitting === "true") return
+    if (formRef.current) formRef.current.dataset.submitting = "true"
+
     setError("")
     setIsLoading(true)
 
@@ -51,28 +57,29 @@ function SignInForm() {
         email: formData.email,
         password: formData.password,
         redirect: false,
+        // FIX: এখন explicitly clean callbackUrl পাঠানো হচ্ছে, তাই NextAuth
+        // আর window.location.href (যেটাতে stale ?error=... থাকতে পারে)
+        // ব্যবহার করবে না। এটাই মূল bug fix.
+        callbackUrl,
       })
 
       if (result?.error) {
         const errorMessages: Record<string, string> = {
-          "Configuration": "Invalid email or password. Please try again.",
-          "CredentialsSignin": "Invalid email or password. Please try again.",
-          "AccessDenied": "Access denied. Please contact support.",
-          "Verification": "Verification failed. Please try again.",
+          Configuration: "Invalid email or password. Please try again.",
+          CredentialsSignin: "Invalid email or password. Please try again.",
+          AccessDenied: "Access denied. Please contact support.",
+          Verification: "Verification failed. Please try again.",
         }
         setError(errorMessages[result.error] || "Invalid email or password. Please try again.")
       } else if (result?.ok) {
-        // Use window.location for a hard redirect to ensure session is loaded
-        window.location.href = callbackUrl
+        window.location.href = result.url || callbackUrl
       }
     } catch (error) {
       console.error("Sign in exception:", error)
       setError("An error occurred. Please try again.")
     } finally {
       setIsLoading(false)
-      if (formRef.current) {
-        formRef.current.dataset.submitting = 'false'
-      }
+      if (formRef.current) formRef.current.dataset.submitting = "false"
     }
   }
 
@@ -80,9 +87,9 @@ function SignInForm() {
     setError("")
     setSocialLoading(provider)
     try {
-      await signIn(provider, { 
+      await signIn(provider, {
         callbackUrl,
-        redirect: true, // Let NextAuth handle redirect
+        redirect: true,
       })
     } catch (error) {
       console.error(`${provider} sign in exception:`, error)
