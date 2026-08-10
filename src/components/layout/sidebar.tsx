@@ -95,9 +95,9 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
 
   const roleConfig = {
     student: {
-      color:    "from-purple-500 to-pink-500",
-      gradient: "from-purple-600/20 via-pink-600/20 to-purple-600/20",
-      shadow:   "shadow-purple-500/20",
+      color:    "from-purple-500 to-fuchsia-500",
+      gradient: "from-purple-600/20 via-fuchsia-600/20 to-purple-600/20",
+      shadow:   "shadow-fuchsia-500/20",
       border:   "border-purple-500/30",
       icon:     Wrench,
     },
@@ -109,10 +109,10 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
       icon:     Sparkles,
     },
     admin: {
-      color:    "from-rose-500 to-orange-500",
-      gradient: "from-rose-600/20 via-orange-600/20 to-rose-600/20",
-      shadow:   "shadow-rose-500/20",
-      border:   "border-rose-500/30",
+      color:    "from-fuchsia-500 to-purple-500",
+      gradient: "from-fuchsia-600/20 via-purple-600/20 to-fuchsia-600/20",
+      shadow:   "shadow-fuchsia-500/20",
+      border:   "border-fuchsia-500/30",
       icon:     Settings,
     },
   }
@@ -139,14 +139,14 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
           ${isMobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
         `}
       >
-        <div className="flex flex-col h-screen bg-gradient-to-b from-[#0a0d14] via-[#0f1218] to-[#0a0d14] border-r border-gray-800/50 shadow-2xl">
+        <div className="flex flex-col h-screen bg-gradient-to-b from-[#0d0518] via-[#120a20] to-[#0a0512] border-r border-purple-900/30 shadow-2xl shadow-black/60">
 
           {/* Logo/Brand */}
           <div className="relative px-4 lg:px-6 pt-12 pb-4">
             <div className={`flex items-center gap-3 transition-all duration-300 ${isCollapsed && !isMobileOpen ? "justify-center" : ""}`}>
               <div className="relative flex-shrink-0">
                 <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${config.color} p-0.5 shadow-lg ${config.shadow}`}>
-                  <div className="w-full h-full bg-[#0a0d14] rounded-[10px] flex items-center justify-center">
+                  <div className="w-full h-full bg-[#0a0512] rounded-[10px] flex items-center justify-center">
                     <RoleIcon className="w-5 h-5 text-white" />
                   </div>
                 </div>
@@ -175,7 +175,7 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
                 text-white shadow-lg ${config.shadow}
                 hover:scale-110 active:scale-95
                 transition-all duration-200
-                border border-gray-800
+                border border-purple-950/60
               `}
             >
               {isCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
@@ -191,12 +191,12 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
                   md:hidden flex
                   absolute top-12 -right-3
                   w-6 h-6 rounded-full
-                  bg-gradient-to-br from-gray-600 to-gray-700
+                  bg-gradient-to-br from-purple-700 to-fuchsia-700
                   items-center justify-center
                   text-white shadow-lg
                   hover:scale-110 active:scale-95
                   transition-all duration-200
-                  border border-gray-800
+                  border border-purple-950/60
                 "
               >
                 <ChevronLeft className="w-3.5 h-3.5" />
@@ -205,10 +205,10 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
           </div>
 
           {/* Navigation */}
-          <div className="flex-1 px-3 lg:px-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent">
+          <div className="flex-1 px-3 lg:px-4 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-900 scrollbar-track-transparent">
             {(!isCollapsed || isMobileOpen) && (
               <div className="px-3 mb-3">
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Menu</span>
+                <span className="text-[10px] font-bold text-purple-400/60 uppercase tracking-widest">Menu</span>
               </div>
             )}
 
@@ -230,7 +230,7 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
                       transition-all duration-200
                       ${active
                         ? `bg-gradient-to-r ${config.gradient} text-white border ${config.border} shadow-lg ${config.shadow}`
-                        : "text-gray-400 hover:text-white hover:bg-gray-800/40 border border-transparent"
+                        : "text-purple-300/50 hover:text-white hover:bg-purple-900/20 border border-transparent"
                       }
                       ${isCollapsed && !isMobileOpen ? "justify-center" : ""}
                     `}
@@ -244,7 +244,7 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
                       className={`
                         flex-shrink-0 w-5 h-5
                         transition-all duration-200
-                        ${active ? "text-purple-400 scale-110" : "text-gray-500 group-hover:text-gray-300 group-hover:scale-105"}
+                        ${active ? "text-fuchsia-400 scale-110" : "text-purple-500/60 group-hover:text-purple-200 group-hover:scale-105"}
                       `}
                     />
 
@@ -269,35 +269,35 @@ export function Sidebar({ type, isMobileOpen = false, onMobileClose }: SidebarPr
           </div>
 
           {/* User Profile */}
-          <div className="p-3 lg:p-4 border-t border-gray-800/50">
+          <div className="p-3 lg:p-4 border-t border-purple-900/30">
             {user && (
               <div className={`
                 flex items-center gap-3 p-3 rounded-xl
-                bg-gray-800/30 border border-gray-800/50
-                hover:bg-gray-800/50 hover:border-gray-700/50
+                bg-purple-950/20 border border-purple-900/30
+                hover:bg-purple-900/30 hover:border-purple-700/40
                 transition-all duration-200 cursor-pointer
                 ${isCollapsed && !isMobileOpen ? "justify-center" : ""}
               `}>
                 <div className="relative flex-shrink-0">
                   {user.avatar ? (
-                    <img src={user.avatar} alt={user.name} className="w-9 h-9 rounded-full object-cover ring-2 ring-gray-700/50" />
+                    <img src={user.avatar} alt={user.name} className="w-9 h-9 rounded-full object-cover ring-2 ring-purple-800/40" />
                   ) : (
                     <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${config.color} flex items-center justify-center text-white font-semibold text-sm`}>
                       {user.name?.charAt(0).toUpperCase()}
                     </div>
                   )}
-                  <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-gradient-to-br ${config.color} border-2 border-[#0a0d14]`} />
+                  <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-gradient-to-br ${config.color} border-2 border-[#0a0512]`} />
                 </div>
 
                 {(!isCollapsed || isMobileOpen) && (
                   <div className="flex-1 overflow-hidden">
                     <p className="text-sm font-semibold text-white truncate">{user.name}</p>
-                    <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                    <p className="text-xs text-purple-400/50 truncate">{user.email}</p>
                   </div>
                 )}
 
                 {(!isCollapsed || isMobileOpen) && (
-                  <button className="flex-shrink-0 p-1.5 rounded-lg hover:bg-gray-700/50 text-gray-400 hover:text-white transition-colors" title="Logout">
+                  <button className="flex-shrink-0 p-1.5 rounded-lg hover:bg-purple-800/40 text-purple-400/70 hover:text-white transition-colors" title="Logout">
                     <LogOut className="w-4 h-4" />
                   </button>
                 )}
