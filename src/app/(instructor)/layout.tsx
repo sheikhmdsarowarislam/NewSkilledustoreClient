@@ -3,6 +3,8 @@
 import { Sidebar } from "@/components/layout/sidebar"
 import { useState, useEffect } from "react"
 import { Menu } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 
 /**
  * Instructor Layout
@@ -13,8 +15,38 @@ export default function InstructorLayout({
 }: {
   children: React.ReactNode
 }) {
+  const router = useRouter()
+
+  // NextAuth session
+  const { data: session, status } = useSession()
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(false)
+
+  /**
+   * Instructor access check
+   */
+  useEffect(() => {
+    // Wait for session load
+    if (status === "loading") return
+
+    // Not logged in
+    if (!session) {
+      router.replace("/")
+      return
+    }
+
+    // Get role safely
+    const role =
+      (session.user as any)?.role ||
+      (session.user as any)?.user?.role ||
+      (session.user as any)?.data?.role
+
+    // instructor এবং admin — দুজনেই instructor page দেখতে পারবে
+    if (role !== "instructor" && role !== "admin") {
+      router.replace("/")
+    }
+  }, [session, status, router])
 
   // Sync collapse state with sidebar
   useEffect(() => {
@@ -42,6 +74,26 @@ export default function InstructorLayout({
       window.removeEventListener('sidebar-toggle', handleSidebarToggle)
     }
   }, [])
+
+  /**
+   * Prevent UI flash while checking auth
+   */
+  if (status === "loading") {
+    return null
+  }
+
+  // Get role again for render protection
+  const role =
+    (session?.user as any)?.role ||
+    (session?.user as any)?.user?.role ||
+    (session?.user as any)?.data?.role
+
+  /**
+   * Block non-instructor (and non-admin) rendering
+   */
+  if (!session || (role !== "instructor" && role !== "admin")) {
+    return null
+  }
 
   return (
     <div className="min-h-screen bg-[#03050a] pt-16">
